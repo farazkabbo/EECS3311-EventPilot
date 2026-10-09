@@ -1,0 +1,59 @@
+@startuml SD07_tasks
+!include style.iuml
+hide footbox
+autonumber "<b>[0]"
+title SD07 — Generate the task plan, update tasks, warn about overdue tasks (F09, UC09)
+
+actor Organizer
+actor "Co-Organizer" as Co
+box "GUI" #EEF5FD
+  participant ":TaskController" as TC
+  participant ":DashboardView" as DV
+end box
+box "Application" #FFF8F0
+  participant ":EventPlannerFacade" as F
+  participant ":AlertService" as AS
+end box
+box "Agent" #FFFDE7
+  participant ":TaskDecomposition\nWorkflow" as WF
+end box
+box "Domain" #FBF7FF
+  participant ":TaskScheduler" as TS
+end box
+
+== AI task breakdown ==
+Organizer -> TC : clicks "Generate task plan"
+TC -> F : generateTasks(eventId)
+activate F
+F -> WF : execute(event, input)
+activate WF
+WF -> WF : agent plans backwards from the event date
+WF -> TS : detectCycles(tasks)
+TS --> WF : false
+WF -> TS : orderByDependencies(tasks)
+TS --> WF : ordered tasks
+alt a cycle, or a due date after the event
+  WF -> WF : mark as blocking issue, ask agent to fix once
+end
+WF --> F : PlanProposal (AddTaskCommand × n)
+deactivate WF
+F --> TC : PlanProposal → review & apply (SD03)
+deactivate F
+
+== Update a task (no AI) ==
+Co -> TC : drags "Book AV" to DONE
+TC -> F : updateTaskStatus(eventId, taskId, DONE)
+alt a task it depends on is not done
+  F --> TC : refused: "blocked by Confirm venue"
+else
+  F -> F : save, publish(TASKS_CHANGED)
+end
+
+== Overdue check (at app start and every morning) ==
+F -> AS : checkOverdueTasks(today)
+AS -> TS : findOverdue(tasks, today)
+TS --> AS : overdue tasks
+opt some tasks are overdue
+  AS -> DV : (via EventBus) "3 tasks overdue"
+end
+@enduml

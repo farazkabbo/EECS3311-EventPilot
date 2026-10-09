@@ -1,0 +1,60 @@
+@startuml SD01_create_event
+!include style.iuml
+hide footbox
+autonumber "<b>[0]"
+title SD01 — Create an event from a plain-language description (F01, UC01)
+
+actor Organizer
+box "GUI" #EEF5FD
+  participant ":ChatPanel" as CP
+  participant ":AgentChatController" as ACC
+end box
+box "Application" #FFF8F0
+  participant ":EventPlannerFacade" as F
+end box
+box "Agent" #FFFDE7
+  participant ":EventExtractionWorkflow" as WF
+  participant ":AgentOrchestrator" as ORC
+  participant ":GuardrailValidator" as GV
+end box
+box "Infrastructure" #ECEFF1
+  participant ":EventRepository" as REPO
+end box
+
+Organizer -> CP : "Tech meetup, ~120 people,\nToronto, Nov 20, budget $5k"
+CP -> ACC : submitMessage(text)
+ACC -> F : createEventFromDescription(text, sessionId)
+activate F
+F -> WF : execute(null, input)
+activate WF
+note right of WF : gatherContext(): adds conversation\nmemory and saved preferences
+WF -> ORC : run(task)
+ORC --> WF : AgentRunResult (JSON text)
+WF -> WF : createParser().parse(raw)\n→ EventDraft
+note right of WF : if the JSON is invalid, the LLM is\nasked to fix it (max 2 retries)
+WF -> GV : validateDraft(draft)
+GV --> WF : issues (e.g. end before start)
+WF --> F : WorkflowOutcome<EventDraft>
+deactivate WF
+
+alt draft.missingFields() is not empty
+  F --> ACC : AgentResponse(questions)
+  ACC -> CP : appendMessage("What time does it end?")
+  Organizer -> CP : "9 pm"
+  CP -> ACC : handleClarification(answer)
+  ACC -> F : answerClarification(sessionId, answer)
+  note over F, WF : the same steps run again with the answer
+else draft complete
+  F -> F : event = draft.toEvent()  (state = Draft)
+  F -> REPO : save(event)
+  F -> F : bus.publish(EVENT_CREATED)
+  F --> ACC : AgentResponse(event)
+  ACC -> CP : appendMessage("Event created ✓")
+end
+deactivate F
+
+opt LLM unreachable after 3 retries
+  F --> ACC : error
+  ACC -> CP : "AI unavailable — use the New Event form"
+end
+@enduml

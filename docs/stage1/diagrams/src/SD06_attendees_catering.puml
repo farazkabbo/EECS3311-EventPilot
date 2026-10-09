@@ -1,0 +1,62 @@
+@startuml SD06_attendees_catering
+!include style.iuml
+hide footbox
+autonumber "<b>[0]"
+title SD06 — Import attendees, update RSVPs, then plan catering (F02, F08, UC02, UC08)
+
+actor Organizer
+box "GUI" #EEF5FD
+  participant ":AttendeeController" as AC
+end box
+box "Application" #FFF8F0
+  participant ":EventPlannerFacade" as F
+  participant ":EventBus" as BUS
+end box
+box "Agent" #FFFDE7
+  participant ":CateringPlanning\nWorkflow" as WF
+  participant ":GuardrailValidator" as GV
+end box
+box "Domain" #FBF7FF
+  participant ":CateringCalculator" as CC
+end box
+box "Infrastructure" #ECEFF1
+  participant ":AttendeeCsvImporter" as IMP
+end box
+
+== F02 — import attendees (no AI) ==
+Organizer -> AC : chooses attendees.csv
+AC -> F : importAttendees(eventId, path)
+activate F
+F -> IMP : parse(path)
+alt file missing or wrong header
+  IMP --> F : error → shown to Organizer
+else
+  IMP --> F : ImportReport (imported, rejected rows, duplicates)
+  F -> F : add attendees, repository.save(event)
+  F -> BUS : publish(ATTENDEES_CHANGED)
+  F --> AC : "118 imported, 2 rejected (line 14: bad e-mail)"
+end
+deactivate F
+Organizer -> AC : sets Ana's RSVP to ACCEPTED
+AC -> F : updateRsvp(eventId, attendeeId, ACCEPTED)
+F -> F : attendee.updateRsvp(ACCEPTED), save, publish
+
+== F08 — AI catering plan ==
+Organizer -> AC : clicks "Plan catering"
+AC -> F : planCatering(eventId)
+activate F
+F -> WF : execute(event, input)
+activate WF
+WF -> CC : computeHeadcount(confirmed attendees)
+CC --> WF : 96
+WF -> CC : summarizeDiets(attendees)
+CC --> WF : vegetarian 18, vegan 6, halal 9, nut allergy 2
+note right of WF : these facts are computed by code and\ngiven to the LLM; portions come from\nthe catering_calculator tool
+WF -> WF : agent loop → menu + meal times + portions
+WF -> GV : validateProposal(proposal, event)
+GV --> WF : every diet covered? cost ≤ catering budget?
+WF --> F : PlanProposal (SetCateringPlanCommand)
+deactivate WF
+F --> AC : PlanProposal → review & apply (SD03)
+deactivate F
+@enduml

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="1206.0417px" preserveAspectRatio="none" style="width:955px;height:1206px;" version="1.1" viewBox="0 0 955 1206" width="955.2083px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="Helvetica" font-size="26.25" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="688.3333" x="127.6042" y="28.3464">Event Lifecycle — implemented with the State pattern</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-style="italic" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="931.875" x="5.8333" y="53.044">Each box is one EventState class. Arrows are LifecycleActions; [text] is the guard that must be true.</text><ellipse cx="625.2313" cy="86.7837" fill="#000000" rx="14.5833" ry="14.5833" style="stroke: none; stroke-width: 1.4583333333333333;"/><rect fill="#FCE4EC" height="132.5887" rx="18.2292" ry="18.2292" style="stroke: #AD1457; stroke-width: 2.1875;" width="243.5417" x="503.4604" y="201.992"/><line style="stroke: #AD1457; stroke-width: 2.1875;" x1="503.4604" x2="747.0021" y1="268.2863" y2="268.2863"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="46.6667" x="601.8979" y="230.5662">Draft</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="112.2917" x="569.0854" y="253.505">(DraftState)</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" lengthAdjust="spacingAndGlyphs" textLength="115.2083" x="513.6688" y="296.8606">can edit plan</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" lengthAdjust="spacingAndGlyphs" textLength="208.5417" x="513.6688" y="319.7994">cannot send invitations</text><rect fill="#FCE4EC" height="132.5887" rx="18.2292" ry="18.2292" style="stroke: #AD1457; stroke-width: 2.1875;" width="214.375" x="380.9604" y="454.2837"/><line style="stroke: #AD1457; stroke-width: 2.1875;" x1="380.9604" x2="595.3354" y1="520.578" y2="520.578"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="81.6667" x="447.3146" y="482.8579">Planning</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="147.2917" x="414.5021" y="505.7967">(PlanningState)</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" lengthAdjust="spacingAndGlyphs" textLength="115.2083" x="391.1688" y="549.1522">can edit plan</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" lengthAdjust="spacingAndGlyphs" textLength="179.375" x="391.1688" y="572.0911">can send invitations</text><rect fill="#FCE4EC" height="132.5887" rx="18.2292" ry="18.2292" style="stroke: #AD1457; stroke-width: 2.1875;" width="253.75" x="171.6896" y="725.5337"/><line style="stroke: #AD1457; stroke-width: 2.1875;" x1="171.6896" x2="425.4396" y1="791.828" y2="791.828"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="99.1667" x="248.9813" y="754.1079">Confirmed</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="164.7917" x="216.1688" y="777.0467">(ConfirmedState)</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" lengthAdjust="spacingAndGlyphs" textLength="218.75" x="181.8979" y="820.4022">can edit (with warnings)</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" lengthAdjust="spacingAndGlyphs" textLength="179.375" x="181.8979" y="843.3411">can send invitations</text><rect fill="#FCE4EC" height="109.6499" rx="18.2292" ry="18.2292" style="stroke: #AD1457; stroke-width: 2.1875;" width="204.1667" x="189.1896" y="977.8253"/><line style="stroke: #AD1457; stroke-width: 2.1875;" x1="189.1896" x2="393.3563" y1="1044.1197" y2="1044.1197"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="103.5417" x="239.5021" y="1006.3995">Completed</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="169.1667" x="206.6896" y="1029.3384">(CompletedState)</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" lengthAdjust="spacingAndGlyphs" textLength="87.5" x="199.3979" y="1072.6939">read-only</text><rect fill="#FCE4EC" height="109.6499" rx="18.2292" ry="18.2292" style="stroke: #AD1457; stroke-width: 2.1875;" width="196.875" x="480.1271" y="977.8253"/><line style="stroke: #AD1457; stroke-width: 2.1875;" x1="480.1271" x2="677.0021" y1="1044.1197" y2="1044.1197"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="96.25" x="530.4396" y="1006.3995">Cancelled</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="161.875" x="497.6271" y="1029.3384">(CancelledState)</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" lengthAdjust="spacingAndGlyphs" textLength="87.5" x="490.3354" y="1072.6939">read-only</text><ellipse cx="419.6063" cy="1176.1587" fill="none" rx="14.5833" ry="14.5833" style="stroke: #000000; stroke-width: 1.4583333333333333;"/><ellipse cx="420.3354" cy="1176.8878" fill="#000000" rx="8.75" ry="8.75" style="stroke: none; stroke-width: 1.4583333333333333;"/><!--link *start to Draft--><path d="M625.2313,101.6732 C625.2313,121.4482 625.2313,159.817 625.2313,194.6128 " fill="none" id="*start-Draft" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><polygon fill="#455A64" points="625.2313,201.9628,631.0646,188.8378,625.2313,194.6712,619.3979,188.8378,625.2313,201.9628" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="145.8333" x="629.6063" y="157.7407">event created (F01)</text><!--link Draft to Planning--><path d="M503.3875,331.3753 C490.3063,342.8378 478.8,356.0503 470.6479,371.1587 C458.3833,393.8503 458.325,421.3253 462.8313,446.3941 " fill="none" id="Draft-Planning" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><polygon fill="#455A64" points="464.3625,454.0941,467.5399,440.087,462.9485,446.9408,456.0947,442.3494,464.3625,454.0941" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="141.4583" x="528.2521" y="391.074">START_PLANNING</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="247.9167" x="475.0229" y="410.4838">[name, date and attendance set]</text><!--link Planning to Confirmed--><path d="M380.5667,539.2753 C290.2083,556.1482 171.3396,584.9795 142.5229,623.4503 C125.0375,646.7982 128.5958,663.4378 142.5229,689.0753 C148.7646,700.567 156.9312,710.9649 166.2646,720.3274 " fill="none" id="Planning-Confirmed" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><polygon fill="#455A64" points="171.5729,725.417,166.1204,712.1293,166.3037,720.3768,158.0561,720.5601,171.5729,725.417" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="74.375" x="243.1479" y="643.3657">CONFIRM</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="266.875" x="146.8979" y="662.7755">[venue chosen, agenda not empty,</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="258.125" x="151.2729" y="682.1853">no HIGH conflicts, within budget]</text><!--link Confirmed to Planning--><path d="M394.0854,725.0816 C406.175,714.042 417.5646,701.9524 426.8979,689.0753 C447.1833,661.0607 461.4458,625.5941 471.0708,594.5607 " fill="none" id="Confirmed-Planning" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><polygon fill="#455A64" points="473.3021,587.1816,463.9284,598.064,471.1973,594.1628,475.0985,601.4317,473.3021,587.1816" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="64.1667" x="466.2729" y="662.324">REOPEN</text><!--link Confirmed to Completed--><path d="M245.35,858.5045 C238.4521,869.967 232.4437,882.2462 228.5646,894.7003 C222.3813,914.5045 222.3229,921.5774 228.5646,941.367 C231.7583,951.5316 236.5708,961.5357 242.1125,970.9712 " fill="none" id="Confirmed-Completed" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><polygon fill="#455A64" points="246.0792,977.417,244.1471,963.1846,242.2483,971.2127,234.2202,969.3139,246.0792,977.417" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="87.5" x="281.0646" y="914.6157">COMPLETE</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="183.75" x="232.9396" y="934.0255">[event date has passed]</text><!--link Draft to Cancelled--><path d="M712.2208,334.8607 C721.8604,345.8712 730.275,358.0337 736.0646,371.1587 C744.4208,390.1316 737.5521,397.1316 736.0646,417.8253 C721.7583,615.1087 731.7917,669.7232 671.8979,858.242 C659.2542,897.9962 637.3792,939.2232 617.9833,971.4378 " fill="none" id="Draft-Cancelled" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><polygon fill="#455A64" points="614.1479,977.7524,625.955,969.5741,617.9392,971.5239,615.9894,963.508,614.1479,977.7524" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="65.625" x="725.8563" y="662.324">CANCEL</text><!--link Planning to Cancelled--><path d="M533.3708,587.0212 C539.7438,598.7024 545.4458,611.1128 549.3979,623.4503 C587.1687,741.6191 586.9354,888.5316 583.0125,969.7753 " fill="none" id="Planning-Cancelled" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><polygon fill="#455A64" points="582.6188,977.4316,589.1204,964.6244,582.9943,970.1496,577.4692,964.0235,582.6188,977.4316" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="65.625" x="587.3146" y="797.949">CANCEL</text><!--link Confirmed to Cancelled--><path d="M384.8104,858.2857 C399.9917,870.1857 415.4937,882.6545 429.8146,894.7003 C458.9667,919.2441 490.1896,947.5503 516.4833,971.9774 " fill="none" id="Confirmed-Cancelled" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><polygon fill="#455A64" points="522.3604,977.4607,516.7473,964.24,517.0305,972.4848,508.7858,972.7679,522.3604,977.4607" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="65.625" x="485.2313" y="924.0948">CANCEL</text><!--link Completed to *end--><path d="M340.1563,1087.5795 C363.3729,1113.0274 389.4187,1141.5962 405.1542,1158.8628 " fill="none" id="Completed-*end" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><polygon fill="#455A64" points="410.4625,1164.6816,405.9343,1151.0511,405.5514,1159.2918,397.3107,1158.9089,410.4625,1164.6816" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><!--link Cancelled to *end--><path d="M518.0146,1087.5795 C488.4396,1113.7566 455.1458,1143.2441 435.8521,1160.3212 " fill="none" id="Cancelled-*end" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><polygon fill="#455A64" points="430.325,1165.2066,444.0185,1160.8727,435.784,1160.3726,436.2841,1152.1382,430.325,1165.2066" style="stroke: #455A64; stroke-width: 1.7499999999999998;"/><!--
+@startuml ST_event_lifecycle
+skinparam dpi 140
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+skinparam defaultFontSize 13
+skinparam titleFontSize 18
+skinparam titleFontStyle bold
+skinparam classAttributeIconSize 0
+skinparam roundcorner 8
+skinparam ArrowColor #455A64
+skinparam ArrowFontSize 11
+skinparam ArrowFontColor #37474F
+skinparam ArrowThickness 1.2
+skinparam nodesep 40
+skinparam ranksep 50
+skinparam padding 2
+
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  HeaderBackgroundColor #ECEFF1
+  StereotypeFontSize 11
+  StereotypeFontColor #AD1457
+  FontStyle bold
+  AttributeFontSize 12
+}
+skinparam class {
+  BackgroundColor<<Facade>> #FFF3E0
+  BackgroundColor<<Command>> #E8F5E9
+  BackgroundColor<<Invoker>> #E8F5E9
+  BackgroundColor<<Subject>> #E3F2FD
+  BackgroundColor<<Observer>> #E3F2FD
+  BackgroundColor<<Strategy>> #F3E5F5
+  BackgroundColor<<Context>> #F3E5F5
+  BackgroundColor<<Template Method>> #FFFDE7
+  BackgroundColor<<State>> #FCE4EC
+  BackgroundColor<<Adapter>> #E0F7FA
+  BackgroundColor<<Adaptee>> #E0F7FA
+  BackgroundColor<<Target>> #E0F7FA
+}
+skinparam package {
+  BorderColor #90A4AE
+  BackgroundColor #FCFCFC
+  FontStyle bold
+  FontSize 14
+}
+skinparam note {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  FontSize 12
+}
+skinparam legend {
+  BackgroundColor #FAFAFA
+  BorderColor #B0BEC5
+  FontSize 12
+}
+
+skinparam sequence {
+  ParticipantBackgroundColor #FFFFFF
+  ParticipantBorderColor #546E7A
+  ParticipantFontStyle bold
+  ActorBorderColor #546E7A
+  ActorBackgroundColor #FFFFFF
+  LifeLineBorderColor #B0BEC5
+  LifeLineBackgroundColor #ECEFF1
+  GroupBorderColor #78909C
+  GroupBackgroundColor #ECEFF1
+  GroupHeaderFontStyle bold
+  BoxBorderColor #CFD8DC
+  BoxFontStyle bold
+  DividerBackgroundColor #455A64
+  DividerFontColor #FFFFFF
+  DividerFontStyle bold
+}
+skinparam maxMessageSize 220
+skinparam ParticipantPadding 12
+skinparam BoxPadding 8
+skinparam responseMessageBelowArrow true
+
+skinparam usecase {
+  BackgroundColor #E3F2FD
+  BorderColor #1565C0
+  FontSize 13
+}
+skinparam actor {
+  BorderColor #37474F
+  FontStyle bold
+}
+skinparam rectangle {
+  BorderColor #90A4AE
+  FontStyle bold
+}
+title Event Lifecycle — implemented with the State pattern\n<size:13><i>Each box is one EventState class. Arrows are LifecycleActions; [text] is the guard that must be true.</i></size>
+skinparam state {
+  BackgroundColor #FCE4EC
+  BorderColor #AD1457
+  FontStyle bold
+}
+[*] - -> Draft : event created (F01)
+state "Draft\n(DraftState)" as Draft : can edit plan\ncannot send invitations
+state "Planning\n(PlanningState)" as Planning : can edit plan\ncan send invitations
+state "Confirmed\n(ConfirmedState)" as Confirmed : can edit (with warnings)\ncan send invitations
+state "Completed\n(CompletedState)" as Completed : read-only
+state "Cancelled\n(CancelledState)" as Cancelled : read-only
+Draft - -> Planning : START_PLANNING\n[name, date and attendance set]
+Planning - -> Confirmed : CONFIRM\n[venue chosen, agenda not empty,\nno HIGH conflicts, within budget]
+Confirmed - -> Planning : REOPEN
+Confirmed - -> Completed : COMPLETE\n[event date has passed]
+Draft - -> Cancelled : CANCEL
+Planning - -> Cancelled : CANCEL
+Confirmed - -> Cancelled : CANCEL
+Completed - -> [*]
+Cancelled - -> [*]
+@enduml
+
+PlantUML version 1.2019.06(Fri May 24 13:10:25 EDT 2019)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 21.0.12.1+1-1-24.04.4-Ubuntu
+Operating System: Linux
+OS Version: 6.18.44-fc-v70
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

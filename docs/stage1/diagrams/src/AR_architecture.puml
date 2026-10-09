@@ -1,0 +1,53 @@
+@startuml AR_architecture
+!include style.iuml
+title EventPilot — Architecture at a Glance\n<size:13><i>The LLM proposes, deterministic code checks and applies, the organizer approves.</i></size>
+skinparam componentStyle rectangle
+skinparam component {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  FontStyle bold
+}
+
+package "Presentation" #EEF5FD {
+  [JavaFX GUI\n(views + controllers)] as GUI
+  [Command-line interface\n(picocli)] as CLI
+}
+package "Application" #FFF8F0 {
+  [EventPlannerFacade\n(one entry point)] as F
+  [CommandHistory\n(apply · undo · redo)] as CH
+  [EventBus\n(change notifications)] as BUS
+}
+package "Agent (AI)" #FFFDE7 {
+  [Workflows\n(one per AI feature)] as WF
+  [AgentOrchestrator\n(think → call tool → observe)] as ORC
+  [Memory · Knowledge base\n· Guardrails] as HELP
+  [LLMClient\n(swappable provider)] as LLM
+  [ToolRegistry\n(6 tools)] as TR
+}
+package "Domain" #FBF7FF {
+  [Event model\n(agenda, budget, people …)] as DM
+  [Rule engines\n(conflicts, budget, catering, tasks)] as DS
+}
+package "Infrastructure" #ECEFF1 {
+  [SQLite storage] as DB
+  [Venue dataset · CSV import\n· e-mail outbox] as IO
+}
+cloud "Claude API / local Ollama" as EXT
+
+GUI --> F
+CLI --> F
+F --> WF : 1. ask for a proposal
+WF --> HELP
+WF --> ORC
+ORC --> LLM
+LLM --> EXT
+ORC --> TR
+TR --> DS
+TR --> IO
+F --> CH : 2. apply approved changes
+CH --> DM
+F --> BUS : 3. notify
+BUS ..> GUI : refresh
+F --> DB
+DS ..> DM
+@enduml

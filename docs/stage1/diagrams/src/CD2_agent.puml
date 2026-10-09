@@ -1,0 +1,192 @@
+@startuml CD2_agent
+!include style.iuml
+hide empty members
+left to right direction
+title CD2 — Agent Layer (the AI part of the system)\n<size:13><i>A workflow builds the task → the orchestrator talks to the LLM and runs tools → the parser turns the reply into objects → the guardrails check them.</i></size>
+
+package "1. Workflows — one per AI feature (Template Method)" #FFFDE7 {
+  abstract class "PlanningWorkflow<T>" as PW <<Template Method>> {
+    + execute(e : Event, in : WorkflowInput) : WorkflowOutcome<T> {final}
+    # gatherContext(e : Event, in : WorkflowInput) : WorkflowContext
+    # {abstract} buildTask(ctx : WorkflowContext) : AgentTask
+    # {abstract} createParser() : ResponseParser<T>
+    # validate(result : T, e : Event) : List<ValidationIssue>
+  }
+  note top of PW
+    <b>execute()</b> always runs the same steps:
+    1. gatherContext   2. buildTask
+    3. orchestrator.run(task)
+    4. createParser().parse(reply)  (retry up to 2× if invalid)
+    5. validate   6. return WorkflowOutcome
+    Subclasses only fill in steps 2, 4 (and optionally 1, 5).
+  end note
+  class EventExtractionWorkflow
+  class VenueRecommendationWorkflow
+  class AgendaGenerationWorkflow
+  class SpeakerSchedulingWorkflow
+  class ConflictResolutionWorkflow
+  class BudgetPlanningWorkflow
+  class CateringPlanningWorkflow
+  class TaskDecompositionWorkflow
+  class InvitationDraftingWorkflow
+  class FaqAnswerWorkflow {
+    # gatherContext(e, in) : WorkflowContext
+  }
+  class PlanModificationWorkflow
+
+  PW <|-- EventExtractionWorkflow
+  PW <|-- VenueRecommendationWorkflow
+  PW <|-- AgendaGenerationWorkflow
+  PW <|-- SpeakerSchedulingWorkflow
+  PW <|-- ConflictResolutionWorkflow
+  PW <|-- BudgetPlanningWorkflow
+  PW <|-- CateringPlanningWorkflow
+  PW <|-- TaskDecompositionWorkflow
+  PW <|-- InvitationDraftingWorkflow
+  PW <|-- FaqAnswerWorkflow
+  PW <|-- PlanModificationWorkflow
+
+  class "WorkflowOutcome<T>" as WO {
+    - value : T
+    - issues : List<ValidationIssue>
+    - questions : List<String>
+    + needsClarification() : boolean
+  }
+  PW ..> WO : returns
+}
+
+package "2. Agent loop and helpers" #FFF8E1 {
+  class AgentOrchestrator {
+    - maxSteps : int = 8
+    + run(task : AgentTask) : AgentRunResult
+  }
+  class AgentTask {
+    - systemPrompt : String
+    - userPrompt : String
+    - allowedTools : Set<String>
+  }
+  class AgentRunResult {
+    - finalText : String
+    - toolTrace : List<ToolInvocation>
+    - hitStepLimit : boolean
+  }
+  class PromptBuilder {
+    + build(templateId : String, vars : Map) : String
+  }
+  class MemoryManager {
+    + recordTurn(sessionId : String, m : Message) : void
+    + buildMemoryContext(eventId : UUID, sessionId : String) : MemoryContext
+    + rememberPreference(key : String, value : String) : void
+  }
+  class KnowledgeBase {
+    + index(e : Event) : void
+    + search(eventId : UUID, q : String, k : int) : List<DocumentChunk>
+  }
+  class GuardrailValidator {
+    + validateDraft(d : EventDraft) : List<ValidationIssue>
+    + validateProposal(p : PlanProposal, e : Event) : List<ValidationIssue>
+  }
+  interface "ResponseParser<T>" as RP {
+    + parse(raw : String) : T
+  }
+  class EventDraftParser
+  class ProposalParser {
+    - mapper : CommandMapper
+  }
+  class InvitationParser
+  class FaqAnswerParser
+  class CommandMapper {
+    + toCommand(op : JsonNode) : EventCommand
+  }
+  RP <|.. EventDraftParser
+  RP <|.. ProposalParser
+  RP <|.. InvitationParser
+  RP <|.. FaqAnswerParser
+  ProposalParser --> CommandMapper
+  AgentOrchestrator ..> AgentTask
+  AgentOrchestrator ..> AgentRunResult : returns
+}
+
+package "3. LLM access (Strategy + Adapter)" #F3E5F5 {
+  class LLMClient <<Context>> {
+    - provider : LLMProvider
+    - maxRetries : int = 3
+    + complete(req : LLMRequest) : LLMResponse
+    + setProvider(p : LLMProvider) : void
+  }
+  interface LLMProvider <<Strategy>> {
+    + chat(req : LLMRequest) : LLMResponse
+  }
+  class ClaudeProvider <<Adapter>> {
+    - model : String
+    + chat(req : LLMRequest) : LLMResponse
+  }
+  class OllamaProvider <<Adapter>> {
+    - model : String
+    + chat(req : LLMRequest) : LLMResponse
+  }
+  class MockLLMProvider <<Strategy>> {
+    + chat(req : LLMRequest) : LLMResponse
+  }
+  class LLMProviderFactory {
+    + {static} create(s : AgentSettings) : LLMProvider
+  }
+  class "Anthropic Messages API" as AAPI <<Adaptee>>
+  class "Ollama REST API" as OAPI <<Adaptee>>
+  LLMClient o--> "1" LLMProvider : uses
+  LLMProvider <|.. ClaudeProvider
+  LLMProvider <|.. OllamaProvider
+  LLMProvider <|.. MockLLMProvider
+  ClaudeProvider --> AAPI : adapts
+  OllamaProvider --> OAPI : adapts
+  LLMProviderFactory ..> LLMProvider : creates
+}
+
+package "4. Tools the LLM may call (all read-only)" #E8F5E9 {
+  class ToolRegistry {
+    + register(t : AgentTool) : void
+    + schemasFor(names : Set<String>) : List<ToolSchema>
+    + execute(call : ToolCall) : ToolResult
+  }
+  interface AgentTool {
+    + getName() : String
+    + getSchema() : ToolSchema
+    + execute(args : JsonNode) : ToolResult
+  }
+  class VenueSearchTool
+  class BudgetCalculatorTool
+  class ConflictCheckTool
+  class SpeakerAvailabilityTool
+  class CateringCalculatorTool
+  class AttendeeQueryTool
+  ToolRegistry o--> "6" AgentTool
+  AgentTool <|.. VenueSearchTool
+  AgentTool <|.. BudgetCalculatorTool
+  AgentTool <|.. ConflictCheckTool
+  AgentTool <|.. SpeakerAvailabilityTool
+  AgentTool <|.. CateringCalculatorTool
+  AgentTool <|.. AttendeeQueryTool
+}
+
+PW --> AgentOrchestrator
+PW --> PromptBuilder
+PW --> MemoryManager
+PW --> GuardrailValidator
+PW ..> RP : creates (createParser)
+FaqAnswerWorkflow --> KnowledgeBase
+AgentOrchestrator --> LLMClient
+AgentOrchestrator --> ToolRegistry
+
+legend right
+  <b>Colour = pattern</b>
+  Yellow: Template Method · Purple: Strategy
+  Cyan: Adapter
+  <b>Tools wrap deterministic code</b> (see CD4):
+  VenueSearchTool → VenueCatalog
+  BudgetCalculatorTool → BudgetTracker
+  ConflictCheckTool → ConflictDetector
+  CateringCalculatorTool → CateringCalculator
+  SpeakerAvailabilityTool → Speaker.isAvailable()
+  AttendeeQueryTool → EventRepository
+endlegend
+@enduml

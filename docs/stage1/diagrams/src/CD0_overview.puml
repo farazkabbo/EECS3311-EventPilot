@@ -1,0 +1,90 @@
+@startuml CD0_overview
+!include style.iuml
+hide members
+hide circle
+skinparam nodesep 30
+skinparam ranksep 60
+title CD0 — Class Diagram Overview: the main classes of each layer and how the layers connect\n<size:13><i>Follow the numbered arrows from EventPlannerFacade: ask the agent → apply approved commands → announce the change. Details of each layer: CD1–CD4.</i></size>
+
+package "PRESENTATION  (CD1)" #EEF5FD {
+  class "GUI views\n(BaseView + 6 views, ChatPanel)" as Views <<Observer>>
+  class "GUI controllers\n(BaseController + 6)" as Ctrls
+  class "CLI commands\n(BaseCliCommand + 10)" as Cli
+  class "ProposalReviewer\n(GUI dialog / console prompt)" as Rev
+}
+
+package "APPLICATION  (CD1)" #FFF8F0 {
+  class EventPlannerFacade <<Facade>>
+  class CommandHistory <<Invoker>>
+  class EventCommand <<Command>>
+  class EventBus <<Subject>>
+  class "AlertService\nKnowledgeBaseIndexer" as Obs <<Observer>>
+}
+
+package "AGENT  (CD2)" #FFFDE7 {
+  class "PlanningWorkflow<T>\n(11 subclasses)" as PW <<Template Method>>
+  class AgentOrchestrator
+  class "PromptBuilder · MemoryManager\nKnowledgeBase · GuardrailValidator\nResponseParser" as Helpers
+  class LLMClient <<Context>>
+  class LLMProvider <<Strategy>>
+  class "ClaudeProvider · OllamaProvider\n· MockLLMProvider" as Prov <<Adapter>>
+  class ToolRegistry
+  class "AgentTool\n(6 tools)" as Tools
+}
+
+package "DOMAIN  (CD3, CD4)" #FBF7FF {
+  class Event <<Context>>
+  class EventState <<State>>
+  class "Agenda · Attendee · Speaker · Venue\nBudget · CateringPlan · EventTask · Invitation" as Parts
+  class PlanProposal
+  class "ConflictDetector · BudgetTracker\nCateringCalculator · TaskScheduler" as Services
+}
+
+package "INFRASTRUCTURE  (CD4)" #ECEFF1 {
+  class EventRepository
+  class VenueCatalog <<Target>>
+  class JsonVenueCatalogAdapter <<Adapter>>
+  class MessageGateway
+  class AttendeeCsvImporter
+}
+
+cloud "External" {
+  class "Claude API / Ollama" as LLMAPI
+}
+
+Ctrls --> EventPlannerFacade : calls
+Cli --> EventPlannerFacade : calls
+Ctrls --> Rev : asks user to approve
+Cli --> Rev
+Views ..> Ctrls : user actions
+
+EventPlannerFacade --> PW : 1. ask agent for a proposal
+EventPlannerFacade --> CommandHistory : 2. apply approved commands
+EventPlannerFacade --> EventBus : 3. announce change
+EventPlannerFacade --> EventRepository : load / save
+EventPlannerFacade --> MessageGateway
+EventPlannerFacade --> AttendeeCsvImporter
+CommandHistory o-- "*" EventCommand
+EventBus o-- "*" Views : notifies
+EventBus o-- "*" Obs : notifies
+
+PW --> AgentOrchestrator : run task
+PW --> Helpers
+PW ..> PlanProposal : produces
+AgentOrchestrator --> LLMClient
+AgentOrchestrator --> ToolRegistry : execute tool calls
+LLMClient o-- LLMProvider
+LLMProvider <|.. Prov
+Prov --> LLMAPI : HTTP
+ToolRegistry o-- "6" Tools
+Tools --> Services : wrap
+Tools --> VenueCatalog
+VenueCatalog <|.. JsonVenueCatalogAdapter
+
+PlanProposal o-- "*" EventCommand
+EventCommand ..> Event : changes
+Event o-- EventState
+Event *-- Parts
+Services ..> Event : check / compute
+EventRepository ..> Event : stores
+@enduml

@@ -1,0 +1,48 @@
+@startuml SD09_faq_rag
+!include style.iuml
+hide footbox
+autonumber "<b>[0]"
+title SD09 — Attendee asks the FAQ agent (retrieval-augmented answer) (F11, UC11)
+
+actor Attendee
+box "GUI" #EEF5FD
+  participant ":ChatPanel\n(FAQ mode)" as CP
+  participant ":AgentChatController" as ACC
+end box
+box "Application" #FFF8F0
+  participant ":EventPlannerFacade" as F
+end box
+box "Agent" #FFFDE7
+  participant ":FaqAnswerWorkflow" as WF
+  participant ":KnowledgeBase" as KB
+  participant ":AgentOrchestrator" as ORC
+end box
+
+Attendee -> CP : "Is there a vegan lunch? Where do I park?"
+CP -> ACC : onAskFaq(question)
+ACC -> F : askFaq(eventId, question)
+activate F
+F -> WF : execute(event, question)
+activate WF
+WF -> KB : search(eventId, question, 5)
+note right of KB : finds the best-matching pieces of the\nagenda, venue info, catering plan and\norganizer notes (kept up to date by\nKnowledgeBaseIndexer)
+KB --> WF : List<DocumentChunk>
+alt nothing relevant found
+  WF --> F : FaqAnswer(escalated = true)
+  F -> F : publish(FAQ_ESCALATED) → organizer alert
+  F --> ACC : "I don't know yet — I've asked the organizer."
+else relevant sources found
+  WF -> ORC : run(task: "answer ONLY from these sources, cite them")
+  ORC --> WF : AgentRunResult
+  WF -> WF : parse → FaqAnswer(text, sources)
+  WF -> WF : validate(): every cited source was retrieved
+  alt cites a source that was not retrieved
+    WF -> WF : replace with safe fallback, escalate
+  end
+  WF --> F : FaqAnswer
+  F --> ACC : FaqAnswer
+end
+deactivate WF
+deactivate F
+ACC -> CP : answer + "Sources: Catering plan, Venue info"
+@enduml

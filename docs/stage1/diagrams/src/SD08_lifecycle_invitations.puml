@@ -1,0 +1,64 @@
+@startuml SD08_lifecycle_invitations
+!include style.iuml
+hide footbox
+autonumber "<b>[0]"
+title SD08 — Change the event state, then send invitations — the State pattern at run time (UC15, F10, UC10)
+
+actor Organizer
+box "GUI" #EEF5FD
+  participant ":EventController /\n:AttendeeController" as C
+end box
+box "Application" #FFF8F0
+  participant ":EventPlannerFacade" as F
+end box
+box "Domain" #FBF7FF
+  participant "event:Event" as EV
+  participant "state:EventState" as ST
+end box
+box "Agent" #FFFDE7
+  participant ":InvitationDrafting\nWorkflow" as WF
+end box
+box "Infrastructure" #ECEFF1
+  participant ":OutboxFileGateway" as GW
+end box
+
+== UC15 — confirm the event ==
+Organizer -> C : clicks "Confirm event"
+C -> F : transitionEvent(eventId, CONFIRM)
+activate F
+F -> F : conflictDetector.detect(event),\nbudgetTracker.computeStatus(budget)
+alt HIGH conflicts or over budget
+  F --> C : refused with reasons
+else
+  F -> EV : transition(CONFIRM)
+  EV -> ST : onAction(event, CONFIRM)
+  note right of ST : current state = PlanningState.\nIts guard: venue chosen and\nagenda not empty
+  ST -> EV : setState(new ConfirmedState())
+  F -> F : save, publish(STATE_CHANGED)
+  F --> C : ConfirmedState
+end
+deactivate F
+
+== F10 — draft and send invitations ==
+Organizer -> C : picks tone "Friendly", clicks "Draft invitations"
+C -> F : draftInvitations(eventId, FRIENDLY)
+activate F
+F -> EV : ensureCanInvite()
+EV -> ST : ensureCanInvite(event)
+alt state is Draft, Completed or Cancelled
+  ST --> F : refused: "start planning first"
+else Planning or Confirmed
+  F -> WF : execute(event, tone)
+  WF -> WF : one template per group (speakers, VIPs, guests);\ncheck each has the real date, time, venue
+  WF --> F : List<Invitation>
+  F --> C : drafts (Organizer may edit)
+  Organizer -> C : clicks "Send"
+  C -> F : sendInvitations(eventId, drafts)
+  loop each attendee
+    F -> GW : send(invitation)
+    GW --> F : SENT or FAILED (failures are listed, not fatal)
+  end
+  F --> C : DeliveryReport (117 sent, 1 failed)
+end
+deactivate F
+@enduml

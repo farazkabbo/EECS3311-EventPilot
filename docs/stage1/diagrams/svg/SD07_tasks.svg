@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="1572.0833px" preserveAspectRatio="none" style="width:2091px;height:1572px;" version="1.1" viewBox="0 0 2091 1572" width="2091.25px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="794.7917" x="642.0313" y="35.8659">SD07 — Generate the task plan, update tasks, warn about overdue tasks (F09, UC09)</text><rect fill="#EEF5FD" height="1491.5774" rx="5.8333" ry="5.8333" style="stroke: #CFD8DC; stroke-width: 1.4583333333333333;" width="450.625" x="374.7917" y="55.0222"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="35" x="582.6042" y="76.3047">GUI</text><rect fill="#FFF8F0" height="1491.5774" rx="5.8333" ry="5.8333" style="stroke: #CFD8DC; stroke-width: 1.4583333333333333;" width="557.0833" x="851.6667" y="55.0222"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="109.375" x="1075.5208" y="76.3047">Application</text><rect fill="#FFFDE7" height="1491.5774" rx="5.8333" ry="5.8333" style="stroke: #CFD8DC; stroke-width: 1.4583333333333333;" width="266.875" x="1435" y="55.0222"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="56.875" x="1540" y="76.3047">Agent</text><rect fill="#FBF7FF" height="1491.5774" rx="5.8333" ry="5.8333" style="stroke: #CFD8DC; stroke-width: 1.4583333333333333;" width="221.6667" x="1839.6875" y="55.0222"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="71.4583" x="1914.7917" y="76.3047">Domain</text><rect fill="#ECEFF1" height="518.5173" style="stroke: #B0BEC5; stroke-width: 1.4583333333333333;" width="14.5833" x="981.4583" y="338.0528"/><rect fill="#ECEFF1" height="427.1977" style="stroke: #B0BEC5; stroke-width: 1.4583333333333333;" width="14.5833" x="1561.1458" y="383.7126"/><rect fill="#FFFFFF" height="122.6139" rx="5.8333" ry="5.8333" style="stroke: #78909C; stroke-width: 2.9166666666666665;" width="524.2708" x="1426.25" y="672.2546"/><rect fill="#FFFFFF" height="151.7806" rx="5.8333" ry="5.8333" style="stroke: #78909C; stroke-width: 2.9166666666666665;" width="950.8333" x="366.0417" y="1067.5299"/><rect fill="#FFFFFF" height="67.5348" style="stroke: none; stroke-width: 1.4583333333333333;" width="950.8333" x="366.0417" y="1151.7757"/><rect fill="#FFFFFF" height="84.2458" rx="5.8333" ry="5.8333" style="stroke: #78909C; stroke-width: 2.9166666666666665;" width="828.3333" x="589.1667" y="1446.3121"/><line style="stroke: #B0BEC5; stroke-width: 1.4583333333333333; stroke-dasharray: 5.0,5.0;" x1="64.1667" x2="64.1667" y1="174.211" y2="1555.3495"/><line style="stroke: #B0BEC5; stroke-width: 1.4583333333333333; stroke-dasharray: 5.0,5.0;" x1="202.7083" x2="202.7083" y1="174.211" y2="1555.3495"/><line style="stroke: #B0BEC5; stroke-width: 1.4583333333333333; stroke-dasharray: 5.0,5.0;" x1="484.1667" x2="484.1667" y1="174.211" y2="1555.3495"/><line style="stroke: #B0BEC5; stroke-width: 1.4583333333333333; stroke-dasharray: 5.0,5.0;" x1="711.6667" x2="711.6667" y1="174.211" y2="1555.3495"/><line style="stroke: #B0BEC5; stroke-width: 1.4583333333333333; stroke-dasharray: 5.0,5.0;" x1="988.75" x2="988.75" y1="174.211" y2="1555.3495"/><line style="stroke: #B0BEC5; stroke-width: 1.4583333333333333; stroke-dasharray: 5.0,5.0;" x1="1309.5833" x2="1309.5833" y1="174.211" y2="1555.3495"/><line style="stroke: #B0BEC5; stroke-width: 1.4583333333333333; stroke-dasharray: 5.0,5.0;" x1="1567.7083" x2="1567.7083" y1="174.211" y2="1555.3495"/><line style="stroke: #B0BEC5; stroke-width: 1.4583333333333333; stroke-dasharray: 5.0,5.0;" x1="1950.5208" x2="1950.5208" y1="174.211" y2="1555.3495"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="91.875" x="14.5833" y="166.7214">Organizer</text><ellipse cx="64.8958" cy="68.1472" fill="#FFFFFF" rx="11.6667" ry="11.6667" style="stroke: #37474F; stroke-width: 2.9166666666666665;"/><path d="M64.8958,79.8138 L64.8958,119.1888 M45.9375,91.4805 L83.8542,91.4805 M64.8958,119.1888 L45.9375,141.0638 M64.8958,119.1888 L83.8542,141.0638 " fill="none" style="stroke: #37474F; stroke-width: 2.9166666666666665;"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="126.875" x="135.625" y="166.7214">Co-Organizer</text><ellipse cx="203.4375" cy="68.1472" fill="#FFFFFF" rx="11.6667" ry="11.6667" style="stroke: #37474F; stroke-width: 2.9166666666666665;"/><path d="M203.4375,79.8138 L203.4375,119.1888 M184.4792,91.4805 L222.3958,91.4805 M203.4375,119.1888 L184.4792,141.0638 M203.4375,119.1888 L222.3958,141.0638 " fill="none" style="stroke: #37474F; stroke-width: 2.9166666666666665;"/><rect fill="#FFFFFF" height="49.1888" rx="5.8333" ry="5.8333" style="stroke: #546E7A; stroke-width: 2.1875;" width="173.5417" x="398.125" y="123.5638"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="147.2917" x="411.25" y="155.0547">:TaskController</text><rect fill="#FFFFFF" height="49.1888" rx="5.8333" ry="5.8333" style="stroke: #546E7A; stroke-width: 2.1875;" width="180.8333" x="621.25" y="123.5638"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="154.5833" x="634.375" y="155.0547">:DashboardView</text><rect fill="#FFFFFF" height="49.1888" rx="5.8333" ry="5.8333" style="stroke: #546E7A; stroke-width: 2.1875;" width="227.5" x="875" y="123.5638"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="201.25" x="888.125" y="155.0547">:EventPlannerFacade</text><rect fill="#FFFFFF" height="49.1888" rx="5.8333" ry="5.8333" style="stroke: #546E7A; stroke-width: 2.1875;" width="151.6667" x="1233.75" y="123.5638"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="125.4167" x="1246.875" y="155.0547">:AlertService</text><rect fill="#FFFFFF" height="72.1277" rx="5.8333" ry="5.8333" style="stroke: #546E7A; stroke-width: 2.1875;" width="220.2083" x="1458.3333" y="100.625"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="193.9583" x="1471.4583" y="132.1159">:TaskDecomposition</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="90.4167" x="1523.2292" y="155.0547">Workflow</text><rect fill="#FFFFFF" height="49.1888" rx="5.8333" ry="5.8333" style="stroke: #546E7A; stroke-width: 2.1875;" width="175" x="1863.0208" y="123.5638"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="148.75" x="1876.1458" y="155.0547">:TaskScheduler</text><rect fill="#ECEFF1" height="518.5173" style="stroke: #B0BEC5; stroke-width: 1.4583333333333333;" width="14.5833" x="981.4583" y="338.0528"/><rect fill="#ECEFF1" height="427.1977" style="stroke: #B0BEC5; stroke-width: 1.4583333333333333;" width="14.5833" x="1561.1458" y="383.7126"/><rect fill="#455A64" height="4.375" style="stroke: #455A64; stroke-width: 1.4583333333333333;" width="2070.1042" x="4.375" y="222.1388"/><line style="stroke: #000000; stroke-width: 1.4583333333333333;" x1="4.375" x2="2074.4792" y1="222.1388" y2="222.1388"/><line style="stroke: #000000; stroke-width: 1.4583333333333333;" x1="4.375" x2="2074.4792" y1="226.5138" y2="226.5138"/><rect fill="#455A64" height="40.4388" style="stroke: #000000; stroke-width: 2.9166666666666665;" width="205.625" x="936.6146" y="203.3777"/><text fill="#FFFFFF" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="175" x="948.2813" y="230.4936">AI task breakdown</text><polygon fill="#455A64" points="467.3958,286.5597,481.9792,292.393,467.3958,298.2263,473.2292,292.393" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="64.8958" x2="476.1458" y1="292.393" y2="292.393"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="18.9583" x="78.0208" y="282.6902">[1]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="205.625" x="108.6458" y="282.6902">clicks "Generate task plan"</text><polygon fill="#455A64" points="963.9583,332.2194,978.5417,338.0528,963.9583,343.8861,969.7917,338.0528" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="484.8958" x2="972.7083" y1="338.0528" y2="338.0528"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="21.875" x="498.0208" y="328.35">[2]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="180.8333" x="531.5625" y="328.35">generateTasks(eventId)</text><polygon fill="#455A64" points="1543.6458,377.8792,1558.2292,383.7126,1543.6458,389.5459,1549.4792,383.7126" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="996.0417" x2="1552.3958" y1="383.7126" y2="383.7126"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="21.875" x="1009.1667" y="374.0098">[3]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="163.3333" x="1042.7083" y="374.0098">execute(event, input)</text><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="1575.7292" x2="1636.9792" y1="448.7821" y2="448.7821"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="1636.9792" x2="1636.9792" y1="448.7821" y2="467.7405"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="1577.1875" x2="1636.9792" y1="467.7405" y2="467.7405"/><polygon fill="#455A64" points="1591.7708,461.9071,1577.1875,467.7405,1591.7708,473.5738,1585.9375,467.7405" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="21.875" x="1588.8542" y="429.3745">[4]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="294.5833" x="1622.3958" y="419.6696">agent plans backwards from the event</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="33.5417" x="1622.3958" y="439.0794">date</text><polygon fill="#455A64" points="1933.0208,507.5669,1947.6042,513.4003,1933.0208,519.2336,1938.8542,513.4003" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="1575.7292" x2="1941.7708" y1="513.4003" y2="513.4003"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="21.875" x="1588.8542" y="503.6975">[5]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="151.6667" x="1622.3958" y="503.6975">detectCycles(tasks)</text><polygon fill="#455A64" points="1591.7708,525.0669,1577.1875,530.9003,1591.7708,536.7336,1585.9375,530.9003" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998; stroke-dasharray: 2.0,2.0;" x1="1583.0208" x2="1949.0625" y1="530.9003" y2="530.9003"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="21.875" x="1603.4375" y="550.8156">[6]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="36.4583" x="1636.9792" y="550.8156">false</text><polygon fill="#455A64" points="1933.0208,598.8865,1947.6042,604.7198,1933.0208,610.5532,1938.8542,604.7198" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="1575.7292" x2="1941.7708" y1="604.7198" y2="604.7198"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="20.4167" x="1588.8542" y="595.0171">[7]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="221.6667" x="1620.9375" y="595.0171">orderByDependencies(tasks)</text><polygon fill="#455A64" points="1591.7708,616.3865,1577.1875,622.2198,1591.7708,628.0532,1585.9375,622.2198" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998; stroke-dasharray: 2.0,2.0;" x1="1583.0208" x2="1949.0625" y1="622.2198" y2="622.2198"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="21.875" x="1603.4375" y="642.1352">[8]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="105" x="1636.9792" y="642.1352">ordered tasks</text><path d="M1432.0833,672.2546 L1522.5,672.2546 L1522.5,688.2963 L1507.9167,702.8796 L1426.25,702.8796 L1426.25,678.088 " fill="#ECEFF1" style="stroke: #78909C; stroke-width: 1.4583333333333333;"/><rect fill="none" height="122.6139" rx="5.8333" ry="5.8333" style="stroke: #78909C; stroke-width: 2.9166666666666665;" width="524.2708" x="1426.25" y="672.2546"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24.7917" x="1451.0417" y="694.9955">alt</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="357.2917" x="1547.2917" y="696.4539">[a cycle, or a due date after the event]</text><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="1575.7292" x2="1636.9792" y1="764.2436" y2="764.2436"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="1636.9792" x2="1636.9792" y1="764.2436" y2="783.2019"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="1577.1875" x2="1636.9792" y1="783.2019" y2="783.2019"/><polygon fill="#455A64" points="1591.7708,777.3686,1577.1875,783.2019,1591.7708,789.0352,1585.9375,783.2019" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="21.875" x="1588.8542" y="744.8359">[9]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="303.3333" x="1622.3958" y="735.131">mark as blocking issue, ask agent to fix</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="37.9167" x="1622.3958" y="754.5408">once</text><polygon fill="#455A64" points="1012.0833,805.0769,997.5,810.9102,1012.0833,816.7436,1006.25,810.9102" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998; stroke-dasharray: 2.0,2.0;" x1="1003.3333" x2="1566.9792" y1="810.9102" y2="810.9102"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="29.1667" x="1023.75" y="830.8256">[10]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="296.0417" x="1064.5833" y="830.8256">PlanProposal (AddTaskCommand × n)</text><polygon fill="#455A64" points="500.9375,850.7367,486.3542,856.57,500.9375,862.4034,495.1042,856.57" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998; stroke-dasharray: 2.0,2.0;" x1="492.1875" x2="987.2917" y1="856.57" y2="856.57"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="26.25" x="512.6042" y="876.4854">[11]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="296.0417" x="550.5208" y="876.4854">PlanProposal → review &amp; apply (SD03)</text><rect fill="#455A64" height="4.375" style="stroke: #455A64; stroke-width: 1.4583333333333333;" width="2070.1042" x="4.375" y="929.7409"/><line style="stroke: #000000; stroke-width: 1.4583333333333333;" x1="4.375" x2="2074.4792" y1="929.7409" y2="929.7409"/><line style="stroke: #000000; stroke-width: 1.4583333333333333;" x1="4.375" x2="2074.4792" y1="934.1159" y2="934.1159"/><rect fill="#455A64" height="40.4388" style="stroke: #000000; stroke-width: 2.9166666666666665;" width="227.5" x="925.6771" y="910.9798"/><text fill="#FFFFFF" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="196.875" x="937.3438" y="938.0957">Update a task (no AI)</text><polygon fill="#455A64" points="467.3958,994.1618,481.9792,999.9951,467.3958,1005.8285,473.2292,999.9951" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="203.4375" x2="476.1458" y1="999.9951" y2="999.9951"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="29.1667" x="216.5625" y="990.2924">[12]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="199.7917" x="257.3958" y="990.2924">drags "Book AV" to DONE</text><polygon fill="#455A64" points="971.25,1039.8216,985.8333,1045.6549,971.25,1051.4882,977.0833,1045.6549" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="484.8958" x2="980" y1="1045.6549" y2="1045.6549"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="29.1667" x="498.0208" y="1035.9521">[13]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="317.9167" x="538.8542" y="1035.9521">updateTaskStatus(eventId, taskId, DONE)</text><path d="M371.875,1067.5299 L462.2917,1067.5299 L462.2917,1083.5716 L447.7083,1098.1549 L366.0417,1098.1549 L366.0417,1073.3632 " fill="#ECEFF1" style="stroke: #78909C; stroke-width: 1.4583333333333333;"/><rect fill="none" height="151.7806" rx="5.8333" ry="5.8333" style="stroke: #78909C; stroke-width: 2.9166666666666665;" width="950.8333" x="366.0417" y="1067.5299"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24.7917" x="390.8333" y="1090.2708">alt</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="307.7083" x="487.0833" y="1091.7291">[a task it depends on is not done]</text><polygon fill="#455A64" points="500.9375,1106.1159,486.3542,1111.9493,500.9375,1117.7826,495.1042,1111.9493" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998; stroke-dasharray: 2.0,2.0;" x1="492.1875" x2="987.2917" y1="1111.9493" y2="1111.9493"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="29.1667" x="512.6042" y="1131.8646">[14]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="284.375" x="553.4375" y="1131.8646">refused: "blocked by Confirm venue"</text><line style="stroke: #78909C; stroke-width: 1.4583333333333333; stroke-dasharray: 2.0,2.0;" x1="366.0417" x2="1316.875" y1="1153.234" y2="1153.234"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="988.75" x2="1050" y1="1188.6855" y2="1188.6855"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="1050" x2="1050" y1="1188.6855" y2="1207.6438"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="990.2083" x2="1050" y1="1207.6438" y2="1207.6438"/><polygon fill="#455A64" points="1004.7917,1201.8105,990.2083,1207.6438,1004.7917,1213.4772,998.9583,1207.6438" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="29.1667" x="1001.875" y="1178.9827">[15]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="253.75" x="1042.7083" y="1178.9827">save, publish(TASKS_CHANGED)</text><rect fill="#455A64" height="4.375" style="stroke: #455A64; stroke-width: 1.4583333333333333;" width="2070.1042" x="4.375" y="1262.8633"/><line style="stroke: #000000; stroke-width: 1.4583333333333333;" x1="4.375" x2="2074.4792" y1="1262.8633" y2="1262.8633"/><line style="stroke: #000000; stroke-width: 1.4583333333333333;" x1="4.375" x2="2074.4792" y1="1267.2383" y2="1267.2383"/><rect fill="#455A64" height="40.4388" style="stroke: #000000; stroke-width: 2.9166666666666665;" width="478.3333" x="800.2604" y="1244.1022"/><text fill="#FFFFFF" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="447.7083" x="811.9271" y="1271.2181">Overdue check (at app start and every morning)</text><polygon fill="#455A64" points="1292.0833,1327.2841,1306.6667,1333.1175,1292.0833,1338.9508,1297.9167,1333.1175" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="988.75" x2="1300.8333" y1="1333.1175" y2="1333.1175"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="29.1667" x="1001.875" y="1323.4147">[16]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="210" x="1042.7083" y="1323.4147">checkOverdueTasks(today)</text><polygon fill="#455A64" points="1933.0208,1372.9439,1947.6042,1378.7773,1933.0208,1384.6106,1938.8542,1378.7773" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="1309.5833" x2="1941.7708" y1="1378.7773" y2="1378.7773"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="27.7083" x="1322.7083" y="1369.0745">[17]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="199.7917" x="1362.0833" y="1369.0745">findOverdue(tasks, today)</text><polygon fill="#455A64" points="1325.625,1390.4439,1311.0417,1396.2773,1325.625,1402.1106,1319.7917,1396.2773" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998; stroke-dasharray: 2.0,2.0;" x1="1316.875" x2="1949.0625" y1="1396.2773" y2="1396.2773"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="29.1667" x="1337.2917" y="1416.1926">[18]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="107.9167" x="1378.125" y="1416.1926">overdue tasks</text><path d="M595,1446.3121 L691.25,1446.3121 L691.25,1462.3537 L676.6667,1476.9371 L589.1667,1476.9371 L589.1667,1452.1454 " fill="#ECEFF1" style="stroke: #78909C; stroke-width: 1.4583333333333333;"/><rect fill="none" height="84.2458" rx="5.8333" ry="5.8333" style="stroke: #78909C; stroke-width: 2.9166666666666665;" width="828.3333" x="589.1667" y="1446.3121"/><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="30.625" x="613.9583" y="1469.0529">opt</text><text fill="#000000" font-family="Helvetica" font-size="18.9583" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="237.7083" x="716.0417" y="1470.5113">[some tasks are overdue]</text><polygon fill="#455A64" points="727.7083,1484.8981,713.125,1490.7314,727.7083,1496.5647,721.875,1490.7314" style="stroke: #455A64; stroke-width: 1.4583333333333333;"/><line style="stroke: #455A64; stroke-width: 1.7499999999999998;" x1="718.9583" x2="1308.125" y1="1490.7314" y2="1490.7314"/><text fill="#37474F" font-family="Helvetica" font-size="16.0417" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="29.1667" x="739.375" y="1510.6468">[19]</text><text fill="#37474F" font-family="Helvetica" font-size="16.0417" lengthAdjust="spacingAndGlyphs" textLength="252.2917" x="780.2083" y="1510.6468">(via EventBus) "3 tasks overdue"</text><!--
+@startuml SD07_tasks
+skinparam dpi 140
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+skinparam defaultFontSize 13
+skinparam titleFontSize 18
+skinparam titleFontStyle bold
+skinparam classAttributeIconSize 0
+skinparam roundcorner 8
+skinparam ArrowColor #455A64
+skinparam ArrowFontSize 11
+skinparam ArrowFontColor #37474F
+skinparam ArrowThickness 1.2
+skinparam nodesep 40
+skinparam ranksep 50
+skinparam padding 2
+
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  HeaderBackgroundColor #ECEFF1
+  StereotypeFontSize 11
+  StereotypeFontColor #AD1457
+  FontStyle bold
+  AttributeFontSize 12
+}
+skinparam class {
+  BackgroundColor<<Facade>> #FFF3E0
+  BackgroundColor<<Command>> #E8F5E9
+  BackgroundColor<<Invoker>> #E8F5E9
+  BackgroundColor<<Subject>> #E3F2FD
+  BackgroundColor<<Observer>> #E3F2FD
+  BackgroundColor<<Strategy>> #F3E5F5
+  BackgroundColor<<Context>> #F3E5F5
+  BackgroundColor<<Template Method>> #FFFDE7
+  BackgroundColor<<State>> #FCE4EC
+  BackgroundColor<<Adapter>> #E0F7FA
+  BackgroundColor<<Adaptee>> #E0F7FA
+  BackgroundColor<<Target>> #E0F7FA
+}
+skinparam package {
+  BorderColor #90A4AE
+  BackgroundColor #FCFCFC
+  FontStyle bold
+  FontSize 14
+}
+skinparam note {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  FontSize 12
+}
+skinparam legend {
+  BackgroundColor #FAFAFA
+  BorderColor #B0BEC5
+  FontSize 12
+}
+
+skinparam sequence {
+  ParticipantBackgroundColor #FFFFFF
+  ParticipantBorderColor #546E7A
+  ParticipantFontStyle bold
+  ActorBorderColor #546E7A
+  ActorBackgroundColor #FFFFFF
+  LifeLineBorderColor #B0BEC5
+  LifeLineBackgroundColor #ECEFF1
+  GroupBorderColor #78909C
+  GroupBackgroundColor #ECEFF1
+  GroupHeaderFontStyle bold
+  BoxBorderColor #CFD8DC
+  BoxFontStyle bold
+  DividerBackgroundColor #455A64
+  DividerFontColor #FFFFFF
+  DividerFontStyle bold
+}
+skinparam maxMessageSize 220
+skinparam ParticipantPadding 12
+skinparam BoxPadding 8
+skinparam responseMessageBelowArrow true
+
+skinparam usecase {
+  BackgroundColor #E3F2FD
+  BorderColor #1565C0
+  FontSize 13
+}
+skinparam actor {
+  BorderColor #37474F
+  FontStyle bold
+}
+skinparam rectangle {
+  BorderColor #90A4AE
+  FontStyle bold
+}
+hide footbox
+autonumber "<b>[0]"
+title SD07 — Generate the task plan, update tasks, warn about overdue tasks (F09, UC09)
+
+actor Organizer
+actor "Co-Organizer" as Co
+box "GUI" #EEF5FD
+  participant ":TaskController" as TC
+  participant ":DashboardView" as DV
+end box
+box "Application" #FFF8F0
+  participant ":EventPlannerFacade" as F
+  participant ":AlertService" as AS
+end box
+box "Agent" #FFFDE7
+  participant ":TaskDecomposition\nWorkflow" as WF
+end box
+box "Domain" #FBF7FF
+  participant ":TaskScheduler" as TS
+end box
+
+== AI task breakdown ==
+Organizer -> TC : clicks "Generate task plan"
+TC -> F : generateTasks(eventId)
+activate F
+F -> WF : execute(event, input)
+activate WF
+WF -> WF : agent plans backwards from the event date
+WF -> TS : detectCycles(tasks)
+TS - -> WF : false
+WF -> TS : orderByDependencies(tasks)
+TS - -> WF : ordered tasks
+alt a cycle, or a due date after the event
+  WF -> WF : mark as blocking issue, ask agent to fix once
+end
+WF - -> F : PlanProposal (AddTaskCommand × n)
+deactivate WF
+F - -> TC : PlanProposal → review & apply (SD03)
+deactivate F
+
+== Update a task (no AI) ==
+Co -> TC : drags "Book AV" to DONE
+TC -> F : updateTaskStatus(eventId, taskId, DONE)
+alt a task it depends on is not done
+  F - -> TC : refused: "blocked by Confirm venue"
+else
+  F -> F : save, publish(TASKS_CHANGED)
+end
+
+== Overdue check (at app start and every morning) ==
+F -> AS : checkOverdueTasks(today)
+AS -> TS : findOverdue(tasks, today)
+TS - -> AS : overdue tasks
+opt some tasks are overdue
+  AS -> DV : (via EventBus) "3 tasks overdue"
+end
+@enduml
+
+PlantUML version 1.2019.06(Fri May 24 13:10:25 EDT 2019)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 21.0.12.1+1-1-24.04.4-Ubuntu
+Operating System: Linux
+OS Version: 6.18.44-fc-v70
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

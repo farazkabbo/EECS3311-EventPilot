@@ -1,0 +1,73 @@
+@startuml SD04_speakers_conflicts
+!include style.iuml
+hide footbox
+autonumber "<b>[0]"
+title SD04 — Schedule speakers, then detect and resolve conflicts (F05, F06, UC05, UC06)
+
+actor Organizer
+box "GUI" #EEF5FD
+  participant ":AgendaController" as AC
+end box
+box "Application" #FFF8F0
+  participant ":EventPlannerFacade" as F
+end box
+box "Agent" #FFFDE7
+  participant ":SpeakerScheduling\nWorkflow" as SWF
+  participant ":ConflictResolution\nWorkflow" as CWF
+  participant ":ToolRegistry" as TR
+end box
+box "Domain" #FBF7FF
+  participant ":ConflictDetector" as CD
+end box
+
+== F05 — AI speaker scheduling ==
+Organizer -> AC : clicks "Auto-schedule speakers"
+AC -> AC : onScheduleSpeakers()
+AC -> F : scheduleSpeakers(eventId)
+activate F
+alt no speakers or no sessions yet
+  F --> AC : error "add speakers and sessions first"
+else
+  F -> SWF : execute(event, input)
+  activate SWF
+  SWF -> TR : execute(speaker_availability)
+  TR --> SWF : availability windows
+  SWF -> TR : execute(conflict_check {draft assignments})
+  TR -> CD : detect(copy of event)
+  CD --> TR : conflicts
+  TR --> SWF : ToolResult
+  note right of SWF : the agent repeats these tool calls\nuntil no HIGH conflict is left
+  SWF --> F : PlanProposal (AssignSpeakerCommand,\nMoveSessionCommand)
+  deactivate SWF
+  F --> AC : PlanProposal → review & apply (SD03)
+end
+deactivate F
+
+== F06 — conflict detection (no AI) ==
+Organizer -> AC : clicks "Check conflicts"
+AC -> F : detectConflicts(eventId)
+activate F
+F -> CD : detect(event)
+note right of CD : checks: room overlaps, speaker\ndouble-booked or unavailable,\nroom capacity, outside event hours
+CD --> F : List<Conflict>
+F --> AC : conflicts (highlighted in red)
+deactivate F
+
+== F06 — AI conflict resolution ==
+opt conflicts found and Organizer clicks "Ask agent to fix"
+  AC -> F : resolveConflicts(eventId, conflicts)
+  activate F
+  F -> CWF : execute(event, conflicts)
+  activate CWF
+  CWF -> CWF : agent proposes moves / reassignments
+  CWF -> CD : detect(event.deepCopy() with the fix applied)
+  CD --> CWF : remaining conflicts
+  alt the fix creates new conflicts
+    CWF -> CWF : mark proposal as blocked, retry once
+  end
+  CWF --> F : PlanProposal
+  deactivate CWF
+  F --> AC : PlanProposal → review & apply (SD03)
+  deactivate F
+end
+@enduml

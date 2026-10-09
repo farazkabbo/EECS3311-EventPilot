@@ -1,0 +1,64 @@
+@startuml SD03_agenda_review_apply
+!include style.iuml
+hide footbox
+autonumber "<b>[0]"
+title SD03 — Generate an agenda, then review & apply the proposal (F04, UC04, UC13)\n<size:13><i>Part 2 ("review & apply") is reused by every feature that changes the plan.</i></size>
+
+actor Organizer
+box "GUI" #EEF5FD
+  participant ":AgendaController" as AC
+  participant ":ProposalReview\nDialog" as DLG
+end box
+box "Application" #FFF8F0
+  participant ":EventPlannerFacade" as F
+  participant ":CommandHistory" as CH
+  participant ":EventBus" as BUS
+end box
+box "Agent" #FFFDE7
+  participant ":AgendaGeneration\nWorkflow" as WF
+  participant ":GuardrailValidator" as GV
+end box
+box "Domain" #FBF7FF
+  participant "event:Event" as EV
+end box
+
+== Part 1 — the agent proposes an agenda ==
+Organizer -> AC : sets preferences, clicks "Generate agenda"
+AC -> F : generateAgenda(eventId, prefs)
+activate F
+F -> WF : execute(event, prefs)
+activate WF
+note right of WF : runs the agent loop (SD02)\nwith tools conflict_check and\nspeaker_availability
+WF -> WF : parse reply → AddAgendaItemCommand × n
+WF -> GV : validateProposal(proposal, event)
+GV --> WF : warnings (outside event hours, overlaps)
+WF --> F : WorkflowOutcome<PlanProposal>
+deactivate WF
+F --> AC : PlanProposal
+deactivate F
+
+== Part 2 — review & apply (shared by all proposal features) ==
+AC -> DLG : show(proposal)  (via GuiProposalReviewer.review)
+DLG -> Organizer : list of changes, reasons, warnings
+alt Organizer rejects
+  DLG --> AC : REJECT
+  AC -> AC : nothing changes
+else Organizer approves (all or some changes)
+  DLG --> AC : APPROVE_ALL / APPROVE_SELECTED
+  AC -> F : applyProposal(eventId, proposal)
+  activate F
+  F -> GV : validateProposal(proposal, event)  (check again)
+  alt blocking issue found
+    F --> AC : rejected with reasons
+  else ok
+    F -> CH : execute(event, new MacroCommand(changes))
+    CH -> EV : each command.execute(event)\n(agenda.add(item) …)
+    CH -> CH : push on undo stack
+    F -> F : repository.save(event)
+    F -> BUS : publish(AGENDA_CHANGED)
+    note right of BUS : notifies AgendaView (refresh),\nAlertService (re-check conflicts),\nKnowledgeBaseIndexer (update FAQ data)
+    F --> AC : updated event
+  end
+  deactivate F
+end
+@enduml

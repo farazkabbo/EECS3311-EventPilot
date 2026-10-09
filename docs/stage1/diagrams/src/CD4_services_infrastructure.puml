@@ -1,0 +1,129 @@
+@startuml CD4_services_infrastructure
+!include style.iuml
+hide empty members
+title CD4 — Domain Services, Agent Result Objects and Infrastructure\n<size:13><i>Deterministic rules the agent calls as tools, the objects the agent returns, and how data is stored and loaded.</i></size>
+
+class Event
+class Budget
+class Attendee
+class EventTask
+class Venue
+class Invitation
+class EventCommand <<Command>>
+package "Domain: agent results" #FBF7FF {
+  class PlanProposal {
+    - summary : String
+    - rationale : String
+    - changes : List<EventCommand>
+    - warnings : List<ValidationIssue>
+    - exclusive : boolean
+    - questions : List<String>
+    + hasBlockingIssues() : boolean
+    + select(indexes : List<Integer>) : PlanProposal
+  }
+  class EventDraft {
+    - name, type, start, end
+    - expectedAttendance : int
+    - budgetLimit : Money
+    - city : String
+    + missingFields() : List<String>
+    + toEvent() : Event
+  }
+  class VenueRecommendation {
+    - venue : Venue
+    - score : double
+    - rationale : String
+    - tradeOffs : List<String>
+  }
+  class FaqAnswer {
+    - text : String
+    - sources : List<String>
+    - escalated : boolean
+  }
+  class Conflict {
+    - type : ConflictType
+    - severity : Severity
+    - description : String
+    - itemIds : List<UUID>
+  }
+}
+
+package "Domain services (deterministic rules — no AI)" #F1F8E9 {
+  class ConflictDetector {
+    + detect(e : Event) : List<Conflict>
+  }
+  class BudgetTracker {
+    + allocate(limit : Money, weights : Map) : List<BudgetLine>
+    + recordExpense(b : Budget, x : Expense) : BudgetStatus
+    + computeStatus(b : Budget) : BudgetStatus
+  }
+  class CateringCalculator {
+    + computeHeadcount(as : List<Attendee>) : int
+    + summarizeDiets(as : List<Attendee>) : Map<Diet,Integer>
+    + computePortions(headcount : int, meal : MealType) : int
+  }
+  class TaskScheduler {
+    + detectCycles(ts : List<EventTask>) : boolean
+    + orderByDependencies(ts : List<EventTask>) : List<EventTask>
+    + findOverdue(ts : List<EventTask>, today : LocalDate) : List<EventTask>
+  }
+}
+
+package "Infrastructure" #ECEFF1 {
+  interface EventRepository {
+    + save(e : Event) : void
+    + findById(id : UUID) : Event
+    + findAll() : List<Event>
+  }
+  class SqliteEventRepository
+  interface VenueCatalog <<Target>> {
+    + search(c : VenueCriteria) : List<Venue>
+  }
+  class JsonVenueCatalogAdapter <<Adapter>> {
+    - reader : VenueDatasetReader
+    + search(c : VenueCriteria) : List<Venue>
+    - toVenue(r : Map<String,String>) : Venue
+  }
+  class VenueDatasetReader <<Adaptee>> {
+    + readRecords() : List<Map<String,String>>
+  }
+  interface MessageGateway {
+    + send(i : Invitation) : DeliveryStatus
+  }
+  class OutboxFileGateway
+  class AttendeeCsvImporter {
+    + parse(csv : Path) : ImportReport
+  }
+  class AppConfig {
+    + load(p : Path) : AppConfig
+    + agentSettings() : AgentSettings
+  }
+  class EventPilotApp {
+    + {static} bootstrap() : EventPlannerFacade
+  }
+  EventRepository <|.. SqliteEventRepository
+  VenueCatalog <|.. JsonVenueCatalogAdapter
+  JsonVenueCatalogAdapter --> VenueDatasetReader : adapts
+  MessageGateway <|.. OutboxFileGateway
+  EventPilotApp ..> AppConfig : reads
+}
+
+ConflictDetector ..> Event : checks
+ConflictDetector ..> Conflict : creates
+BudgetTracker ..> Budget
+CateringCalculator ..> Attendee
+TaskScheduler ..> EventTask
+VenueRecommendation --> Venue
+EventDraft ..> Event : creates
+EventRepository ..> Event : stores
+
+
+PlanProposal o-- "0..*" EventCommand : changes
+MessageGateway ..> Invitation : sends
+legend right
+  <b>How to read</b>
+  Grey classes without members are defined in CD1–CD3.
+  Cyan = Adapter pattern (Target / Adapter / Adaptee).
+  Green package = pure deterministic code, unit-testable.
+endlegend
+@enduml

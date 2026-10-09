@@ -1,0 +1,38 @@
+@startuml UC2_external_actors
+!include style.iuml
+left to right direction
+title Use-Case Diagram — View 2: external systems the use cases rely on
+
+rectangle "EventPilot (GUI + CLI)" {
+  usecase "UC01 Create event from a description" as UC01
+  usecase "UC03 Get venue recommendations" as UC03
+  usecase "UC04 Generate agenda" as UC04
+  usecase "UC05 Schedule speakers" as UC05
+  usecase "UC06 Detect & resolve conflicts" as UC06
+  usecase "UC07 Plan & track budget" as UC07
+  usecase "UC08 Plan catering" as UC08
+  usecase "UC09 Generate & track tasks" as UC09
+  usecase "UC11 Ask the FAQ agent" as UC11
+  usecase "UC12 Change plan in plain language" as UC12
+  usecase "UC10 Draft & send invitations" as UC10
+}
+actor "LLM Service\n(Claude / Ollama)" as LLM <<external AI>>
+actor "Email Gateway\n(outbox folder)" as MAIL <<external system>>
+
+UC01 --> LLM
+UC03 --> LLM
+UC04 --> LLM
+UC05 --> LLM
+UC06 --> LLM
+UC07 --> LLM
+UC08 --> LLM
+UC09 --> LLM
+UC11 --> LLM
+UC12 --> LLM
+UC10 --> LLM
+UC10 --> MAIL
+note bottom of LLM
+  UC02, UC13, UC14, UC15 are
+  fully deterministic (no AI).
+end note
+@enduml
