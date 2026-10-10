@@ -20,7 +20,7 @@
 8. [Feature-to-Design Traceability Table](#8-feature-to-design-traceability-table)
 9. [Feature Implementation Explanations](#9-feature-implementation-explanations)
 
-All diagrams are drawn in PlantUML. The sources are in `docs/stage1/diagrams/src/`, and rendered PNG/SVG files are in `docs/stage1/diagrams/png` and `svg`. The same class and method names are used in every section.
+All UML diagrams are drawn in **UMLet**. The editable UMLet files (`.uxf`) are in `docs/stage1/diagrams/uxf/`, and the exported images are in `docs/stage1/diagrams/png/`. The same class and method names are used in every section.
 
 ---
 
@@ -713,7 +713,7 @@ The diagram is shown in two views to keep it readable. View 1 shows the people w
 
 ## 7. Sequence Diagrams
 
-Ten sequence diagrams cover all important behaviors. Each one uses the classes and methods of the class diagram. Participants are grouped by layer (GUI/CLI, Application, Agent, Domain, Infrastructure), steps are numbered, and notes explain the key steps in plain words. The tool loop (SD02) and the review-and-apply sequence (SD03, Part 2) are shown in full once; the other diagrams refer to them.
+Ten sequence diagrams cover all important behaviors. Each one uses the classes and methods of the class diagram. Each one is a UMLet all-in-one sequence diagram: lifelines are ordered from the user interface on the left to the agent, domain and external services on the right, the messages are numbered, and `alt` / `opt` / `loop` fragments show alternative and error flows. The tool loop (SD02) and the review-and-apply sequence (SD03, Part 2) are shown in full once; the other diagrams refer to them.
 
 | SD | Shows | Features | Use cases |
 |---|---|---|---|

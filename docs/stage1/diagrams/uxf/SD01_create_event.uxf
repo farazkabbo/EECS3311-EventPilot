@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>1520</w>
+      <h>1910</h>
+    </coordinates>
+    <panel_attributes>title=SD01 — Create an event from a plain-language description (F01, UC01)
+autoTick=true
+obj=Organizer~organizer ACTOR
+obj=:ChatPanel~cp
+obj=:AgentChatController~acc
+obj=:EventPlannerFacade~f
+obj=:EventExtractionWorkflow~wf
+obj=:AgentOrchestrator~orc
+obj=:GuardrailValidator~gv
+obj=:EventRepository~repo
+
+organizer-&gt;&gt;&gt;cp :1. "Tech meetup, ~120 people,\nToronto, Nov 20, budget $5k"
+cp-&gt;&gt;&gt;acc :2. submitMessage(text)
+acc-&gt;&gt;&gt;f :3. createEventFromDescription(\ntext, sessionId); on=f
+f-&gt;&gt;&gt;wf :4. execute(null, input); on=wf
+wf-&gt;&gt;&gt;orc :5. run(task)
+orc.&gt;wf :6. AgentRunResult (JSON text)
+wf-&gt;&gt;&gt;wf + :7.\ncreateParser(\n).parse(raw)\n→ EventDraft
+tick=
+wf-&gt;&gt;&gt;gv :8. validateDraft(draft)
+gv.&gt;wf :9. issues (e.g. end before\nstart)
+wf.&gt;f :10.\nWorkflowOutcome&lt;EventDraft&gt;; off=wf
+combinedFragment=alt~f1 organizer repo
+organizer:[draft.\nmissingFields()\nis not empty]
+f.&gt;acc :11. AgentResponse(questions)
+acc-&gt;&gt;&gt;cp :12. appendMessage("What time\ndoes it end?")
+organizer-&gt;&gt;&gt;cp :13. "9 pm"
+cp-&gt;&gt;&gt;acc :14.\nhandleClarification(answer)
+acc-&gt;&gt;&gt;f :15.\nanswerClarification(sessionId,\nanswer)
+..=f1
+organizer:[draft complete]
+f-&gt;&gt;&gt;f + :16. event =\ndraft.\ntoEvent()\n(state =\nDraft)
+tick=
+f-&gt;&gt;&gt;repo :17. save(event)
+f-&gt;&gt;&gt;f + :18.\nbus.publish(\nEVENT_\nCREATED)
+tick=
+f.&gt;acc :19. AgentResponse(event)
+acc-&gt;&gt;&gt;cp :20. appendMessage("Event\ncreated ✓")
+--=f1
+off=f
+combinedFragment=opt~f2 cp f
+cp:[LLM unreachable\nafter 3 retries]
+f.&gt;acc :21. error
+acc-&gt;&gt;&gt;cp :22. "AI unavailable — use the\nNew Event form"
+--=f2
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+</diagram>

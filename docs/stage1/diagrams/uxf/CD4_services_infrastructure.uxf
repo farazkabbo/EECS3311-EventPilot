@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>83</x>
+      <y>127</y>
+      <w>634</w>
+      <h>620</h>
+    </coordinates>
+    <panel_attributes>Domain: agent results
+layer=-1
+bg=#FBF7FF
+fontsize=14
+halign=left</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>8</x>
+      <y>755</y>
+      <w>474</w>
+      <h>530</h>
+    </coordinates>
+    <panel_attributes>Domain services (deterministic rules — no AI)
+layer=-1
+bg=#F1F8E9
+fontsize=14
+halign=left</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>98</x>
+      <y>1299</y>
+      <w>974</w>
+      <h>625</h>
+    </coordinates>
+    <panel_attributes>Infrastructure
+layer=-1
+bg=#ECEFF1
+fontsize=14
+halign=left</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>595</x>
+      <y>838</y>
+      <w>60</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*Event*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>595</x>
+      <y>1192</y>
+      <w>60</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*Budget*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>948</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*Attendee*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>585</x>
+      <y>1073</y>
+      <w>80</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*EventTask*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>595</x>
+      <y>0</y>
+      <w>60</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*Venue*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>1247</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*Invitation*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>570</x>
+      <y>55</y>
+      <w>110</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Command&gt;&gt;
+*EventCommand*
+fontsize=12
+bg=#E8F5E9</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>105</x>
+      <y>305</y>
+      <w>280</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>*PlanProposal*
+--
+-summary: String
+-rationale: String
+-changes: List&lt;EventCommand&gt;
+-warnings: List&lt;ValidationIssue&gt;
+-exclusive: boolean
+-questions: List&lt;String&gt;
+--
++hasBlockingIssues(): boolean
++select(indexes: List&lt;Integer&gt;): PlanProposal
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>150</x>
+      <y>490</y>
+      <w>190</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>*EventDraft*
+--
+-name, type, start, end
+-expectedAttendance: int
+-budgetLimit: Money
+-city: String
+--
++missingFields(): List&lt;String&gt;
++toEvent(): Event
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>165</x>
+      <y>190</y>
+      <w>160</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>*VenueRecommendation*
+--
+-venue: Venue
+-score: double
+-rationale: String
+-tradeOffs: List&lt;String&gt;
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>170</x>
+      <y>645</y>
+      <w>150</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>*FaqAnswer*
+--
+-text: String
+-sources: List&lt;String&gt;
+-escalated: boolean
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>555</x>
+      <y>635</y>
+      <w>140</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>*Conflict*
+--
+-type: ConflictType
+-severity: Severity
+-description: String
+-itemIds: List&lt;UUID&gt;
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>140</x>
+      <y>818</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>*ConflictDetector*
+--
+--
++detect(e: Event): List&lt;Conflict&gt;
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>75</x>
+      <y>1163</y>
+      <w>340</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>*BudgetTracker*
+--
+--
++allocate(limit: Money, weights: Map): List&lt;BudgetLine&gt;
++recordExpense(b: Budget, x: Expense): BudgetStatus
++computeStatus(b: Budget): BudgetStatus
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>70</x>
+      <y>913</y>
+      <w>350</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>*CateringCalculator*
+--
+--
++computeHeadcount(as: List&lt;Attendee&gt;): int
++summarizeDiets(as: List&lt;Attendee&gt;): Map&lt;Diet,Integer&gt;
++computePortions(headcount: int, meal: MealType): int
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>30</x>
+      <y>1038</y>
+      <w>430</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>*TaskScheduler*
+--
+--
++detectCycles(ts: List&lt;EventTask&gt;): boolean
++orderByDependencies(ts: List&lt;EventTask&gt;): List&lt;EventTask&gt;
++findOverdue(ts: List&lt;EventTask&gt;, today: LocalDate): List&lt;EventTask&gt;
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>1362</y>
+      <w>170</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+*EventRepository*
+--
+--
++save(e: Event): void
++findById(id: UUID): Event
++findAll(): List&lt;Event&gt;
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>550</x>
+      <y>1402</y>
+      <w>150</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*SqliteEventRepository*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>1612</y>
+      <w>250</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+&lt;&lt;Target&gt;&gt;
+*VenueCatalog*
+--
+--
++search(c: VenueCriteria): List&lt;Venue&gt;
+fontsize=12
+bg=#E0F7FA</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>500</x>
+      <y>1612</y>
+      <w>250</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Adapter&gt;&gt;
+*JsonVenueCatalogAdapter*
+--
+-reader: VenueDatasetReader
+--
++search(c: VenueCriteria): List&lt;Venue&gt;
+-toVenue(r: Map&lt;String,String&gt;): Venue
+fontsize=12
+bg=#E0F7FA</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>790</x>
+      <y>1617</y>
+      <w>260</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Adaptee&gt;&gt;
+*VenueDatasetReader*
+--
+--
++readRecords(): List&lt;Map&lt;String,String&gt;&gt;
+fontsize=12
+bg=#E0F7FA</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>135</x>
+      <y>1497</y>
+      <w>220</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+*MessageGateway*
+--
+--
++send(i: Invitation): DeliveryStatus
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>560</x>
+      <y>1527</y>
+      <w>130</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*OutboxFileGateway*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>145</x>
+      <y>1737</y>
+      <w>200</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>*AttendeeCsvImporter*
+--
+--
++parse(csv: Path): ImportReport
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>525</x>
+      <y>1812</y>
+      <w>200</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>*AppConfig*
+--
+--
++load(p: Path): AppConfig
++agentSettings(): AgentSettings
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>135</x>
+      <y>1832</y>
+      <w>220</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>*EventPilotApp*
+--
+--
+_+bootstrap(): EventPlannerFacade_
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>65</x>
+      <y>35</y>
+      <w>360</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>How to read
+Grey classes without members are defined in CD1–CD3.
+Cyan = Adapter pattern (Target / Adapter / Adaptee).
+Green package = pure deterministic code, unit-testable.
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>310</x>
+      <y>1397</y>
+      <w>260</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.4;20.0;239.8;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>350</x>
+      <y>1642</y>
+      <w>170</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.0;20.0;149.8;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>730</x>
+      <y>1642</y>
+      <w>80</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+fontsize=12
+adapts</panel_attributes>
+    <additional_attributes>59.9;20.0;20.3;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>335</x>
+      <y>1522</y>
+      <w>245</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.1;20.0;224.7;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>335</x>
+      <y>1839</y>
+      <w>210</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+fontsize=12
+reads</panel_attributes>
+    <additional_attributes>189.8;20.6;20.1;25.1</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>833</y>
+      <w>285</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+fontsize=12
+checks</panel_attributes>
+    <additional_attributes>264.9;20.0;20.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>312</x>
+      <y>696</y>
+      <w>263</w>
+      <h>142</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+fontsize=12
+creates</panel_attributes>
+    <additional_attributes>242.8;20.9;21.0;121.9</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>395</x>
+      <y>1187</y>
+      <w>220</w>
+      <h>43</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>199.8;20.5;20.1;23.3</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>943</y>
+      <w>210</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>190.0;20.0;20.1;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>1068</y>
+      <w>165</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>144.9;20.0;20.1;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>305</x>
+      <y>-7</y>
+      <w>310</w>
+      <h>241</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>289.9;20.1;257.7;22.2;195.0;49.0;177.0;124.0;129.4;168.1;20.1;221.4</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>542</y>
+      <w>295</w>
+      <h>316</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+fontsize=12
+creates</panel_attributes>
+    <additional_attributes>274.9;296.0;241.6;274.7;180.0;211.0;171.2;167.5;176.2;129.6;162.0;91.0;119.8;55.9;20.2;20.9</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>310</x>
+      <y>843</y>
+      <w>305</w>
+      <h>572</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+fontsize=12
+stores</panel_attributes>
+    <additional_attributes>284.8;20.5;250.9;37.0;190.0;93.0;177.6;203.5;186.9;342.9;172.0;448.0;128.3;495.5;20.1;552.3</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>365</x>
+      <y>64</y>
+      <w>225</w>
+      <h>315</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=0..*
+fontsize=12
+changes</panel_attributes>
+    <additional_attributes>20.0;294.7;88.8;257.5;117.0;229.0;131.8;171.1;119.4;115.8;135.0;57.0;204.7;20.7</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>335</x>
+      <y>1240</y>
+      <w>275</w>
+      <h>322</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+fontsize=12
+sends</panel_attributes>
+    <additional_attributes>254.8;20.5;223.1;23.8;165.0;53.0;154.2;111.5;157.9;188.8;147.0;245.0;109.6;275.1;20.2;302.3</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>8</x>
+      <y>-77</y>
+      <w>1400</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>*CD4 — Domain Services, Agent Result Objects and Infrastructure*
+Deterministic rules the agent calls as tools, the objects the agent returns, and how data is stored and loaded.
+fontsize=16</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+</diagram>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>1330</w>
+      <h>1770</h>
+    </coordinates>
+    <panel_attributes>title=SD09 — Attendee asks the FAQ agent (retrieval-augmented answer) (F11, UC11)
+autoTick=true
+obj=Attendee~attendee ACTOR
+obj=:ChatPanel\n(FAQ mode)~cp
+obj=:AgentChatController~acc
+obj=:EventPlannerFacade~f
+obj=:FaqAnswerWorkflow~wf
+obj=:KnowledgeBase~kb
+obj=:AgentOrchestrator~orc
+
+attendee-&gt;&gt;&gt;cp :1. "Is there a vegan lunch?\nWhere do I park?"
+cp-&gt;&gt;&gt;acc :2. onAskFaq(question)
+acc-&gt;&gt;&gt;f :3. askFaq(eventId, question); on=f
+f-&gt;&gt;&gt;wf :4. execute(event, question); on=wf
+wf-&gt;&gt;&gt;kb :5. search(eventId, question,\n5)
+kb.&gt;wf :6. List&lt;DocumentChunk&gt;
+combinedFragment=alt~f1 acc orc
+acc:[nothing\nrelevant found]
+wf.&gt;f :7. FaqAnswer(escalated = true)
+f-&gt;&gt;&gt;f + :8.\npublish(FAQ_\nESCALATED) →\norganizer\nalert
+tick=
+f.&gt;acc :9. "I don't know yet — I've\nasked the organizer."
+..=f1
+acc:[relevant\nsources found]
+wf-&gt;&gt;&gt;orc :10. run(task: "answer ONLY\nfrom these sources, cite\nthem")
+orc.&gt;wf :11. AgentRunResult
+wf-&gt;&gt;&gt;wf + :12. parse →\nFaqAnswer(\ntext,\nsources)
+tick=
+wf-&gt;&gt;&gt;wf + :13.\nvalidate():\nevery cited\nsource was\nretrieved
+tick=
+combinedFragment=alt~f2 wf wf
+wf:[cites a source\nthat was not\nretrieved]
+wf-&gt;&gt;&gt;wf + :14. replace\nwith safe\nfallback,\nescalate
+tick=
+--=f2
+wf.&gt;f :15. FaqAnswer
+f.&gt;acc :16. FaqAnswer
+--=f1
+off=wf; off=f
+acc-&gt;&gt;&gt;cp :17. answer + "Sources:\nCatering plan, Venue info"
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+</diagram>

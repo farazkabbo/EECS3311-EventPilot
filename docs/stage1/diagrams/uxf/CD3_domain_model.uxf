@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>8</x>
+      <y>8</y>
+      <w>2164</w>
+      <h>885</h>
+    </coordinates>
+    <panel_attributes>Domain: the event and its parts
+layer=-1
+bg=#FBF7FF
+fontsize=14
+halign=left</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1050</x>
+      <y>71</y>
+      <w>260</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Context&gt;&gt;
+*Event*
+--
+-id: UUID
+-name: String
+-type: EventType
+-startDateTime: LocalDateTime
+-endDateTime: LocalDateTime
+-expectedAttendance: int
+-city: String
+-state: EventState
+--
++transition(a: LifecycleAction): EventState
++ensureEditable(): void
++ensureCanInvite(): void
++setState(s: EventState): void
++getAgenda(): Agenda
++getBudget(): Budget
++getVenue(): Venue
++confirmedAttendees(): List&lt;Attendee&gt;
++deepCopy(): Event
+fontsize=12
+bg=#F3E5F5</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>30</x>
+      <y>411</y>
+      <w>310</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+&lt;&lt;State&gt;&gt;
+*EventState*
+--
+--
++name(): String
++ensureEditable(e: Event): void
++ensureCanInvite(e: Event): void
++onAction(e: Event, a: LifecycleAction): EventState
+fontsize=12
+bg=#FCE4EC</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>30</x>
+      <y>631</y>
+      <w>80</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;State&gt;&gt;
+*DraftState*
+fontsize=12
+bg=#FCE4EC</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>135</x>
+      <y>631</y>
+      <w>100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;State&gt;&gt;
+*PlanningState*
+fontsize=12
+bg=#FCE4EC</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>260</x>
+      <y>631</y>
+      <w>110</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;State&gt;&gt;
+*ConfirmedState*
+fontsize=12
+bg=#FCE4EC</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>395</x>
+      <y>631</y>
+      <w>110</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;State&gt;&gt;
+*CompletedState*
+fontsize=12
+bg=#FCE4EC</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>530</x>
+      <y>631</y>
+      <w>110</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;State&gt;&gt;
+*CancelledState*
+fontsize=12
+bg=#FCE4EC</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>365</x>
+      <y>426</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>*Agenda*
+--
+-items: List&lt;AgendaItem&gt;
+--
++add(i: AgendaItem): void
++remove(id: UUID): AgendaItem
++findById(id: UUID): AgendaItem
++sessions(): List&lt;SessionItem&gt;
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>665</x>
+      <y>591</y>
+      <w>220</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>/AgendaItem/
+--
+#id: UUID
+#title: String
+#start: LocalDateTime
+#end: LocalDateTime
+#room: String
+--
++overlaps(o: AgendaItem): boolean
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>477</x>
+      <y>761</y>
+      <w>340</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>*SessionItem*
+--
+-speakerId: UUID
+-capacity: int
+-track: String
+--
++assignSpeaker(id: UUID): void
++reschedule(s: LocalDateTime, e: LocalDateTime): void
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>842</x>
+      <y>791</y>
+      <w>120</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>*BreakItem*
+--
+-isMeal: boolean
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>416</y>
+      <w>210</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>*Attendee*
+--
+-name: String
+-email: String
+-role: AttendeeRole
+-rsvpStatus: RsvpStatus
+-dietaryRestrictions: Set&lt;Diet&gt;
+--
++updateRsvp(s: RsvpStatus): void
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>835</x>
+      <y>431</y>
+      <w>240</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>*Speaker*
+--
+-name: String
+-topic: String
+-availability: List&lt;TimeWindow&gt;
+--
++isAvailable(w: TimeWindow): boolean
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1100</x>
+      <y>426</y>
+      <w>160</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>*Venue*
+--
+-name: String
+-capacity: int
+-pricePerDay: Money
+-amenities: Set&lt;String&gt;
+-accessible: boolean
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1285</x>
+      <y>411</y>
+      <w>170</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>*Budget*
+--
+-limit: Money
+-lines: List&lt;BudgetLine&gt;
+-expenses: List&lt;Expense&gt;
+--
++totalPlanned(): Money
++totalSpent(): Money
++remaining(): Money
++isOverBudget(): boolean
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1177</x>
+      <y>606</y>
+      <w>180</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>*BudgetLine*
+--
+-category: BudgetCategory
+-planned: Money
+-spent: Money
+--
++utilization(): double
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1382</x>
+      <y>616</y>
+      <w>180</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>*Expense*
+--
+-category: BudgetCategory
+-amount: Money
+-date: LocalDate
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1480</x>
+      <y>436</y>
+      <w>230</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>*CateringPlan*
+--
+-headcount: int
+-dietarySummary: Map&lt;Diet,Integer&gt;
+-meals: List&lt;MealService&gt;
+-estimatedCost: Money
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1735</x>
+      <y>416</y>
+      <w>240</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>*EventTask*
+--
+-title: String
+-owner: String
+-dueDate: LocalDate
+-status: TaskStatus
+-dependencies: List&lt;UUID&gt;
+--
++isOverdue(today: LocalDate): boolean
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2000</x>
+      <y>426</y>
+      <w>150</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>*Invitation*
+--
+-attendeeId: UUID
+-subject: String
+-body: String
+-tone: Tone
+-status: DeliveryStatus
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2194</x>
+      <y>176</y>
+      <w>300</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>How to read
+◆— composition (part is owned)
+◇— aggregation (part is shared / replaceable)
+▷ inheritance, ⇢ dependency
+Pink = State pattern
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>224</y>
+      <w>750</w>
+      <h>211</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
+m2=1
+fontsize=12
+current state</panel_attributes>
+    <additional_attributes>729.7;20.9;289.6;115.4;20.3;191.2</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>66</x>
+      <y>531</y>
+      <w>93</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>72.9;20.4;20.0;99.9</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>165</x>
+      <y>531</y>
+      <w>40</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.0;20.4;20.0;99.9</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>217</x>
+      <y>531</y>
+      <w>100</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.1;20.4;79.9;99.9</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>301</x>
+      <y>531</y>
+      <w>147</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.6;20.0;126.8;99.9</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>526</y>
+      <w>265</w>
+      <h>125</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.3;20.8;140.8;43.5;245.3;104.7</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>537</x>
+      <y>234</y>
+      <w>533</w>
+      <h>212</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=1
+fontsize=12</panel_attributes>
+    <additional_attributes>513.0;20.6;215.3;112.1;20.8;191.9</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>542</x>
+      <y>516</y>
+      <w>143</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=0..*
+fontsize=12</panel_attributes>
+    <additional_attributes>20.0;20.1;122.5;78.1</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>670</x>
+      <y>701</y>
+      <w>73</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>52.9;20.3;20.8;59.9</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>806</x>
+      <y>701</y>
+      <w>96</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>20.7;20.3;76.4;89.6</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>790</x>
+      <y>269</y>
+      <w>280</w>
+      <h>169</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=0..*
+fontsize=12</panel_attributes>
+    <additional_attributes>260.0;20.1;20.1;149.3</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>977</x>
+      <y>351</y>
+      <w>93</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=0..*
+fontsize=12</panel_attributes>
+    <additional_attributes>72.8;20.3;20.9;79.8</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1160</x>
+      <y>351</y>
+      <w>40</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=0..1
+fontsize=12
+selected</panel_attributes>
+    <additional_attributes>20.0;20.3;20.0;74.8</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1270</x>
+      <y>351</y>
+      <w>69</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=1
+fontsize=12</panel_attributes>
+    <additional_attributes>20.0;20.3;49.1;59.9</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1276</x>
+      <y>531</y>
+      <w>73</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=0..*
+fontsize=12</panel_attributes>
+    <additional_attributes>52.7;20.4;20.3;74.8</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1390</x>
+      <y>531</y>
+      <w>79</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=0..*
+fontsize=12</panel_attributes>
+    <additional_attributes>20.9;20.4;59.0;85.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1290</x>
+      <y>282</y>
+      <w>254</w>
+      <h>174</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=0..1
+fontsize=12</panel_attributes>
+    <additional_attributes>20.2;20.9;234.1;153.9</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1290</x>
+      <y>241</y>
+      <w>465</w>
+      <h>195</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=0..*
+fontsize=12</panel_attributes>
+    <additional_attributes>20.1;20.4;444.9;175.3</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1290</x>
+      <y>214</y>
+      <w>743</w>
+      <h>232</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=0..*
+fontsize=12</panel_attributes>
+    <additional_attributes>20.0;20.6;217.0;50.8;454.4;106.2;723.0;211.7</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>8</x>
+      <y>-62</y>
+      <w>1400</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>*CD3 — Domain Model: the Event and its parts*
+Event is the centre of the model. Its lifecycle rules live in EventState objects (State pattern).
+fontsize=16</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+</diagram>

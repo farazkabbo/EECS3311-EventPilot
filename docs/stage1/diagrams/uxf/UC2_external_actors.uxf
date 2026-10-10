@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>10</x>
+      <y>0</y>
+      <w>1100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>*Use-Case Diagram — View 2: external systems the use cases rely on*
+UC02, UC13, UC14 and UC15 are fully deterministic and use no external system.
+fontsize=16</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>30</x>
+      <y>80</y>
+      <w>340</w>
+      <h>788</h>
+    </coordinates>
+    <panel_attributes>EventPilot (GUI + CLI)
+valign=top
+halign=left
+layer=-1
+bg=#FAFAFA
+fontsize=14</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>80</x>
+      <y>110</y>
+      <w>240</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>UC01 Create event from
+a description
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>80</x>
+      <y>178</y>
+      <w>240</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>UC03 Get venue
+recommendations
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>80</x>
+      <y>246</y>
+      <w>240</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>UC04 Generate agenda
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>80</x>
+      <y>314</y>
+      <w>240</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>UC05 Schedule speakers
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>80</x>
+      <y>382</y>
+      <w>240</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>UC06 Detect &amp; resolve
+conflicts
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>80</x>
+      <y>450</y>
+      <w>240</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>UC07 Plan &amp; track
+budget
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>80</x>
+      <y>518</y>
+      <w>240</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>UC08 Plan catering
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>80</x>
+      <y>586</y>
+      <w>240</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>UC09 Generate &amp; track
+tasks
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>80</x>
+      <y>654</y>
+      <w>240</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>UC11 Ask the FAQ agent
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>80</x>
+      <y>722</y>
+      <w>240</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>UC12 Change plan in
+plain language
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>80</x>
+      <y>790</y>
+      <w>240</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>UC10 Draft &amp; send
+invitations
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>560</x>
+      <y>386</y>
+      <w>110</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>LLM Service
+(Claude / Ollama)
+«external AI»
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>560</x>
+      <y>770</y>
+      <w>110</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Email Gateway
+(outbox folder)
+«external system»
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>115</y>
+      <w>310</w>
+      <h>331</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>20.0;20.0;290.0;311.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>183</y>
+      <w>310</w>
+      <h>263</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>20.0;20.0;290.0;243.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>251</y>
+      <w>310</w>
+      <h>195</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>20.0;20.0;290.0;175.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>319</y>
+      <w>310</w>
+      <h>127</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>20.0;20.0;290.0;107.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>387</y>
+      <w>310</w>
+      <h>59</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>20.0;20.0;290.0;39.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>406</y>
+      <w>310</w>
+      <h>89</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>20.0;69.0;290.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>406</y>
+      <w>310</w>
+      <h>157</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>20.0;137.0;290.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>406</y>
+      <w>310</w>
+      <h>225</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>20.0;205.0;290.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>406</y>
+      <w>310</w>
+      <h>293</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>20.0;273.0;290.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>406</y>
+      <w>310</w>
+      <h>361</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>20.0;341.0;290.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>406</y>
+      <w>310</w>
+      <h>429</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>20.0;409.0;290.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>790</y>
+      <w>310</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>20.0;25.0;290.0;20.0</additional_attributes>
+  </element>
+</diagram>
