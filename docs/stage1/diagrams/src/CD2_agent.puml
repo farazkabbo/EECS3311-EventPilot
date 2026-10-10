@@ -24,7 +24,9 @@ package "1. Workflows — one per AI feature (Template Method)" #FFFDE7 {
   class VenueRecommendationWorkflow
   class AgendaGenerationWorkflow
   class SpeakerSchedulingWorkflow
-  class ConflictResolutionWorkflow
+  class ConflictResolutionWorkflow {
+    # validate(p : PlanProposal, e : Event) : List<ValidationIssue>
+  }
   class BudgetPlanningWorkflow
   class CateringPlanningWorkflow
   class TaskDecompositionWorkflow

@@ -149,6 +149,8 @@ package "Application layer" #FFF8F0 {
   }
   class MacroCommand <<Command>> {
     - children : List<EventCommand>
+    + execute(e : Event) : void
+    + undo(e : Event) : void
   }
   class "AddAgendaItemCommand\nRemoveAgendaItemCommand\nMoveSessionCommand\nAssignSpeakerCommand\nSetVenueCommand\nSetBudgetLineCommand\nSetCateringPlanCommand\nAddTaskCommand" as Cmds <<Command>>
   EventCommand <|.. MacroCommand

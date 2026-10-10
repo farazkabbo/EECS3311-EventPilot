@@ -15,12 +15,14 @@ box "Agent" #FFFDE7
   participant ":VenueRecommendation\nWorkflow" as WF
   participant ":AgentOrchestrator" as ORC
   participant ":LLMClient" as LLM
+  participant ":ClaudeProvider" as CP
   participant ":ToolRegistry" as TR
   participant ":VenueSearchTool" as VST
 end box
 box "Infrastructure" #ECEFF1
   participant ":JsonVenueCatalog\nAdapter" as CAT
 end box
+participant "Claude API\n(external LLM)" as API #F3E5F5
 
 Organizer -> EC : clicks "Recommend venues"
 EC -> F : recommendVenues(eventId)
@@ -34,6 +36,10 @@ activate ORC
 
 loop until the LLM gives a final answer (max 8 steps)
   ORC -> LLM : complete(request)
+  LLM -> CP : chat(request)
+  CP -> API : HTTPS POST /v1/messages
+  API --> CP : JSON reply
+  CP --> LLM : LLMResponse
   LLM --> ORC : LLMResponse
   alt the LLM asks to call a tool
     ORC -> TR : execute(venue_search {capacity ≥ 120, city: Toronto})
