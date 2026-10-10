@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>1710</w>
+      <h>1980</h>
+    </coordinates>
+    <panel_attributes>title=SD05 — Plan the budget, record expenses, raise alerts (F07, UC07)
+autoTick=true
+obj=Organizer~organizer ACTOR
+obj=:BudgetController~bc
+obj=:DashboardView~dv
+obj=:EventPlannerFacade~f
+obj=:EventBus~bus
+obj=:AlertService~as
+obj=:BudgetPlanning\nWorkflow~wf
+obj=:BudgetCalculatorTool~bct
+obj=:BudgetTracker~bt
+
+continuation=organizer bt :AI budget plan
+organizer-&gt;&gt;&gt;bc :1. clicks "Generate budget\nplan"
+bc-&gt;&gt;&gt;f :2. generateBudget(eventId); on=f
+f-&gt;&gt;&gt;wf :3. execute(event, input); on=wf
+wf-&gt;&gt;&gt;bct :4. (via agent loop)\nexecute(allocate, limit $5000,\nweights VENUE 35%, CATERING\n30% …)
+bct-&gt;&gt;&gt;bt :5. allocate(limit, weights)
+bt.&gt;bct :6. budget lines (exact money\nmath)
+bct.&gt;wf :7. ToolResult
+wf-&gt;&gt;&gt;wf + :8.\nvalidate():\ntotal ≤ limit
+tick=
+wf.&gt;f :9. PlanProposal\n(SetBudgetLineCommand × n); off=wf
+f.&gt;bc :10. PlanProposal → review &amp;\napply (SD03); off=f
+continuation=organizer bt :Record an expense (no AI)
+organizer-&gt;&gt;&gt;bc :11. enters "Catering $1,850\ndeposit"
+bc-&gt;&gt;&gt;bc + :12.\nonRecordExpen\nse(form):\namount &gt; 0?\ncategory set?
+tick=
+combinedFragment=alt~f1 organizer bt
+organizer:[form invalid]
+bc-&gt;&gt;&gt;organizer :13. show field errors
+..=f1
+organizer:[form valid]
+bc-&gt;&gt;&gt;f :14. recordExpense(eventId,\nexpense); on=f
+f-&gt;&gt;&gt;bt :15. recordExpense(budget,\nexpense)
+bt.&gt;f :16. BudgetStatus
+f-&gt;&gt;&gt;f + :17.\nrepository.\nsave(event)
+tick=
+f-&gt;&gt;&gt;bus :18. publish(BUDGET_CHANGED)
+bus-&gt;&gt;&gt;as :19. onEventChanged(d)
+as-&gt;&gt;&gt;bt :20. computeStatus(budget)
+bt.&gt;as :21. BudgetStatus
+combinedFragment=opt~f2 dv as
+dv:[a category is\nover plan or\ntotal ≥ 90 %]
+as-&gt;&gt;&gt;bus :22. publish(ALERT_RAISED)
+bus-&gt;&gt;&gt;dv :23. onEventChanged(d) → alert\nbanner
+--=f2
+f.&gt;bc :24. BudgetStatus; off=f
+--=f1
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+</diagram>

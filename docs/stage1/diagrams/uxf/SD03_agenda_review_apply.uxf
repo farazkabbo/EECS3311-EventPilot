@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>1710</w>
+      <h>2050</h>
+    </coordinates>
+    <panel_attributes>title=SD03 — Generate an agenda, then review &amp; apply the proposal (F04, UC04, UC13) — Part 2 ("review &amp; apply") is reused by every feature that changes the plan.
+autoTick=true
+obj=Organizer~organizer ACTOR
+obj=:AgendaController~ac
+obj=:ProposalReview\nDialog~dlg
+obj=:EventPlannerFacade~f
+obj=:CommandHistory~ch
+obj=:EventBus~bus
+obj=:AgendaGeneration\nWorkflow~wf
+obj=:GuardrailValidator~gv
+obj=event:Event~ev
+
+continuation=organizer ev :Part 1 — the agent proposes an agenda
+organizer-&gt;&gt;&gt;ac :1. sets preferences, clicks\n"Generate agenda"
+ac-&gt;&gt;&gt;f :2. generateAgenda(eventId,\nprefs); on=f
+f-&gt;&gt;&gt;wf :3. execute(event, prefs); on=wf
+wf-&gt;&gt;&gt;wf + :4. parse\nreply →\nAddAgendaItem\nCommand × n
+tick=
+wf-&gt;&gt;&gt;gv :5. validateProposal(proposal,\nevent)
+gv.&gt;wf :6. warnings (outside event\nhours, overlaps)
+wf.&gt;f :7.\nWorkflowOutcome&lt;PlanProposal&gt;; off=wf
+f.&gt;ac :8. PlanProposal; off=f
+continuation=organizer ev :Part 2 — review &amp; apply (shared by all proposal features)
+ac-&gt;&gt;&gt;dlg :9. show(proposal) (via\nGuiProposalReviewer.review)
+dlg-&gt;&gt;&gt;organizer :10. list of changes, reasons,\nwarnings
+combinedFragment=alt~f1 ac ev
+ac:[Organizer\nrejects]
+dlg.&gt;ac :11. REJECT
+ac-&gt;&gt;&gt;ac + :12. nothing\nchanges
+tick=
+..=f1
+ac:[Organizer\napproves (all\nor some\nchanges)]
+dlg.&gt;ac :13. APPROVE_ALL /\nAPPROVE_SELECTED
+ac-&gt;&gt;&gt;f :14. applyProposal(eventId,\nproposal); on=f
+f-&gt;&gt;&gt;gv :15. validateProposal(proposal,\nevent) (check again)
+combinedFragment=alt~f2 ac ev
+ac:[blocking issue\nfound]
+f.&gt;ac :16. rejected with reasons
+..=f2
+ac:[ok]
+f-&gt;&gt;&gt;ch :17. execute(event, new\nMacroCommand(changes))
+ch-&gt;&gt;&gt;ev :18. each\ncommand.execute(event)\n(agenda.add(item) …)
+ch-&gt;&gt;&gt;ch + :19. push on\nundo stack
+tick=
+f-&gt;&gt;&gt;f + :20.\nrepository.\nsave(event)
+tick=
+f-&gt;&gt;&gt;bus :21. publish(AGENDA_CHANGED)
+f.&gt;ac :22. updated event
+--=f2
+off=f
+--=f1
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+</diagram>

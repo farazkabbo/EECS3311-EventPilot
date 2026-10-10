@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>1520</w>
+      <h>2230</h>
+    </coordinates>
+    <panel_attributes>title=SD10 — Change the plan in plain language, then undo — from the CLI (F12, UC12, UC14) — Shows that the command-line interface uses exactly the same facade as the GUI.
+autoTick=true
+obj=Organizer~organizer ACTOR
+obj=:AgendaCliCommand~cli
+obj=:ConsoleProposal\nReviewer~cr
+obj=:EventPlannerFacade~f
+obj=:CommandHistory~ch
+obj=:PlanModification\nWorkflow~wf
+obj=:CommandMapper~cm
+obj=event:Event~ev
+
+continuation=organizer ev :Change the plan
+organizer-&gt;&gt;&gt;cli :1. eventpilot agenda modify\n--event E1 "move the keynote\nto 2pm and add a 15-min break\nafter it"
+cli-&gt;&gt;&gt;f :2. modifyPlan(eventId,\ninstruction); on=f
+f-&gt;&gt;&gt;wf :3. execute(event, instruction); on=wf
+wf-&gt;&gt;&gt;wf + :4. agent loop\n→ list of\noperations\n(JSON)
+tick=
+combinedFragment=loop~f1 wf cm
+wf:[each operation]
+wf-&gt;&gt;&gt;cm :5. toCommand(op)
+cm.&gt;wf :6. MoveSessionCommand /\nAddAgendaItemCommand
+--=f1
+wf.&gt;f :7. PlanProposal; off=wf
+f.&gt;cli :8. PlanProposal; off=f
+combinedFragment=alt~f2 organizer ev
+organizer:[the instruction\nis ambiguous\n(two "keynote"\nsessions)]
+cli-&gt;&gt;&gt;organizer :9. "Which keynote: Opening or\nAI?"
+..=f2
+cli-&gt;&gt;&gt;cr :10. review(proposal)
+cr-&gt;&gt;&gt;organizer :11. prints 2 changes — "Apply?\n[y/N]"
+organizer-&gt;&gt;&gt;cr :12. y
+cr.&gt;cli :13. APPROVE_ALL
+cli-&gt;&gt;&gt;f :14. applyProposal(eventId,\nproposal)
+f-&gt;&gt;&gt;ch :15. execute(event,\nmacroCommand)
+ch-&gt;&gt;&gt;ev :16. move keynote, add break
+f-&gt;&gt;&gt;f + :17. save,\npublish(\nAGENDA_\nCHANGED)
+tick=
+--=f2
+continuation=organizer ev :Undo
+organizer-&gt;&gt;&gt;cli :18. eventpilot agenda undo\n--event E1
+cli-&gt;&gt;&gt;f :19. undo(eventId); on=f
+f-&gt;&gt;&gt;ch :20. undo(event)
+combinedFragment=alt~f3 cli ev
+cli:[nothing to undo]
+ch.&gt;f :21. none → "Nothing to undo"
+..=f3
+ch-&gt;&gt;&gt;ev :22. macroCommand.undo(event)\n(steps reversed: remove break,\nrestore keynote time)
+f-&gt;&gt;&gt;f + :23. save,\npublish(\nAGENDA_\nCHANGED)
+tick=
+f.&gt;cli :24. event → "Undid: move\nkeynote, add break"
+--=f3
+off=f
+fontsize=13</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+</diagram>

@@ -1,0 +1,1227 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>8</x>
+      <y>182</y>
+      <w>884</w>
+      <h>995</h>
+    </coordinates>
+    <panel_attributes>1. Workflows — one per AI feature (Template Method)
+layer=-1
+bg=#FFFDE7
+fontsize=14
+halign=left</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>458</x>
+      <y>1185</y>
+      <w>1214</w>
+      <h>625</h>
+    </coordinates>
+    <panel_attributes>2. Agent loop and helpers
+layer=-1
+bg=#FFF8E1
+fontsize=14
+halign=left</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>983</x>
+      <y>1818</y>
+      <w>1179</w>
+      <h>405</h>
+    </coordinates>
+    <panel_attributes>3. LLM access (Strategy + Adapter)
+layer=-1
+bg=#F3E5F5
+fontsize=14
+halign=left</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>953</x>
+      <y>2231</y>
+      <w>959</w>
+      <h>390</h>
+    </coordinates>
+    <panel_attributes>4. Tools the LLM may call (all read-only)
+layer=-1
+bg=#E8F5E9
+fontsize=14
+halign=left</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>30</x>
+      <y>830</y>
+      <w>410</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Template Method&gt;&gt;
+/PlanningWorkflow&lt;T&gt;/
+--
+--
++execute(e: Event, in: WorkflowInput): WorkflowOutcome&lt;T&gt; {final}
+#gatherContext(e: Event, in: WorkflowInput): WorkflowContext
+/#buildTask(ctx: WorkflowContext): AgentTask/
+/#createParser(): ResponseParser&lt;T&gt;/
+#validate(result: T, e: Event): List&lt;ValidationIssue&gt;
+fontsize=12
+bg=#FFFDE7</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>615</x>
+      <y>1125</y>
+      <w>160</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*EventExtractionWorkflow*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>1070</y>
+      <w>210</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*VenueRecommendationWorkflow*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>605</x>
+      <y>1015</y>
+      <w>180</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*AgendaGenerationWorkflow*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>960</y>
+      <w>190</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*SpeakerSchedulingWorkflow*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>520</x>
+      <y>865</y>
+      <w>350</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>*ConflictResolutionWorkflow*
+--
+--
+#validate(p: PlanProposal, e: Event): List&lt;ValidationIssue&gt;
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>615</x>
+      <y>810</y>
+      <w>160</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*BudgetPlanningWorkflow*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>755</y>
+      <w>170</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*CateringPlanningWorkflow*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>700</y>
+      <w>190</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*TaskDecompositionWorkflow*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>645</y>
+      <w>170</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*InvitationDraftingWorkflow*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>570</x>
+      <y>550</y>
+      <w>250</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>*FaqAnswerWorkflow*
+--
+--
+#gatherContext(e, in): WorkflowContext
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>495</y>
+      <w>170</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*PlanModificationWorkflow*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>370</y>
+      <w>190</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>*WorkflowOutcome&lt;T&gt;*
+--
+-value: T
+-issues: List&lt;ValidationIssue&gt;
+-questions: List&lt;String&gt;
+--
++needsClarification(): boolean
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>570</x>
+      <y>1713</y>
+      <w>250</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>*AgentOrchestrator*
+--
+-maxSteps: int = 8
+--
++run(task: AgentTask): AgentRunResult
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1050</x>
+      <y>1708</y>
+      <w>180</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>*AgentTask*
+--
+-systemPrompt: String
+-userPrompt: String
+-allowedTools: Set&lt;String&gt;
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1035</x>
+      <y>1603</y>
+      <w>210</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>*AgentRunResult*
+--
+-finalText: String
+-toolTrace: List&lt;ToolInvocation&gt;
+-hitStepLimit: boolean
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>560</x>
+      <y>1371</y>
+      <w>270</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>*PromptBuilder*
+--
+--
++build(templateId: String, vars: Map): String
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>480</x>
+      <y>1466</y>
+      <w>430</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>*MemoryManager*
+--
+--
++recordTurn(sessionId: String, m: Message): void
++buildMemoryContext(eventId: UUID, sessionId: String): MemoryContext
++rememberPreference(key: String, value: String): void
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>950</x>
+      <y>1248</y>
+      <w>380</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>*KnowledgeBase*
+--
+--
++index(e: Event): void
++search(eventId: UUID, q: String, k: int): List&lt;DocumentChunk&gt;
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>495</x>
+      <y>1591</y>
+      <w>400</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>*GuardrailValidator*
+--
+--
++validateDraft(d: EventDraft): List&lt;ValidationIssue&gt;
++validateProposal(p: PlanProposal, e: Event): List&lt;ValidationIssue&gt;
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>1256</y>
+      <w>150</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+*ResponseParser&lt;T&gt;*
+--
+--
++parse(raw: String): T
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1080</x>
+      <y>1493</y>
+      <w>120</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*EventDraftParser*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1050</x>
+      <y>1418</y>
+      <w>180</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>*ProposalParser*
+--
+-mapper: CommandMapper
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1085</x>
+      <y>1363</y>
+      <w>110</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*InvitationParser*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1080</x>
+      <y>1548</y>
+      <w>120</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*FaqAnswerParser*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1370</x>
+      <y>1408</y>
+      <w>280</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>*CommandMapper*
+--
+--
++toCommand(op: JsonNode): EventCommand
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1005</x>
+      <y>1881</y>
+      <w>270</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Context&gt;&gt;
+*LLMClient*
+--
+-provider: LLMProvider
+-maxRetries: int = 3
+--
++complete(req: LLMRequest): LLMResponse
++setProvider(p: LLMProvider): void
+fontsize=12
+bg=#F3E5F5</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1385</x>
+      <y>1991</y>
+      <w>250</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+&lt;&lt;Strategy&gt;&gt;
+*LLMProvider*
+--
+--
++chat(req: LLMRequest): LLMResponse
+fontsize=12
+bg=#F3E5F5</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1690</x>
+      <y>2111</y>
+      <w>250</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Adapter&gt;&gt;
+*ClaudeProvider*
+--
+-model: String
+--
++chat(req: LLMRequest): LLMResponse
+fontsize=12
+bg=#E0F7FA</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1690</x>
+      <y>1996</y>
+      <w>250</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Adapter&gt;&gt;
+*OllamaProvider*
+--
+-model: String
+--
++chat(req: LLMRequest): LLMResponse
+fontsize=12
+bg=#E0F7FA</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1690</x>
+      <y>1881</y>
+      <w>250</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Strategy&gt;&gt;
+*MockLLMProvider*
+--
+--
++chat(req: LLMRequest): LLMResponse
+fontsize=12
+bg=#F3E5F5</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1015</x>
+      <y>2016</y>
+      <w>250</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>*LLMProviderFactory*
+--
+--
+_+create(s: AgentSettings): LLMProvider_
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1980</x>
+      <y>2131</y>
+      <w>160</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Adaptee&gt;&gt;
+*Anthropic Messages API*
+fontsize=12
+bg=#E0F7FA</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2000</x>
+      <y>2016</y>
+      <w>120</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Adaptee&gt;&gt;
+*Ollama REST API*
+fontsize=12
+bg=#E0F7FA</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>975</x>
+      <y>2332</y>
+      <w>330</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>*ToolRegistry*
+--
+--
++register(t: AgentTool): void
++schemasFor(names: Set&lt;String&gt;): List&lt;ToolSchema&gt;
++execute(call: ToolCall): ToolResult
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1390</x>
+      <y>2364</y>
+      <w>240</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+*AgentTool*
+--
+--
++getName(): String
++getSchema(): ToolSchema
++execute(args: JsonNode): ToolResult
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1755</x>
+      <y>2569</y>
+      <w>120</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*VenueSearchTool*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1745</x>
+      <y>2514</y>
+      <w>140</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*BudgetCalculatorTool*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1750</x>
+      <y>2459</y>
+      <w>130</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*ConflictCheckTool*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1740</x>
+      <y>2404</y>
+      <w>150</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*SpeakerAvailabilityTool*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1740</x>
+      <y>2349</y>
+      <w>150</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*CateringCalculatorTool*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1750</x>
+      <y>2294</y>
+      <w>130</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*AttendeeQueryTool*
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>520</x>
+      <y>245</y>
+      <w>350</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>execute() always runs the same steps:
+1. gatherContext   2. buildTask
+3. orchestrator.run(task)
+4. createParser().parse(reply)  (retry up to 2× if invalid)
+5. validate   6. return WorkflowOutcome
+Subclasses only fill in steps 2, 4 (and optionally 1, 5).
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>80</x>
+      <y>0</y>
+      <w>310</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>Colour = pattern
+Yellow: Template Method · Purple: Strategy
+Cyan: Adapter
+Tools wrap deterministic code (see CD4):
+VenueSearchTool → VenueCatalog
+BudgetCalculatorTool → BudgetTracker
+ConflictCheckTool → ConflictDetector
+CateringCalculatorTool → CateringCalculator
+SpeakerAvailabilityTool → Speaker.isAvailable()
+AttendeeQueryTool → EventRepository
+fontsize=12</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>268</x>
+      <y>950</y>
+      <w>367</w>
+      <h>213</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>20.6;20.0;123.5;120.8;190.0;162.0;294.8;189.4;346.9;193.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>294</x>
+      <y>950</y>
+      <w>316</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>20.4;20.1;164.0;107.0;296.0;133.7</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>350</x>
+      <y>950</y>
+      <w>275</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>20.8;20.0;206.4;71.0;254.7;76.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>923</y>
+      <w>200</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>20.0;20.9;179.8;42.8</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>880</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>20.2;20.0;99.9;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>812</y>
+      <w>215</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>20.3;43.0;194.8;20.1</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>348</x>
+      <y>753</y>
+      <w>282</w>
+      <h>97</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>21.0;77.0;160.6;32.5;261.7;20.1</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>293</x>
+      <y>695</y>
+      <w>327</w>
+      <h>155</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>20.8;134.8;165.0;47.0;306.8;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>268</x>
+      <y>636</y>
+      <w>362</w>
+      <h>214</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>20.2;193.8;123.3;92.4;190.0;51.0;291.2;24.3;341.9;20.7</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>255</x>
+      <y>573</y>
+      <w>335</w>
+      <h>277</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>20.0;256.9;127.0;119.1;238.1;41.8;315.0;20.6</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>237</x>
+      <y>482</y>
+      <w>393</w>
+      <h>368</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>20.7;347.7;61.8;250.3;126.7;144.3;221.0;55.0;321.1;22.8;372.9;20.2</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>234</x>
+      <y>407</y>
+      <w>386</w>
+      <h>443</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+fontsize=12
+returns</panel_attributes>
+    <additional_attributes>365.9;20.0;316.2;30.8;224.0;75.0;125.3;186.8;59.6;312.2;20.2;422.8</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>750</x>
+      <y>1283</y>
+      <w>350</w>
+      <h>251</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.2;20.4;116.4;45.9;160.0;75.0;179.1;115.5;179.4;156.9;200.0;197.0;239.8;219.3;329.6;231.4</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>750</x>
+      <y>1289</y>
+      <w>320</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.0;20.5;113.6;45.9;175.3;84.4;200.0;116.0;300.0;148.4</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>750</x>
+      <y>1296</y>
+      <w>355</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.0;20.2;334.7;74.6</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>750</x>
+      <y>1282</y>
+      <w>350</w>
+      <h>308</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.1;20.1;117.1;45.5;160.0;76.0;182.1;134.9;175.8;194.5;200.0;253.0;239.2;276.5;329.6;288.4</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1210</x>
+      <y>1423</y>
+      <w>180</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>159.8;20.0;20.1;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>800</x>
+      <y>1728</y>
+      <w>270</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>250.0;20.0;20.3;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>800</x>
+      <y>1647</y>
+      <w>255</w>
+      <h>92</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+fontsize=12
+returns</panel_attributes>
+    <additional_attributes>234.7;20.7;20.3;71.5</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1255</x>
+      <y>1954</y>
+      <w>150</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
+m2=1
+fontsize=12
+uses</panel_attributes>
+    <additional_attributes>20.2;20.3;129.9;51.6</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1615</x>
+      <y>2068</y>
+      <w>100</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.1;20.1;80.0;42.8</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1615</x>
+      <y>2021</y>
+      <w>95</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.1;20.0;74.6;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1615</x>
+      <y>1951</y>
+      <w>100</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.1;42.9;80.0;20.2</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1920</x>
+      <y>2136</y>
+      <w>80</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+fontsize=12
+adapts</panel_attributes>
+    <additional_attributes>59.8;20.0;20.3;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1920</x>
+      <y>2021</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+fontsize=12
+adapts</panel_attributes>
+    <additional_attributes>79.9;20.0;20.3;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1245</x>
+      <y>2024</y>
+      <w>160</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+fontsize=12
+creates</panel_attributes>
+    <additional_attributes>139.8;20.4;20.1;23.6</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1285</x>
+      <y>2378</y>
+      <w>125</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
+m2=6
+fontsize=12</panel_attributes>
+    <additional_attributes>20.1;20.5;104.9;29.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1548</x>
+      <y>2454</y>
+      <w>227</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.7;20.2;184.7;117.7;206.9;122.6</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1599</x>
+      <y>2454</y>
+      <w>166</w>
+      <h>83</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.7;20.0;145.7;62.7</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1610</x>
+      <y>2420</y>
+      <w>160</w>
+      <h>62</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.3;20.7;139.8;42.3</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1610</x>
+      <y>2399</y>
+      <w>150</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.3;20.0;129.8;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1610</x>
+      <y>2357</y>
+      <w>150</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.3;40.3;129.8;20.5</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1601</x>
+      <y>2300</y>
+      <w>169</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+fontsize=12</panel_attributes>
+    <additional_attributes>20.7;64.0;148.9;20.8</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>226</x>
+      <y>950</y>
+      <w>364</w>
+      <h>814</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>344.0;794.3;303.0;784.2;232.0;744.0;134.3;545.0;63.1;260.2;20.3;20.2</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>229</x>
+      <y>950</y>
+      <w>351</w>
+      <h>470</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>330.7;450.2;229.0;408.0;122.4;283.8;56.5;142.8;20.6;20.1</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>224</x>
+      <y>950</y>
+      <w>276</w>
+      <h>540</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>255.9;519.5;116.2;343.4;50.5;167.6;20.1;20.4</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>217</x>
+      <y>950</y>
+      <w>298</w>
+      <h>674</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>277.8;653.7;264.5;646.0;105.1;423.7;41.4;200.4;20.7;20.2</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>258</x>
+      <y>950</y>
+      <w>382</w>
+      <h>344</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+fontsize=12
+creates (createParser)</panel_attributes>
+    <additional_attributes>361.9;323.9;200.0;233.0;127.9;163.1;20.2;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>800</x>
+      <y>570</y>
+      <w>358</w>
+      <h>698</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>337.7;678.0;316.9;497.7;250.2;266.9;110.0;62.0;20.0;20.6</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>758</x>
+      <y>1763</y>
+      <w>271</w>
+      <h>138</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>251.0;117.8;20.5;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>688</x>
+      <y>1763</y>
+      <w>395</w>
+      <h>589</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+fontsize=12</panel_attributes>
+    <additional_attributes>375.4;568.8;262.0;466.0;150.7;300.0;20.9;20.2</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>8</x>
+      <y>-70</y>
+      <w>1400</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>*CD2 — Agent Layer (the AI part of the system)*
+A workflow builds the task → the orchestrator talks to the LLM and runs tools → the parser turns the reply into objects → the guardrails check them.
+fontsize=16</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+</diagram>
