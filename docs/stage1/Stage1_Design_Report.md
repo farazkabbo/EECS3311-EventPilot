@@ -4,8 +4,8 @@
 | | |
 |---|---|
 | **Student** | Mohammed Faraz Kabbo |
-| **Student ID** | *(fill in)* |
-| **Repository** | `https://github.com/<your-username>/EECS3311-EventPilot` (used for all three stages) |
+| **Student ID** | 219937101 |
+| **Repository** | https://github.com/farazkabbo/EECS3311-EventPilot |
 | **Date** | October 2026 |
 
 **Contents**
@@ -28,7 +28,7 @@ All UML diagrams are drawn in **UMLet**. The editable UMLet files (`.uxf`) are i
 
 ### 1.1 Problem and Motivation
 
-Planning an event such as a 120-person meetup, a student conference or a company workshop means juggling many constraints that affect each other. Sessions must not overlap in the same room. Speakers are only free at certain times. The venue must fit the crowd and the budget. Catering must match confirmed RSVPs and dietary needs. Dozens of tasks have deadlines that depend on each other. And the plan keeps changing ("move the keynote to 2 pm").
+Planning an event such as a 120-person meetup, a student conference or a company workshop means juggling many constraints that affect each other. Sessions must not overlap in the same room. Speakers are only free at certain times. The venue must fit the crowd and the budget. Catering must match confirmed RSVPs and dietary needs. Dozens of tasks have deadlines that depend on each other. And the plan keeps changing, for example "move the keynote to 2 pm".
 
 Small organizers (student clubs, community groups, small businesses) usually do this with spreadsheets, e-mail threads and a generic chatbot. Spreadsheets can do the arithmetic but cannot suggest anything. A chatbot can suggest, but it does not know the real state of the event, invents numbers, and cannot safely change anything. The result is double-booked rooms, forgotten dietary restrictions and budget overruns.
 

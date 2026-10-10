@@ -3,13 +3,13 @@
 **EECS 3311 Software Design · Fall 2026 · Course Project**
 **Author:** Mohammed Faraz Kabbo
 
-EventPilot is an AI agent-based desktop application (JavaFX GUI + picocli CLI) that helps organizers plan events end-to-end. An LLM-based planning agent reasons over the real event state, calls deterministic tools (venue search, weather, budget calculator, conflict checker, catering calculator, knowledge-base search, …), and proposes concrete, reviewable changes that the organizer approves before they are applied — with full undo/redo.
+EventPilot is an AI agent-based desktop application (JavaFX GUI + picocli CLI) that helps organizers plan events end-to-end. An LLM-based planning agent reasons over the real event state, calls deterministic tools (venue search, budget calculator, conflict checker, speaker availability, catering calculator, attendee query), and proposes concrete, reviewable changes that the organizer approves before they are applied — with full undo/redo.
 
 ## Stage status
 
 | Stage | Content | Status |
 |---|---|---|
-| **Stage 1 — Design** | [Stage 1 Design Report (Markdown)](docs/stage1/Stage1_Design_Report.md) · [PDF](docs/stage1/Stage1_Design_Report.pdf) · [UML diagrams](docs/stage1/diagrams/) | Submitted |
+| **Stage 1 — Design** | [Stage 1 Design Report (Markdown)](docs/stage1/Stage1_Design_Report.md) · [PDF](docs/stage1/Stage1_Design_Report.pdf) · [Word](docs/stage1/Stage1_Design_Report.docx) · [UML diagrams](docs/stage1/diagrams/) | Submitted |
 | Stage 2 — AI-Human Collaborative Implementation | Source code, AI tool log, design-to-implementation traceability | next stage |
 | Stage 3 — Testing & Agent Validation | JUnit tests, KUMA behavioral tests, failure analysis | next stage |
 
@@ -28,10 +28,11 @@ EventPilot is an AI agent-based desktop application (JavaFX GUI + picocli CLI) t
 ```
 docs/stage1/Stage1_Design_Report.md   full Stage 1 report
 docs/stage1/Stage1_Design_Report.pdf  printable copy
-docs/stage1/diagrams/src              PlantUML sources
-docs/stage1/diagrams/png | svg        rendered diagrams
+docs/stage1/Stage1_Design_Report.docx editable Word copy
+docs/stage1/diagrams/uxf              UMLet diagram files (.uxf, open with UMLet)
+docs/stage1/diagrams/png              exported diagram images
 ```
 
 ## Planned technology
 
-Java 21 · Maven · JavaFX 21 · picocli · Jackson · SQLite (JDBC) · Anthropic Messages API / Ollama · Open-Meteo · PDFBox · ical4j · JUnit 5 · Mockito · KUMA
+Java 21 · Maven · JavaFX 21 · picocli · Jackson · SQLite (JDBC) · Anthropic Messages API / Ollama · JUnit 5 · Mockito · KUMA
