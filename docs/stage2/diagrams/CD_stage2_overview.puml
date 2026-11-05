@@ -1,0 +1,145 @@
+@startuml CD_stage2_overview
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontSize 11
+skinparam packageStyle rectangle
+title EventPilot - Stage 2 implemented class diagram (overview)\nColours: orange=Facade, green=Command, blue=Observer, purple=Strategy, yellow=Template Method, pink=State, cyan=Adapter
+
+package "Presentation (gui, cli)" {
+  abstract class BaseView <<Observer>> #ADD8E6 {
+    #refresh(Event)
+    +onEventChanged(DomainEvent)
+  }
+  abstract class BaseController {
+    #runAsync(what, work, onSuccess)
+    #reviewAndApply(PlanProposal)
+  }
+  class "DashboardView\nAgendaView\nVenueView\nBudgetView\nAttendeeView\nCateringView\nInvitationView\nTaskBoardView" as Views
+  class "EventController\nAgendaController\nBudgetController\nAttendeeController\nTaskController\nAgentChatController" as Controllers
+  class ChatPanel
+  class GuiProposalReviewer
+  abstract class BaseCliCommand {
+    #run(): int
+    #reviewAndApply(PlanProposal)
+  }
+  class "EventCliCommand, AttendeeCliCommand,\nSpeakerCliCommand, Venue, Agenda,\nBudgetCmd, Catering, Task, Invite,\nAsk, Alerts, Pref, Ai, ShellCommand" as CliCommands
+  class ConsoleProposalReviewer
+  interface ProposalReviewer {
+    +review(PlanProposal): Optional<List<Integer>>
+  }
+}
+
+package "Application" {
+  class EventPlannerFacade <<Facade>> #FFC680 {
+    +createEventFromDescription(text)
+    +answerClarification(text)
+    +recommendVenues(id, needs)
+    +generateAgenda(id, prefs)
+    +scheduleSpeakers(id)
+    +detectConflicts(id) / resolveConflicts(id)
+    +generateBudget(id) / recordExpense(...)
+    +planCatering(id)
+    +generateTasks(id, team) / updateTaskStatus(...)
+    +draftInvitations(id, tone) / sendInvitations(id)
+    +askFaq(id, question)
+    +modifyPlan(id, text)
+    +applyProposal(proposal, selection)
+    +undo(id) / redo(id)
+    +transitionEvent(id, action)
+  }
+  interface EventCommand <<Command>> #90EE90 {
+    +execute(Event) +undo(Event) +describe()
+  }
+  class MacroCommand #90EE90
+  class CommandHistory <<Invoker>> #90EE90
+  class EventBus <<Subject>> #ADD8E6
+  interface EventObserver #ADD8E6
+  class AlertService #ADD8E6
+  class PlanProposal
+  interface EventRepository
+  interface VenueCatalog
+  interface MessageGateway
+}
+
+package "Agent" {
+  abstract class "PlanningWorkflow<T>" as PW <<Template Method>> #FFFF99 {
+    +execute(): WorkflowResult<T> {final}
+    #gatherContext() #shortCircuit()
+    #buildTask() {abstract}
+    #createParser() {abstract}
+    #validate()
+  }
+  class AgentOrchestrator {
+    +run(task, ctx) +followUp(result, msg)
+  }
+  class LLMClient <<Context>> #D8BFD8
+  interface LLMProvider <<Strategy>> #D8BFD8
+  class ToolRegistry
+  interface AgentTool
+  class GuardrailValidator
+  class CommandMapper
+  class MemoryManager
+  class KnowledgeBase
+  class KnowledgeBaseIndexer #ADD8E6
+}
+
+package "Domain" {
+  class Event <<Context>> #FFC0CB
+  interface EventState <<State>> #FFC0CB
+  class "ConflictDetector\nBudgetTracker\nCateringCalculator\nTaskScheduler" as RuleEngines
+}
+
+package "Infrastructure" {
+  class SqliteEventRepository
+  class JsonVenueCatalogAdapter <<Adapter>> #E0FFFF
+  class OutboxFileGateway
+  class AttendeeCsvImporter
+  class AppConfig
+}
+
+BaseView <|-- Views
+BaseController <|-- Controllers
+Controllers --> EventPlannerFacade
+ChatPanel --> Controllers
+BaseController ..> GuiProposalReviewer
+ProposalReviewer <|.. GuiProposalReviewer
+ProposalReviewer <|.. ConsoleProposalReviewer
+BaseCliCommand <|-- CliCommands
+CliCommands --> EventPlannerFacade
+BaseCliCommand ..> ConsoleProposalReviewer
+EventObserver <|.. BaseView
+EventObserver <|.. AlertService
+EventObserver <|.. KnowledgeBaseIndexer
+EventBus o-- "0..*" EventObserver
+
+EventPlannerFacade --> PW : (1) runs workflow
+EventPlannerFacade --> CommandHistory : (2) apply / undo / redo
+EventPlannerFacade --> EventBus : (3) publish change
+EventPlannerFacade --> EventRepository
+EventPlannerFacade --> MessageGateway
+PW ..> PlanProposal : creates
+PlanProposal o-- "1..*" EventCommand
+CommandHistory --> EventCommand
+EventCommand <|.. MacroCommand
+MacroCommand o-- "1..*" EventCommand
+EventCommand ..> Event : receiver
+
+PW --> AgentOrchestrator
+PW --> GuardrailValidator
+PW --> CommandMapper
+PW --> MemoryManager
+PW --> KnowledgeBase
+AgentOrchestrator --> LLMClient
+AgentOrchestrator --> ToolRegistry
+LLMClient o-- LLMProvider
+ToolRegistry o-- "6" AgentTool
+AgentTool ..> RuleEngines
+AgentTool ..> VenueCatalog
+GuardrailValidator ..> RuleEngines
+
+Event o-- EventState
+EventRepository <|.. SqliteEventRepository
+VenueCatalog <|.. JsonVenueCatalogAdapter
+MessageGateway <|.. OutboxFileGateway
+@enduml

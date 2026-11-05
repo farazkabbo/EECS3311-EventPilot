@@ -1,0 +1,96 @@
+@startuml CD_stage2_domain_commands
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontSize 11
+title EventPilot - Stage 2 domain, State pattern and Command pattern
+
+class Event #FFC0CB {
+  -status: EventStatus
+  +transition(LifecycleAction)
+  +ensureEditable()
+  +ensureCanInvite()
+  +setState(EventState)
+  +deepCopy(): Event
+}
+interface EventState #FFC0CB {
+  +status() +ensureEditable(e) +ensureCanInvite(e)
+  +onAction(e, action) +allowedActions()
+}
+abstract class AbstractEventState #FFC0CB
+class DraftState #FFC0CB
+class PlanningState #FFC0CB
+class ConfirmedState #FFC0CB
+class CompletedState #FFC0CB
+class CancelledState #FFC0CB
+Event o-- "1" EventState
+EventState <|.. AbstractEventState
+AbstractEventState <|-- DraftState
+AbstractEventState <|-- PlanningState
+AbstractEventState <|-- ConfirmedState
+AbstractEventState <|-- CompletedState
+AbstractEventState <|-- CancelledState
+
+class Agenda
+class AgendaItem
+class Speaker
+class Attendee
+class Venue
+class Room
+class Budget
+class CateringPlan
+class EventTask
+class Invitation
+class EventDraft
+Event *-- "1" Agenda
+Agenda o-- "0..*" AgendaItem
+Event *-- "0..*" Speaker
+Event *-- "0..*" Attendee
+Event o-- "0..1" Venue
+Event *-- "1..*" Room
+Event *-- "1" Budget
+Event *-- "0..1" CateringPlan
+Event *-- "0..*" EventTask
+Event *-- "0..*" Invitation
+EventDraft ..> Event : toEvent()
+
+interface EventCommand #90EE90 {
+  +execute(Event) +undo(Event) +describe()
+}
+class AddAgendaItemCommand #90EE90
+class RemoveAgendaItemCommand #90EE90
+class MoveSessionCommand #90EE90
+class RenameAgendaItemCommand <<new in Stage 2>> #90EE90
+class AssignSpeakerCommand #90EE90
+class SetVenueCommand #90EE90
+class SetBudgetLineCommand #90EE90
+class SetCateringPlanCommand #90EE90
+class AddTaskCommand #90EE90
+class MacroCommand #90EE90
+class CommandHistory #90EE90 {
+  +execute(e, cmd) +undo(e) +redo(e)
+  +snapshot(id) +restore(id, snapshot)
+}
+EventCommand <|.. AddAgendaItemCommand
+EventCommand <|.. RemoveAgendaItemCommand
+EventCommand <|.. MoveSessionCommand
+EventCommand <|.. RenameAgendaItemCommand
+EventCommand <|.. AssignSpeakerCommand
+EventCommand <|.. SetVenueCommand
+EventCommand <|.. SetBudgetLineCommand
+EventCommand <|.. SetCateringPlanCommand
+EventCommand <|.. AddTaskCommand
+EventCommand <|.. MacroCommand
+MacroCommand o-- "1..*" EventCommand
+CommandHistory o-- "0..*" EventCommand
+EventCommand ..> Event : receiver
+
+class ConflictDetector
+class BudgetTracker
+class CateringCalculator
+class TaskScheduler
+ConflictDetector ..> Event
+BudgetTracker ..> Budget
+CateringCalculator ..> Attendee
+TaskScheduler ..> EventTask
+@enduml

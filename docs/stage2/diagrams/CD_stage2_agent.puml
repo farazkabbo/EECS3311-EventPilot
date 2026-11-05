@@ -1,0 +1,133 @@
+@startuml CD_stage2_agent
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontSize 11
+title EventPilot - Stage 2 agent layer (Template Method, Strategy, Adapter, tools)
+
+abstract class "PlanningWorkflow<T>" as PW #FFFF99 {
+  #services: AgentServices
+  #event: Event
+  +execute(): WorkflowResult<T> {final}
+  #gatherContext(): String
+  #toolEvent(): Event
+  #shortCircuit(ctx): Optional<T>
+  #buildTask(ctx): AgentTask {abstract}
+  #createParser(): ResponseParser<T> {abstract}
+  #validate(T, AgentResult): List<Warning>
+  #retryOnBlockingWarnings(): boolean
+}
+class EventExtractionWorkflow #FFFF99
+class VenueRecommendationWorkflow #FFFF99
+class AgendaGenerationWorkflow #FFFF99
+class SpeakerSchedulingWorkflow #FFFF99
+class ConflictResolutionWorkflow #FFFF99 {
+  #validate(): tests fix on deepCopy
+}
+class BudgetPlanningWorkflow #FFFF99
+class CateringPlanningWorkflow #FFFF99
+class TaskDecompositionWorkflow #FFFF99
+class InvitationDraftingWorkflow #FFFF99
+class FaqAnswerWorkflow #FFFF99 {
+  #gatherContext(): retrieval
+  #shortCircuit(): escalate
+}
+class PlanModificationWorkflow #FFFF99
+
+PW <|-- EventExtractionWorkflow
+PW <|-- VenueRecommendationWorkflow
+PW <|-- AgendaGenerationWorkflow
+PW <|-- SpeakerSchedulingWorkflow
+PW <|-- ConflictResolutionWorkflow
+PW <|-- BudgetPlanningWorkflow
+PW <|-- CateringPlanningWorkflow
+PW <|-- TaskDecompositionWorkflow
+PW <|-- InvitationDraftingWorkflow
+PW <|-- FaqAnswerWorkflow
+PW <|-- PlanModificationWorkflow
+
+interface "ResponseParser<T>" as RP {
+  +parse(text): T
+}
+class ProposalParser
+class JsonAnswer
+RP <|.. ProposalParser
+PW ..> RP : createParser()
+ProposalParser --> CommandMapper
+ProposalParser ..> JsonAnswer
+
+class AgentOrchestrator {
+  +MAX_STEPS = 8
+  +run(AgentTask, ToolContext): AgentResult
+  +followUp(AgentResult, String): AgentResult
+}
+class AgentTask
+class AgentResult
+class ToolContext
+PW --> AgentOrchestrator
+AgentOrchestrator ..> AgentTask
+AgentOrchestrator ..> AgentResult
+AgentOrchestrator ..> ToolContext
+
+class LLMClient #D8BFD8 {
+  +complete(LLMRequest): LLMResponse
+  +setProvider(LLMProvider)
+  +usage(): UsageTracker
+}
+interface LLMProvider #D8BFD8 {
+  +chat(LLMRequest): LLMResponse
+  +modelFor(Tier): String
+}
+class ClaudeProvider <<Adapter>> #E0FFFF
+class OllamaProvider <<Adapter>> #E0FFFF
+class MockLLMProvider #D8BFD8
+class OfflinePlanner
+class LLMProviderFactory
+class UsageTracker
+AgentOrchestrator --> LLMClient
+LLMClient o-- LLMProvider
+LLMClient --> UsageTracker
+LLMProvider <|.. ClaudeProvider
+LLMProvider <|.. OllamaProvider
+LLMProvider <|.. MockLLMProvider
+MockLLMProvider --> OfflinePlanner : fallback behaviour
+LLMProviderFactory ..> LLMProvider : creates from AppConfig
+
+class ToolRegistry {
+  +specs(names)
+  +execute(call, allowed, ctx): ToolResult
+}
+class SchemaValidator
+interface AgentTool {
+  +name() +description() +inputSchema()
+  +execute(args, ctx): String
+}
+AgentOrchestrator --> ToolRegistry
+ToolRegistry ..> SchemaValidator : validates arguments first
+ToolRegistry o-- AgentTool
+AgentTool <|.. VenueSearchTool
+AgentTool <|.. BudgetCalculatorTool
+AgentTool <|.. ConflictCheckTool
+AgentTool <|.. SpeakerAvailabilityTool
+AgentTool <|.. CateringCalculatorTool
+AgentTool <|.. AttendeeQueryTool
+
+class GuardrailValidator {
+  +validateDraft(EventDraft)
+  +validateProposal(Event, PlanProposal)
+  +checkCommands(Event, commands)
+}
+class CommandMapper {
+  +toCommand(op, Event): EventCommand
+}
+class MemoryManager {
+  +remember() +preferences() +buildMemoryContext()
+}
+class KnowledgeBase {
+  +index(Event) +search(id, q, k)
+}
+PW --> GuardrailValidator
+PW --> MemoryManager
+PW --> KnowledgeBase
+ConflictCheckTool --> CommandMapper
+@enduml
