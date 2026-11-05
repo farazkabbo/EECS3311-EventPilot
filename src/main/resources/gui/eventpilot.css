@@ -1,0 +1,72 @@
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+    -fx-font-size: 13px;
+    -fx-base: #f4f6fa;
+}
+
+.top-bar {
+    -fx-background-color: #1f3a5f;
+}
+
+.top-bar > .label {
+    -fx-text-fill: white;
+}
+
+.state-badge {
+    -fx-background-color: #f2c14e;
+    -fx-text-fill: #1f3a5f !important;
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+}
+
+.status-bar {
+    -fx-background-color: #e3e8f0;
+}
+
+.view-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f3a5f;
+}
+
+.column-title {
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f3a5f;
+}
+
+.fact-key {
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a5b74;
+}
+
+.help {
+    -fx-text-fill: #6b7a90;
+    -fx-font-style: italic;
+}
+
+.conflict-row {
+    -fx-background-color: #f8d7da;
+}
+
+.overdue {
+    -fx-text-fill: #b00020;
+}
+
+.alert-critical {
+    -fx-text-fill: #b00020;
+    -fx-font-weight: bold;
+}
+
+.alert-warning {
+    -fx-text-fill: #8a5a00;
+}
+
+.warning-high {
+    -fx-text-fill: #b00020;
+    -fx-font-weight: bold;
+}
+
+.warning-low {
+    -fx-text-fill: #8a5a00;
+}

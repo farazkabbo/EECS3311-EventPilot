@@ -16,8 +16,8 @@ public final class Main {
 
     public static void main(String[] args) {
         if (args.length == 0 || args[0].equalsIgnoreCase("gui")) {
-            System.err.println("The GUI is not available in this build yet; use the CLI (try --help).");
-            System.exit(1);
+            javafx.application.Application.launch(com.eventpilot.gui.EventPilotGui.class);
+            return;
         }
         System.exit(runCli(EventPilotApp.bootstrap(AppConfig.load()), args, System.out, System.in));
     }
@@ -26,6 +26,7 @@ public final class Main {
         BaseCliCommand.setContext(new CliContext(app, out, in));
         CommandLine cli = new CommandLine(new EventPilotCli()).setCaseInsensitiveEnumValuesAllowed(true);
         cli.setOut(new java.io.PrintWriter(out, true));
+        BaseCliCommand.Common.reset();
         return cli.execute(args);
     }
 }
