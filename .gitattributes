@@ -1,0 +1,7 @@
+mvnw text eol=lf
+*.sh text eol=lf
+*.cmd text eol=crlf
+*.java text
+*.png binary
+*.pdf binary
+*.docx binary
