@@ -15,13 +15,43 @@ import picocli.CommandLine;
  */
 public abstract class BaseCliCommand implements Callable<Integer> {
 
-    /** Options shared by all commands. */
+    /**
+     * Options shared by all commands. They may be given before or after the subcommand
+     * ({@code eventpilot -y agenda generate} or {@code eventpilot agenda generate -y}), so the
+     * values are kept for the whole invocation.
+     */
     public static class Common {
-        @CommandLine.Option(names = {"-e", "--event"}, description = "Event id (default: the one chosen with `event use`).")
+        private static String invocationEvent;
+        private static boolean invocationYes;
+
         String eventId;
+        boolean yes;
+
+        @CommandLine.Option(names = {"-e", "--event"}, description = "Event id (default: the one chosen with `event use`).")
+        void setEventId(String id) {
+            eventId = id;
+            invocationEvent = id;
+        }
 
         @CommandLine.Option(names = {"-y", "--yes"}, description = "Approve agent proposals without asking.")
-        boolean yes;
+        void setYes(boolean value) {
+            yes = value;
+            invocationYes |= value;
+        }
+
+        /** Called before each command line is executed. */
+        public static void reset() {
+            invocationEvent = null;
+            invocationYes = false;
+        }
+
+        String event() {
+            return eventId != null ? eventId : invocationEvent;
+        }
+
+        boolean approve() {
+            return yes || invocationYes;
+        }
     }
 
     @CommandLine.Mixin
@@ -50,12 +80,12 @@ public abstract class BaseCliCommand implements Callable<Integer> {
     protected abstract int run();
 
     protected String eventId() {
-        return ctx.resolveEvent(common.eventId);
+        return ctx.resolveEvent(common.event());
     }
 
     /** UC13 in the CLI: show the proposal, ask y/N/select, apply the approved part. */
     protected int reviewAndApply(PlanProposal proposal) {
-        ConsoleProposalReviewer reviewer = new ConsoleProposalReviewer(ctx.printer(), ctx.in(), common.yes);
+        ConsoleProposalReviewer reviewer = new ConsoleProposalReviewer(ctx.printer(), ctx.in(), common.approve());
         Optional<List<Integer>> decision = reviewer.review(proposal);
         if (proposal.isQuestion()) {
             ctx.printer().println("  Answer by running the command again with more detail.");

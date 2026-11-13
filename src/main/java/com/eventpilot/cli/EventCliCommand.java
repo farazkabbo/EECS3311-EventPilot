@@ -133,7 +133,7 @@ public class EventCliCommand extends BaseCliCommand {
         @Override
         protected int run() throws DomainException {
             LifecycleAction a = LifecycleAction.parse(action);
-            if (a == LifecycleAction.CANCEL && !common.yes) {
+            if (a == LifecycleAction.CANCEL && !common.approve()) {
                 ctx.printer().println("Cancel the event? It becomes read-only. [y/N]: ");
                 try {
                     String answer = ctx.in().readLine();
