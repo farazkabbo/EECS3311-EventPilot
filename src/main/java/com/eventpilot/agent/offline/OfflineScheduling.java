@@ -33,7 +33,10 @@ class OfflineScheduling {
             return OfflinePlanner.call("conflict_check", args);
         }
         ObjectNode out = Json.object();
-        out.put("summary", "A " + (prefs.path("tracks").asInt(1) > 1 ? prefs.get("tracks").asInt() + "-track " : "")
+        int requested = prefs.path("tracks").asInt(1);
+        int tracks = Math.max(1, Math.min(requested, m.rooms.size()));
+        out.put("summary", "A " + (tracks > 1 ? tracks + "-track " : "")
+                + (requested > tracks ? "(only " + m.rooms.size() + " room(s) available, so " + tracks + " track) " : "")
                 + "agenda with " + changes.size() + " items: opening keynote, sessions of "
                 + prefs.path("sessionMinutes").asInt(45) + " minutes, " + prefs.path("breakMinutes").asInt(15)
                 + "-minute breaks and lunch. Checked with conflict_check.");
