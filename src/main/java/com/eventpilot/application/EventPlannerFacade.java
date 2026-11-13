@@ -619,6 +619,12 @@ public class EventPlannerFacade {
         return alerts.refresh(event);
     }
 
+    /** Read-only variant of {@link #alerts(String)} for views: computes without notifying observers. */
+    public List<Alert> currentAlerts(String eventId) {
+        alerts.restoreEscalations(eventId, escalatedQuestions(eventId));
+        return alerts.compute(getEvent(eventId));
+    }
+
     public Map<String, String> preferences() {
         return agent.memory().preferences();
     }

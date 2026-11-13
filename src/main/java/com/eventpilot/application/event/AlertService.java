@@ -68,6 +68,13 @@ public class AlertService implements EventObserver {
         return alerts;
     }
 
+    /** Current alerts without storing or publishing anything (safe to call from views). */
+    public List<Alert> compute(Event event) {
+        List<Alert> alerts = checkAll(event);
+        alerts.addAll(escalations.getOrDefault(event.id(), List.of()));
+        return alerts;
+    }
+
     public List<Alert> checkAll(Event event) {
         List<Alert> alerts = new ArrayList<>();
         for (Conflict c : conflictDetector.detect(event)) {
