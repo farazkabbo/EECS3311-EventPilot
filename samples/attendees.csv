@@ -1,0 +1,16 @@
+name,email,role,dietary,accessibility,rsvp
+Amira Haddad,amira.haddad@example.com,speaker,halal,,accepted
+Ben Carter,ben.carter@example.com,guest,vegetarian,,accepted
+Chloe Nguyen,chloe.nguyen@example.com,vip,vegan;gluten-free,,accepted
+Daniel Okafor,daniel.okafor@example.com,guest,,wheelchair access,accepted
+Elena Petrova,elena.petrova@example.com,guest,nut allergy,,tentative
+Farid Rahman,farid.rahman@example.com,staff,halal,,accepted
+Grace Lee,grace.lee@example.com,guest,vegetarian,,invited
+Hiro Tanaka,hiro.tanaka@example.com,speaker,,,accepted
+Isabel Santos,isabel.santos@example.com,guest,kosher,,accepted
+Jack Wilson,jack.wilson@example.com,guest,,,declined
+Kavya Iyer,kavya.iyer@example.com,vip,vegetarian,hearing loop,accepted
+Liam Murphy,liam.murphy@example.invalid,guest,,,accepted
+Bad Row Without Email,,guest,,,
+Mia Rossi,mia.rossi@example.com,attendee,,,accepted
+Ben Carter Again,BEN.CARTER@example.com,guest,,,accepted
