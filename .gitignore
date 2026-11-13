@@ -14,7 +14,8 @@ target/
 !.env.example
 config.local.json
 
-# Local runtime data (database, e-mail outbox)
-data/
+# Local runtime data (database, e-mail outbox) - anchored to the repo root so
+# src/main/resources/data (the bundled venue dataset) is NOT ignored
+/data/
 *.db
-outbox/
+/outbox/
