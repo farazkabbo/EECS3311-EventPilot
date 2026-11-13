@@ -1,9 +1,20 @@
+# Build output
 target/
 *.class
+
+# IDE
 .idea/
 *.iml
 .vscode/
 .DS_Store
-*.db
+
+# Local secrets - never commit real keys
 .env
+.env.*
+!.env.example
+config.local.json
+
+# Local runtime data (database, e-mail outbox)
+data/
+*.db
 outbox/
