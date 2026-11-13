@@ -45,12 +45,15 @@ public final class EventPilotApp {
     private final EventPlannerFacade facade;
     private final EventBus bus;
     private final AlertService alerts;
+    private final EventRepository repository;
 
-    private EventPilotApp(AppConfig config, EventPlannerFacade facade, EventBus bus, AlertService alerts) {
+    private EventPilotApp(AppConfig config, EventPlannerFacade facade, EventBus bus, AlertService alerts,
+                          EventRepository repository) {
         this.config = config;
         this.facade = facade;
         this.bus = bus;
         this.alerts = alerts;
+        this.repository = repository;
     }
 
     public static EventPilotApp bootstrap(AppConfig config) {
@@ -87,7 +90,12 @@ public final class EventPilotApp {
         EventPlannerFacade facade = new EventPlannerFacade(repository, venues,
                 new OutboxFileGateway(config.dataDir().resolve("outbox")), new AttendeeCsvImporter(),
                 agent, new CommandHistory(), bus, alerts, llm);
-        return new EventPilotApp(config, facade, bus, alerts);
+        return new EventPilotApp(config, facade, bus, alerts, repository);
+    }
+
+    /** Settings storage used by the front-ends (e.g. the CLI's selected event). */
+    public EventRepository repository() {
+        return repository;
     }
 
     /** Start-up check: refreshes alerts (including overdue tasks) for every event. */
