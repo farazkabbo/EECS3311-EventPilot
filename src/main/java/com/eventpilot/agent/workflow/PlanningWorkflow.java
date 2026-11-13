@@ -46,7 +46,7 @@ public abstract class PlanningWorkflow<T> {
             return new WorkflowResult<>(direct.get(), validate(direct.get(), null), List.of());
         }
         AgentTask task = buildTask(context);
-        AgentResult run = services.orchestrator().run(task, new ToolContext(event));
+        AgentResult run = services.orchestrator().run(task, new ToolContext(toolEvent()));
         ResponseParser<T> parser = createParser();
 
         Parsed<T> parsed = parseWithRepair(parser, run);
@@ -97,6 +97,11 @@ public abstract class PlanningWorkflow<T> {
     /** Hook: the facts the prompt needs. Default: saved preferences and recent conversation. */
     protected String gatherContext() {
         return services.memory().buildMemoryContext(event == null ? null : event.id());
+    }
+
+    /** Hook: the event state the tools see (default: the current event). */
+    protected Event toolEvent() {
+        return event;
     }
 
     /** Hook: return a result without calling the LLM (e.g. FAQ with nothing relevant). */
