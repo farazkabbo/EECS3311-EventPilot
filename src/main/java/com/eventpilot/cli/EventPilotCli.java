@@ -5,7 +5,12 @@ import picocli.CommandLine.Command;
 /** Root CLI command. Every subcommand calls only the EventPlannerFacade. */
 @Command(name = "eventpilot", mixinStandardHelpOptions = true, version = "EventPilot 0.2.0 (Stage 2)",
         description = "AI event-planning agent - command-line interface.",
-        subcommands = {EventCliCommand.class, AttendeeCliCommand.class, SpeakerCliCommand.class})
+        subcommands = {EventCliCommand.class, AttendeeCliCommand.class, SpeakerCliCommand.class,
+                PlanningCliCommands.Venue.class, PlanningCliCommands.Agenda.class,
+                ResourceCliCommands.BudgetCmd.class, ResourceCliCommands.Catering.class, ResourceCliCommands.Task.class,
+                CommunicationCliCommands.Invite.class, CommunicationCliCommands.Ask.class,
+                CommunicationCliCommands.Alerts.class, CommunicationCliCommands.Pref.class,
+                CommunicationCliCommands.Ai.class, ShellCommand.class})
 public class EventPilotCli extends BaseCliCommand {
 
     @Override
