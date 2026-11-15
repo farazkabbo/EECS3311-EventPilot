@@ -9,7 +9,7 @@
 | **Stage 1 report** | `docs/stage1/Stage1_Design_Report.pdf` |
 | **Date** | November 2026 |
 
-> Fields marked **[TO FILL]** (video links/timestamps, AI token cost) must be completed by the student before submission.
+> Fields marked **[TO FILL]** (video links/timestamps, live-run API cost) must be completed by the student before submission.
 
 **Contents**
 1. Project overview and implementation status
@@ -54,13 +54,13 @@ The model is chosen in `.env` (git-ignored) and created by `LLMProviderFactory` 
 
 ### 1.3 Current working functionality
 
-All 12 Stage 1 features (F01–F12) and the three supporting use cases (UC13 review & approve, UC14 undo/redo, UC15 lifecycle) are implemented and work in both the GUI and the CLI. 101 JUnit tests pass (`mvnw test`). Every AI feature has been run end-to-end through the real agent loop, tools, parsers, guardrails, facade, persistence and both front-ends using the offline planner.
+All 12 Stage 1 features (F01–F12) and the three supporting use cases (UC13 review & approve, UC14 undo/redo, UC15 lifecycle) are implemented and work in both the GUI and the CLI. 101 JUnit tests pass (`mvnw test`). Every AI feature has been run end-to-end through the real agent loop, tools, parsers, guardrails, facade, persistence and both front-ends using the offline planner, and again with live Claude (`claude-sonnet-5-5`, light model `claude-haiku-5-5`) on 2026-11-14.
 
 ### 1.4 Limitations and incomplete functionality (honest status)
 
 | # | Limitation |
 |---|---|
-| L1 | **Live Claude calls were not exercised during development in this session** (no API key was configured on the development machine). `ClaudeProvider` compiles against the official SDK (v3.3.0) and its request/response mapping follows the SDK documentation; the provider factory is unit-tested. The Ollama adapter was tested against a local stub HTTP server, not a real Ollama install. **[TO FILL: if a live run with a key is done, note the date and result here.]** |
+| L1 | **Live Claude was tested on 2026-11-14** with `claude-sonnet-5-5` (light model `claude-haiku-5-5`): every feature F01–F12 and UC15, including the error cases (non-event text declined, confirm refused without a venue, CSV rejects/duplicates, conflict fix, ambiguous change → question, guardrail block, dependency block, invitations refused in DRAFT, FAQ escalation, undo/redo), worked end to end in the GUI and CLI. The first live run exposed a Jackson version conflict with the SDK (fixed, §6.3). The Ollama adapter was tested only against a local stub HTTP server, not a real Ollama install. |
 | L2 | The **offline planner** is a rule-based stand-in, not an LLM. Its language understanding is limited to simple patterns (e.g. "move X to 2pm", "add a 15-minute break after X", dates like "December 12", "next Friday"). Free-form requests need a real model. It is used for tests and key-less demos and is labelled "AI: mock" in both interfaces. |
 | L3 | E-mail delivery writes `.eml` files to an outbox folder (`data/outbox`); no SMTP. Addresses on the reserved `.invalid` domain fail on purpose to demonstrate error handling. |
 | L4 | The venue catalog is a small fictional dataset (17 venues, Toronto/Mississauga/Ottawa/Waterloo). |
@@ -351,8 +351,8 @@ Format: **Original design → Implemented change → Reason → Impact.** No Sta
 
 | Tool / platform | LLM / model | Used for | Token cost | Money cost |
 |---|---|---|---|---|
-| **Claude Code** (VS Code extension, agent mode) | **Claude Opus 5.5** (`claude-opus-5-5`) | Implementation of all packages from the Stage 1 design (domain, State/Command/Observer, repository, adapters, LLM providers, tools, agent loop, 11 workflows, offline planner, facade, CLI, GUI), JUnit tests, debugging, README, PlantUML diagrams, this report draft | **[TO FILL from Claude Code `/cost` or the account usage page]** | **[TO FILL]** |
-| EventPilot runtime (the application itself) | Claude Sonnet 5.5 / Haiku 5.5 (configured), offline planner (used) | AI features at run time | Shown per session by `eventpilot ai` (`UsageTracker`) | Development runs used the offline planner: $0 |
+| **Claude Code** (VS Code extension, agent mode) | **Claude Opus 5.5** (`claude-opus-5-5`) | Implementation of all packages from the Stage 1 design (domain, State/Command/Observer, repository, adapters, LLM providers, tools, agent loop, 11 workflows, offline planner, facade, CLI, GUI), JUnit tests, debugging, README, PlantUML diagrams, this report draft | Main session (Opus 5.5, 2026-11-12 to 11-15, from the Claude Code session log): **≈ 78.0 M tokens** — 556,692 output, 562 uncached input, 1,253,461 cache-write, 76,152,040 cache-read (the conversation context re-read on each of 264 model turns). Final report-edit session (Claude Fable 5.2): ≈ 1 M tokens, mostly cache-read (approximate). | Used under a **Claude Pro subscription** (flat monthly fee, no per-token billing). API-equivalent at list prices ($4 / $20 per M input/output, $8 cache-write, $0.20 cache-read): **≈ US$36.40** for the main session (output $11.13 + cache-write $10.03 + cache-read $15.23), plus ≈ US$3 for the final report-edit session — **≈ US$39 in total**. |
+| EventPilot runtime (the application itself) | Offline planner (tests, key-less demo); Claude Sonnet 5.5 / Haiku 5.5 (`claude-sonnet-5-5`, `claude-haiku-5-5`) for the live test and the demo videos | AI features at run time | Shown per session by `eventpilot ai` (`UsageTracker`) | Offline runs: $0; live runs: **[TO FILL from console.anthropic.com usage]** |
 
 ### 5.2 How the work was divided
 
@@ -371,6 +371,9 @@ Format: **Original design → Implemented change → Reason → Impact.** No Sta
 | 6 | CLI `-y` before the subcommand was ignored | Diagnosed picocli option scoping; stored shared options per invocation | Fixed (`BaseCliCommand.Common`) |
 | 7 | Review of the GUI dashboard | Spotted an observer refresh loop (view → `alerts()` → publish → view) | Added `currentAlerts()` (C12) |
 | 8 | Repository check | Found `.gitignore` pattern `data/` also ignored `src/main/resources/data/venues.json` | Anchored to `/data/`; dataset now committed |
+| 9 | "Make the UI a bit interactive and modern" | Redesigned the GUI: sidebar navigation, dark mode, toasts, keyboard shortcuts, card layouts, chat bubbles, task cards with drag-over highlight | Reviewed and committed by the student |
+| 10 | First live Claude run crashed (`NoSuchMethodError` in Jackson) | Traced it to Jackson 2.18 vs. the SDK's 2.19; aligned the version | Fixed; all features then re-tested live |
+| 11 | Demo videos | Claude Code recorded the demo clips automatically (scripted GUI/CLI input against live Claude, with on-screen captions); bugs seen while recording were fixed | Student reviewed the clips, added music/subtitles and uploaded them |
 
 ---
 
@@ -386,7 +389,7 @@ Format: **Original design → Implemented change → Reason → Impact.** No Sta
 
 The implementation was done after the reporting periods (co-op schedule), starting November 12, 2026. The commit history has **not** been altered: every commit shows its real date. **The weekly-commit requirement is therefore not met**, and the 5-point deduction applies unless the instructor has granted an accommodation. **[TO FILL: reference to the instructor's written accommodation, if any.]**
 
-Implementation commits (all on 2026-11-12; links `https://github.com/farazkabbo/EECS3311-EventPilot/commit/<hash>`):
+Implementation commits (all 51, in history order, taken from `git log`; work done 2026-11-12 to 2026-11-14; links `https://github.com/farazkabbo/EECS3311-EventPilot/commit/<hash>`):
 
 | Hash | Description |
 |---|---|
@@ -410,7 +413,37 @@ Implementation commits (all on 2026-11-12; links `https://github.com/farazkabbo/
 | 0fec841 | Add offline planner as the mock provider's fallback behaviour |
 | 396eda9 | Add EventPlannerFacade and application bootstrap |
 | 68ed4ae | Add picocli CLI foundation with event, attendee and speaker commands |
-| **[TO FILL]** | Remaining commits (CLI planning commands, GUI views, tests, docs) — add hashes after committing |
+| ad458f4 | Fix .gitignore so the bundled venue dataset is tracked |
+| 41efe50 | Allow -y and -e options before or after CLI subcommands |
+| 8a96790 | Report effective number of agenda tracks when rooms are limited |
+| fd2dfaa | Add read-only alert computation for views |
+| 760061f | Add venue and agenda CLI commands (F03-F06, F12, undo/redo) |
+| 990a30b | Add budget, catering and task CLI commands (F07-F09) |
+| b55018c | Add invite, ask, alerts, pref and ai CLI commands (F10, F11) |
+| cca80ce | Add interactive shell and register all CLI commands |
+| f7a4813 | Add CLI end-to-end, reviewer and tokenizer tests |
+| 8a0efe5 | Add GUI context, observer base view and proposal review dialog |
+| b6c04dd | Add GUI base controller with async AI calls and review-and-apply |
+| 30ef56c | Add event controller: lifecycle, undo/redo, manual event form |
+| b6228cf | Add dashboard with alerts and venue view |
+| 1815b02 | Add agenda view with conflicts, speakers and AI modify box |
+| 2c58d28 | Add budget view with chart and expense form |
+| b443f6b | Add attendee table with RSVP editing and CSV import |
+| 8c15170 | Add catering and invitation views |
+| 51533f0 | Add drag-and-drop task board |
+| 49295fa | Add agent chat panel (create event, change plan, FAQ) |
+| 6ef4444 | Add main window and launch the GUI from Main |
+| f86d82e | Add launcher scripts for Windows and macOS/Linux |
+| 98b1685 | Update README with setup, configuration and usage |
+| cd664a2 | Add Stage 2 report, updated UML diagrams and screenshots |
+| bb2c866 | Modernize GUI shell: sidebar navigation, dark mode, toasts and shortcuts |
+| 871e2aa | Restyle agent chat with message bubbles, mode tabs and suggestions |
+| 75104ee | Add dashboard stat cards, countdown and empty state |
+| c7ea86a | Show tasks as cards with owner avatars and drag-over highlight |
+| 7ae4c45 | Use card layouts for budget, attendee and venue views |
+| 1c0cd51 | Show each proposed change as a card in the review dialog |
+| 59adcd0 | Add demo video script and manual test checklist |
+| 7f9d6fa | found some bugs while recording os fixed it |
 
 ### 6.2 Checks performed
 
@@ -448,6 +481,10 @@ Implementation commits (all on 2026-11-12; links `https://github.com/farazkabbo/
 | Dashboard ↔ AlertService refresh loop | code review | read-only `currentAlerts()` |
 | `.gitignore` excluded the bundled venue dataset | repository check | anchored ignore patterns |
 | Stale IDE-compiled classes in `target/` broke a test run | test run | `mvnw clean test` |
+| Live Claude crashed with `NoSuchMethodError` (Jackson 2.18 vs. SDK 2.19) | live run | Jackson pinned to 2.19.4 |
+| Clarifying questions shown twice (model's + guardrail's) | live run | model's questions used when present |
+| Forms cleared even when input was rejected | demo recording | fields cleared only on success |
+| Long agent summaries made the review dialog too wide | demo recording | summary wraps inside the dialog |
 
 ### 6.4 Remaining limitations
 See §1.4 (L1–L8).
