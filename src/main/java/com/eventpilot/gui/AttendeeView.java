@@ -85,13 +85,27 @@ public class AttendeeView extends BaseView {
                 controller.onRemove(a.id());
             }
         });
-        HBox form = new HBox(6, name, email, role, diets, access, add, importCsv, remove);
-        rsvpChart.setTitle("RSVP");
-        rsvpChart.setPrefWidth(300);
+        add.getStyleClass().add("primary");
+        remove.getStyleClass().add("ghost-danger");
+        for (javafx.scene.layout.Region r : java.util.List.of(add, importCsv, remove, role)) {
+            r.setMinWidth(javafx.scene.layout.Region.USE_PREF_SIZE);
+        }
+        for (TextField f : java.util.List.of(name, email, diets, access)) {
+            f.setPrefWidth(120);
+            HBox.setHgrow(f, Priority.ALWAYS);
+        }
+        HBox form = new HBox(6, name, email, role, diets, access, add);
+        HBox actions = new HBox(6, importCsv, remove);
+        rsvpChart.setTitle(null);
+        rsvpChart.setLegendSide(javafx.geometry.Side.BOTTOM);
+        rsvpChart.setLabelsVisible(false);
+        rsvpChart.setPrefWidth(280);
         rsvpChart.setAnimated(false);
-        HBox main = new HBox(10, table, rsvpChart);
+        VBox chartCard = Ui.card("RSVP", rsvpChart);
+        VBox.setVgrow(rsvpChart, Priority.ALWAYS);
+        HBox main = new HBox(12, table, chartCard);
         HBox.setHgrow(table, Priority.ALWAYS);
-        VBox box = new VBox(10, main, form);
+        VBox box = new VBox(12, actions, main, Ui.card("Add an attendee", form));
         VBox.setVgrow(main, Priority.ALWAYS);
         setCenter(box);
     }

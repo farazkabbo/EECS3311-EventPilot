@@ -28,9 +28,8 @@ public class VenueView extends BaseView {
                 + "trade-offs, and you pick one. Venues not returned by the tool are blocked.");
         help.setWrapText(true);
         help.getStyleClass().add("help");
-        Label heading = new Label("Venue");
-        heading.getStyleClass().add("view-title");
-        setCenter(new VBox(10, heading, current, row, help));
+        current.getStyleClass().add("venue-details");
+        setCenter(new VBox(14, Ui.card("Chosen venue", current), Ui.card("Find a venue", row, help)));
     }
 
     @Override
@@ -40,7 +39,7 @@ public class VenueView extends BaseView {
             return;
         }
         Venue v = e.venue();
-        current.setText(v == null ? "No venue chosen yet." : String.format(
+        current.setText(v == null ? "No venue chosen yet — click “Recommend venues” below." : String.format(
                 "%s%n%s, %s (%s)%nCapacity %d, $%.0f/day, %s, rating %.1f/5%nFeatures: %s%nRooms: %s",
                 v.name(), v.address(), v.city(), v.district(), v.capacity(), v.pricePerDay(),
                 v.accessible() ? "wheelchair accessible" : "not wheelchair accessible", v.rating(),

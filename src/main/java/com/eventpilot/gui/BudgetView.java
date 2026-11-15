@@ -63,13 +63,30 @@ public class BudgetView extends BaseView {
             amount.clear();
             desc.clear();
         });
-        HBox expense = new HBox(6, new Label("Expense:"), category, amount, date, desc, add);
+        add.getStyleClass().add("primary");
+        add.setMinWidth(javafx.scene.layout.Region.USE_PREF_SIZE);
+        category.setPrefWidth(140);
+        amount.setPrefWidth(100);
+        date.setPrefWidth(130);
+        HBox.setHgrow(desc, Priority.ALWAYS);
+        HBox expense = new HBox(6, category, amount, date, desc, add);
 
+        top.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+        totals.getStyleClass().add("chip");
+        limit.setPrefWidth(110);
         alerts.setPrefHeight(70);
-        alerts.setPlaceholder(new Label("No budget alerts."));
-        HBox middle = new HBox(10, table, chart);
-        HBox.setHgrow(chart, Priority.ALWAYS);
-        VBox box = new VBox(10, top, middle, expense, new Label("Budget alerts"), alerts);
+        alerts.setPlaceholder(new Label("✔  No budget alerts."));
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
+        table.setPrefWidth(420);
+        chart.setLegendSide(javafx.geometry.Side.TOP);
+        chart.setTitle(null);
+        VBox tableCard = Ui.card("Categories", table);
+        VBox chartCard = Ui.card("Planned vs spent", chart);
+        VBox.setVgrow(table, Priority.ALWAYS);
+        VBox.setVgrow(chart, Priority.ALWAYS);
+        HBox middle = new HBox(12, tableCard, chartCard);
+        HBox.setHgrow(chartCard, Priority.ALWAYS);
+        VBox box = new VBox(12, top, middle, Ui.card("Record an expense", expense), Ui.card("Budget alerts", alerts));
         VBox.setVgrow(middle, Priority.ALWAYS);
         setCenter(box);
     }
@@ -93,7 +110,8 @@ public class BudgetView extends BaseView {
         }
         BudgetTracker.BudgetStatus s = ctx.facade().budgetStatus(e.id());
         limit.setText(String.format("%.0f", s.limit()));
-        totals.setText(String.format("   planned $%.0f   spent $%.0f   remaining $%.0f", s.totalPlanned(), s.totalSpent(), s.remaining()));
+        totals.setText(String.format("planned $%,.0f  ·  spent $%,.0f  ·  remaining $%,.0f",
+                s.totalPlanned(), s.totalSpent(), s.remaining()));
         table.getItems().setAll(s.categories());
         XYChart.Series<String, Number> planned = new XYChart.Series<>();
         planned.setName("Planned");
