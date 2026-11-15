@@ -1,72 +1,930 @@
+/* ==========================================================================
+   EventPilot - modern light / dark theme
+   Colours are "looked-up" variables defined on .root and swapped by .root.dark,
+   so every control below works in both themes.
+   ========================================================================== */
+
 .root {
-    -fx-font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+    -ep-bg: #f5f6fb;
+    -ep-surface: #ffffff;
+    -ep-surface-2: #f0f2f8;
+    -ep-sidebar: #141a33;
+    -ep-sidebar-text: #aeb6d6;
+    -ep-border: #e3e6f0;
+    -ep-text: #1b2140;
+    -ep-muted: #6b7393;
+    -ep-accent: #5b5bf0;
+    -ep-accent-hover: #4a48e0;
+    -ep-accent-soft: #ecebff;
+    -ep-ai-1: #7c4dff;
+    -ep-ai-2: #3d8bfd;
+    -ep-danger: #e5484d;
+    -ep-danger-soft: #fdecec;
+    -ep-warning: #c77700;
+    -ep-warning-soft: #fff4e0;
+    -ep-success: #1f9d61;
+    -ep-success-soft: #e3f6ec;
+    -ep-shadow: rgba(23, 28, 70, 0.08);
+
+    -fx-font-family: "Segoe UI", "Inter", "Helvetica Neue", sans-serif;
     -fx-font-size: 13px;
-    -fx-base: #f4f6fa;
+    -fx-base: -ep-surface;
+    -fx-background: -ep-bg;
+    -fx-control-inner-background: -ep-surface;
+    -fx-control-inner-background-alt: -ep-surface-2;
+    -fx-accent: -ep-accent;
+    -fx-focus-color: -ep-accent;
+    -fx-faint-focus-color: transparent;
+    -fx-text-base-color: -ep-text;
+    -fx-text-background-color: -ep-text;
+    -fx-text-inner-color: -ep-text;
+    -fx-selection-bar: -ep-accent-soft;
+    -fx-selection-bar-non-focused: -ep-accent-soft;
+    -fx-selection-bar-text: -ep-text;
+    -fx-background-color: -ep-bg;
 }
 
-.top-bar {
-    -fx-background-color: #1f3a5f;
+.root.dark {
+    -ep-bg: #0f1324;
+    -ep-surface: #181d33;
+    -ep-surface-2: #20263f;
+    -ep-sidebar: #0a0d1a;
+    -ep-sidebar-text: #8f98bd;
+    -ep-border: #2a3150;
+    -ep-text: #e7e9f5;
+    -ep-muted: #9097b8;
+    -ep-accent: #7b7bff;
+    -ep-accent-hover: #9090ff;
+    -ep-accent-soft: #2a2c5c;
+    -ep-danger: #ff6b70;
+    -ep-danger-soft: #3a1f27;
+    -ep-warning: #ffb547;
+    -ep-warning-soft: #3a2e17;
+    -ep-success: #3ddc97;
+    -ep-success-soft: #173528;
+    -ep-shadow: rgba(0, 0, 0, 0.35);
 }
 
-.top-bar > .label {
+.label {
+    -fx-text-fill: -ep-text;
+}
+
+/* ---------- Sidebar ---------- */
+
+.sidebar {
+    -fx-background-color: -ep-sidebar;
+}
+
+.brand-logo {
+    -fx-text-fill: -ep-ai-1;
+    -fx-font-size: 22px;
+    -fx-effect: dropshadow(gaussian, rgba(124, 77, 255, 0.7), 12, 0.3, 0, 0);
+}
+
+.brand {
     -fx-text-fill: white;
-}
-
-.state-badge {
-    -fx-background-color: #f2c14e;
-    -fx-text-fill: #1f3a5f !important;
-    -fx-padding: 3 8 3 8;
-    -fx-background-radius: 10;
+    -fx-font-size: 19px;
     -fx-font-weight: bold;
 }
 
-.status-bar {
-    -fx-background-color: #e3e8f0;
+.brand-tagline, .sidebar-hint {
+    -fx-text-fill: -ep-sidebar-text;
+    -fx-font-size: 11px;
+}
+
+.sidebar-hint {
+    -fx-opacity: 0.75;
+    -fx-padding: 0 8 0 8;
+}
+
+.sidebar .toggle-button.nav-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: -ep-sidebar-text;
+    -fx-font-size: 13.5px;
+    -fx-padding: 9 12 9 12;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-graphic-text-gap: 12;
+}
+
+.sidebar .toggle-button.nav-button .nav-icon {
+    -fx-text-fill: -ep-sidebar-text;
+    -fx-font-size: 15px;
+    -fx-min-width: 18;
+    -fx-alignment: center;
+}
+
+.sidebar .toggle-button.nav-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+    -fx-text-fill: white;
+}
+
+.sidebar .toggle-button.nav-button:selected {
+    -fx-background-color: linear-gradient(to right, rgba(124, 77, 255, 0.35), rgba(61, 139, 253, 0.12));
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent transparent transparent -ep-ai-1;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 10;
+}
+
+.sidebar .toggle-button.nav-button:selected .nav-icon {
+    -fx-text-fill: white;
+}
+
+/* ---------- Header ---------- */
+
+.main-area {
+    -fx-background-color: -ep-bg;
+}
+
+.header {
+    -fx-background-color: -ep-surface;
+    -fx-padding: 10 16 10 16;
+    -fx-border-color: transparent transparent -ep-border transparent;
+}
+
+.page-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.page-subtitle {
+    -fx-text-fill: -ep-muted;
+    -fx-font-size: 12.5px;
+}
+
+.state-badge {
+    -fx-padding: 4 10 4 10;
+    -fx-background-radius: 999;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-background-color: -ep-surface-2;
+    -fx-text-fill: -ep-muted;
+}
+
+.state-badge.status-draft { -fx-background-color: -ep-surface-2; -fx-text-fill: -ep-muted; }
+.state-badge.status-planning { -fx-background-color: -ep-accent-soft; -fx-text-fill: -ep-accent; }
+.state-badge.status-confirmed { -fx-background-color: -ep-success-soft; -fx-text-fill: -ep-success; }
+.state-badge.status-completed { -fx-background-color: -ep-success-soft; -fx-text-fill: -ep-success; }
+.state-badge.status-cancelled { -fx-background-color: -ep-danger-soft; -fx-text-fill: -ep-danger; }
+
+.busy-bar {
+    -fx-pref-height: 3;
+    -fx-max-height: 3;
+}
+
+.busy-bar .track {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.busy-bar .bar {
+    -fx-background-color: linear-gradient(to right, -ep-ai-1, -ep-ai-2);
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+/* ---------- Buttons ---------- */
+
+.button, .toggle-button {
+    -fx-background-color: -ep-surface;
+    -fx-border-color: -ep-border;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 7 14 7 14;
+    -fx-text-fill: -ep-text;
+    -fx-cursor: hand;
+}
+
+.button:hover, .toggle-button:hover {
+    -fx-background-color: -ep-surface-2;
+}
+
+.button:pressed {
+    -fx-translate-y: 1;
+}
+
+.button:focused {
+    -fx-border-color: -ep-accent;
+}
+
+.button:disabled {
+    -fx-opacity: 0.45;
+}
+
+.button.primary {
+    -fx-background-color: -ep-accent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.button.primary:hover {
+    -fx-background-color: -ep-accent-hover;
+}
+
+.button.ai-button {
+    -fx-background-color: linear-gradient(to right, -ep-ai-1, -ep-ai-2);
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(124, 77, 255, 0.35), 10, 0.1, 0, 2);
+}
+
+.button.ai-button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(124, 77, 255, 0.6), 16, 0.2, 0, 3);
+}
+
+.button.ghost {
+    -fx-background-color: transparent;
+    -fx-border-color: -ep-border;
+}
+
+.button.ghost:hover {
+    -fx-background-color: -ep-accent-soft;
+    -fx-border-color: -ep-accent;
+    -fx-text-fill: -ep-accent;
+}
+
+.button.ghost-danger {
+    -fx-background-color: transparent;
+    -fx-border-color: -ep-border;
+    -fx-text-fill: -ep-danger;
+}
+
+.button.ghost-danger:hover {
+    -fx-background-color: -ep-danger-soft;
+    -fx-border-color: -ep-danger;
+}
+
+.button.icon-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 15px;
+    -fx-padding: 5 10 5 10;
+}
+
+.button.icon-button:hover {
+    -fx-background-color: -ep-surface-2;
+}
+
+.button.icon-button.ai-button {
+    -fx-font-size: 13px;
+    -fx-background-color: linear-gradient(to right, -ep-ai-1, -ep-ai-2);
+    -fx-padding: 7 14 7 14;
+}
+
+.button.icon-danger:hover {
+    -fx-background-color: -ep-danger-soft;
+    -fx-text-fill: -ep-danger;
+}
+
+/* ---------- Inputs ---------- */
+
+.text-field, .text-area, .combo-box, .date-picker, .spinner, .choice-box {
+    -fx-background-color: -ep-surface;
+    -fx-border-color: -ep-border;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.text-field {
+    -fx-padding: 7 10 7 10;
+    -fx-prompt-text-fill: -ep-muted;
+}
+
+.text-area .content {
+    -fx-background-color: -ep-surface;
+    -fx-background-radius: 8;
+}
+
+.text-field:focused, .text-area:focused, .combo-box:focused, .date-picker:focused, .spinner:focused {
+    -fx-border-color: -ep-accent;
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(91, 91, 240, 0.25), 6, 0.3, 0, 0);
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: -ep-text;
+}
+
+.combo-box-popup .list-view, .context-menu {
+    -fx-background-color: -ep-surface;
+    -fx-border-color: -ep-border;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-effect: dropshadow(gaussian, -ep-shadow, 14, 0.2, 0, 4);
+}
+
+.check-box .box, .radio-button .radio {
+    -fx-background-color: -ep-surface;
+    -fx-border-color: -ep-border;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.radio-button .radio {
+    -fx-border-radius: 999;
+    -fx-background-radius: 999;
+}
+
+.check-box:selected .box, .radio-button:selected .radio {
+    -fx-background-color: -ep-accent;
+    -fx-border-color: -ep-accent;
+}
+
+.check-box:selected .mark, .radio-button:selected .dot {
+    -fx-background-color: white;
+}
+
+.tooltip {
+    -fx-background-color: #1b2140;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-font-size: 12px;
+    -fx-padding: 6 10 6 10;
+}
+
+/* ---------- Cards ---------- */
+
+.card {
+    -fx-background-color: -ep-surface;
+    -fx-background-radius: 14;
+    -fx-border-color: -ep-border;
+    -fx-border-radius: 14;
+    -fx-padding: 16;
+    -fx-effect: dropshadow(gaussian, -ep-shadow, 16, 0.15, 0, 3);
+}
+
+.card-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.stat-title {
+    -fx-text-fill: -ep-muted;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.stat-value {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.stat-caption {
+    -fx-text-fill: -ep-muted;
+    -fx-font-size: 12px;
+}
+
+.stat-card:hover {
+    -fx-border-color: -ep-accent;
+}
+
+.progress-bar {
+    -fx-pref-height: 8;
+}
+
+.progress-bar .track {
+    -fx-background-color: -ep-surface-2;
+    -fx-background-radius: 999;
+    -fx-background-insets: 0;
+}
+
+.progress-bar .bar {
+    -fx-background-color: linear-gradient(to right, -ep-ai-1, -ep-ai-2);
+    -fx-background-radius: 999;
+    -fx-background-insets: 0;
+    -fx-padding: 4;
+}
+
+.progress-bar.danger .bar {
+    -fx-background-color: -ep-danger;
+}
+
+.hero-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.hero-sub {
+    -fx-text-fill: -ep-muted;
+    -fx-font-size: 13px;
+}
+
+.chip {
+    -fx-background-color: -ep-accent-soft;
+    -fx-text-fill: -ep-accent;
+    -fx-background-radius: 999;
+    -fx-padding: 3 10 3 10;
+    -fx-font-size: 11.5px;
+    -fx-font-weight: bold;
+}
+
+.chip-muted {
+    -fx-background-color: -ep-surface-2;
+    -fx-text-fill: -ep-muted;
+}
+
+.chip-danger {
+    -fx-background-color: -ep-danger-soft;
+    -fx-text-fill: -ep-danger;
+}
+
+.count-badge {
+    -fx-background-color: -ep-danger;
+    -fx-text-fill: white;
+    -fx-background-radius: 999;
+    -fx-padding: 1 8 1 8;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.count-badge.zero, .board-column .count-badge {
+    -fx-background-color: -ep-surface-2;
+    -fx-text-fill: -ep-muted;
+}
+
+.fact-key {
+    -fx-font-weight: bold;
+    -fx-text-fill: -ep-muted;
+}
+
+.empty-state {
+    -fx-padding: 60;
+}
+
+.empty-icon {
+    -fx-font-size: 54px;
+    -fx-text-fill: -ep-ai-1;
+    -fx-effect: dropshadow(gaussian, rgba(124, 77, 255, 0.5), 24, 0.2, 0, 0);
+}
+
+.help {
+    -fx-text-fill: -ep-muted;
+    -fx-font-size: 12px;
 }
 
 .view-title {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-text-fill: #1f3a5f;
 }
 
 .column-title {
     -fx-font-weight: bold;
-    -fx-text-fill: #1f3a5f;
+    -fx-font-size: 13.5px;
 }
 
-.fact-key {
+.venue-details {
+    -fx-font-size: 13.5px;
+    -fx-line-spacing: 3;
+}
+
+/* ---------- Lists & tables ---------- */
+
+.scroll-pane, .page-scroll, .chat-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.list-view, .table-view {
+    -fx-background-color: -ep-surface;
+    -fx-border-color: -ep-border;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 4;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -ep-text;
+    -fx-padding: 8 10 8 10;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: -ep-surface-2;
+    -fx-background-radius: 8;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: -ep-accent-soft;
+    -fx-background-radius: 8;
+}
+
+.table-view .column-header-background, .table-view .column-header, .table-view .filler {
+    -fx-background-color: -ep-surface;
+    -fx-border-color: transparent transparent -ep-border transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: -ep-muted;
     -fx-font-weight: bold;
-    -fx-text-fill: #4a5b74;
+    -fx-font-size: 12px;
 }
 
-.help {
-    -fx-text-fill: #6b7a90;
-    -fx-font-style: italic;
+.table-row-cell {
+    -fx-background-color: -ep-surface;
+    -fx-border-color: transparent transparent -ep-surface-2 transparent;
+    -fx-cell-size: 34;
 }
 
-.conflict-row {
-    -fx-background-color: #f8d7da;
+.table-row-cell:hover {
+    -fx-background-color: -ep-surface-2;
 }
 
-.overdue {
-    -fx-text-fill: #b00020;
+.table-row-cell:selected {
+    -fx-background-color: -ep-accent-soft;
 }
 
-.alert-critical {
-    -fx-text-fill: #b00020;
+.table-row-cell .table-cell {
+    -fx-text-fill: -ep-text;
+    -fx-border-color: transparent;
+}
+
+.table-row-cell.conflict-row {
+    -fx-background-color: -ep-danger-soft;
+    -fx-border-color: transparent transparent transparent -ep-danger;
+    -fx-border-width: 0 0 0 4;
+}
+
+.table-row-cell.conflict-row .table-cell {
+    -fx-text-fill: -ep-danger;
+}
+
+.placeholder .label, .list-view .placeholder .label {
+    -fx-text-fill: -ep-muted;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: -ep-border;
+    -fx-background-radius: 999;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: -ep-muted;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+/* ---------- Alerts ---------- */
+
+.alert-list .list-cell {
+    -fx-background-radius: 8;
+    -fx-padding: 8 10 8 10;
+}
+
+.alert-icon {
+    -fx-font-size: 14px;
+}
+
+.list-cell.alert-critical {
+    -fx-background-color: -ep-danger-soft;
+    -fx-text-fill: -ep-danger;
     -fx-font-weight: bold;
 }
 
-.alert-warning {
-    -fx-text-fill: #8a5a00;
+.list-cell.alert-critical .alert-icon {
+    -fx-text-fill: -ep-danger;
+}
+
+.list-cell.alert-warning {
+    -fx-text-fill: -ep-warning;
+}
+
+.list-cell.alert-warning .alert-icon {
+    -fx-text-fill: -ep-warning;
+}
+
+.alert-list .list-cell.alert-critical:hover, .alert-list .list-cell.alert-warning:hover {
+    -fx-opacity: 0.85;
 }
 
 .warning-high {
-    -fx-text-fill: #b00020;
+    -fx-text-fill: -ep-danger;
     -fx-font-weight: bold;
 }
 
 .warning-low {
-    -fx-text-fill: #8a5a00;
+    -fx-text-fill: -ep-warning;
 }
+
+/* ---------- Task board ---------- */
+
+.board-column {
+    -fx-padding: 12;
+    -fx-background-color: -ep-surface-2;
+    -fx-effect: null;
+}
+
+.task-column {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.task-column .list-cell, .task-column .list-cell:filled:hover, .task-column .list-cell:filled:selected {
+    -fx-background-color: transparent;
+    -fx-padding: 4 2 4 2;
+}
+
+.task-column.drag-over {
+    -fx-border-color: -ep-accent;
+    -fx-border-style: segments(6, 4);
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-background-color: -ep-accent-soft;
+}
+
+.task-card {
+    -fx-background-color: -ep-surface;
+    -fx-background-radius: 10;
+    -fx-border-color: -ep-border;
+    -fx-border-radius: 10;
+    -fx-padding: 10 12 10 12;
+    -fx-cursor: open-hand;
+    -fx-effect: dropshadow(gaussian, -ep-shadow, 8, 0.1, 0, 2);
+}
+
+.task-card:hover {
+    -fx-border-color: -ep-accent;
+}
+
+.task-card.overdue {
+    -fx-border-color: -ep-danger;
+    -fx-border-width: 0 0 0 4;
+}
+
+.task-title {
+    -fx-font-weight: bold;
+}
+
+.task-id, .task-meta {
+    -fx-text-fill: -ep-muted;
+    -fx-font-size: 11.5px;
+}
+
+.avatar {
+    -fx-background-color: linear-gradient(to bottom right, -ep-ai-1, -ep-ai-2);
+    -fx-text-fill: white;
+    -fx-background-radius: 999;
+    -fx-min-width: 22;
+    -fx-min-height: 22;
+    -fx-max-width: 22;
+    -fx-max-height: 22;
+    -fx-alignment: center;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* ---------- Chat ---------- */
+
+.chat-panel {
+    -fx-background-color: -ep-surface;
+    -fx-border-color: transparent transparent transparent -ep-border;
+}
+
+.chat-title {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -ep-ai-1;
+}
+
+.segmented {
+    -fx-background-color: -ep-surface-2;
+    -fx-background-radius: 10;
+    -fx-padding: 3;
+}
+
+.segmented .toggle-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 8;
+    -fx-text-fill: -ep-muted;
+    -fx-padding: 6 8 6 8;
+    -fx-font-size: 12px;
+}
+
+.segmented .toggle-button:selected {
+    -fx-background-color: -ep-surface;
+    -fx-text-fill: -ep-text;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, -ep-shadow, 6, 0.2, 0, 1);
+}
+
+.bubble {
+    -fx-padding: 9 12 9 12;
+    -fx-background-radius: 14;
+}
+
+.bubble-agent {
+    -fx-background-color: -ep-surface-2;
+    -fx-background-radius: 4 14 14 14;
+}
+
+.bubble-me {
+    -fx-background-color: linear-gradient(to bottom right, -ep-ai-1, -ep-ai-2);
+    -fx-background-radius: 14 4 14 14;
+}
+
+.bubble-author {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -ep-muted;
+}
+
+.bubble-me .bubble-author, .bubble-me .bubble-text {
+    -fx-text-fill: white;
+}
+
+.bubble-text {
+    -fx-line-spacing: 2;
+}
+
+.typing {
+    -fx-text-fill: -ep-ai-1;
+    -fx-font-style: italic;
+    -fx-font-size: 12px;
+}
+
+.suggestion {
+    -fx-background-color: -ep-accent-soft;
+    -fx-border-color: transparent;
+    -fx-text-fill: -ep-accent;
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+    -fx-padding: 5 11 5 11;
+    -fx-font-size: 11.5px;
+}
+
+.suggestion:hover {
+    -fx-background-color: -ep-accent;
+    -fx-text-fill: white;
+}
+
+.chat-input {
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+    -fx-padding: 9 14 9 14;
+}
+
+.button.send-button {
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+    -fx-min-width: 38;
+    -fx-min-height: 38;
+    -fx-padding: 0;
+    -fx-font-size: 15px;
+    -fx-background-color: linear-gradient(to bottom right, -ep-ai-1, -ep-ai-2);
+}
+
+/* ---------- Status bar & toasts ---------- */
+
+.status-bar {
+    -fx-background-color: -ep-surface;
+    -fx-border-color: -ep-border transparent transparent transparent;
+}
+
+.status-bar .label {
+    -fx-text-fill: -ep-muted;
+    -fx-font-size: 12px;
+}
+
+.status-dot {
+    -fx-text-fill: -ep-success !important;
+    -fx-font-size: 10px;
+}
+
+.status-dot.busy {
+    -fx-text-fill: -ep-ai-1 !important;
+}
+
+.toast {
+    -fx-background-color: #1b2140;
+    -fx-text-fill: white;
+    -fx-background-radius: 12;
+    -fx-padding: 12 18 12 18;
+    -fx-font-size: 13px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 18, 0.2, 0, 6);
+    -fx-border-color: transparent transparent transparent -ep-success;
+    -fx-border-width: 0 0 0 4;
+    -fx-border-radius: 12;
+}
+
+/* ---------- Dialogs ---------- */
+
+.dialog-pane {
+    -fx-background-color: -ep-surface;
+}
+
+.dialog-pane > .header-panel {
+    -fx-background-color: -ep-surface-2;
+    -fx-padding: 14 16 14 16;
+}
+
+.dialog-pane > .header-panel .label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane > .content {
+    -fx-padding: 16;
+}
+
+.dialog-pane .button-bar .button:default {
+    -fx-background-color: -ep-accent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+}
+
+.change-card {
+    -fx-background-color: -ep-surface-2;
+    -fx-background-radius: 10;
+    -fx-padding: 10 12 10 12;
+    -fx-border-color: -ep-border;
+    -fx-border-radius: 10;
+    -fx-cursor: hand;
+}
+
+.change-card:hover {
+    -fx-border-color: -ep-accent;
+}
+
+.change-reason {
+    -fx-text-fill: -ep-muted;
+    -fx-font-size: 12px;
+    -fx-padding: 0 0 0 26;
+}
+
+.titled-pane > .title {
+    -fx-background-color: -ep-surface-2;
+    -fx-background-radius: 8;
+}
+
+.titled-pane > .content {
+    -fx-background-color: -ep-surface;
+    -fx-border-color: -ep-border;
+}
+
+/* ---------- Charts (budget pie) ---------- */
+
+.chart {
+    -fx-background-color: transparent;
+}
+
+.chart-title, .chart-legend-item, .axis-label, .axis {
+    -fx-text-fill: -ep-text;
+    -fx-tick-label-fill: -ep-muted;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+}
+
+.chart-pie-label {
+    -fx-fill: -ep-text;
+}
+
+.chart-pie-label-line {
+    -fx-stroke: -ep-muted;
+}
+
+.default-color0.chart-bar { -fx-background-color: #7c4dff; -fx-background-radius: 6 6 0 0; }
+.default-color1.chart-bar { -fx-background-color: #3d8bfd; -fx-background-radius: 6 6 0 0; }
+.chart-legend-item-symbol.default-color0 { -fx-background-color: #7c4dff; -fx-background-radius: 3; }
+.chart-legend-item-symbol.default-color1 { -fx-background-color: #3d8bfd; -fx-background-radius: 3; }
+.chart-plot-background { -fx-background-color: transparent; }
+.chart-vertical-grid-lines { -fx-stroke: transparent; }
+.chart-horizontal-grid-lines { -fx-stroke: -ep-border; -fx-stroke-dash-array: 4 4; }
+.chart-alternative-row-fill { -fx-fill: transparent; }
+.chart-legend-item { -fx-text-fill: -ep-text; }
+.axis { -fx-tick-label-fill: -ep-muted; }
+
+.default-color0.chart-pie { -fx-pie-color: #7c4dff; }
+.default-color1.chart-pie { -fx-pie-color: #3d8bfd; }
+.default-color2.chart-pie { -fx-pie-color: #1f9d61; }
+.default-color3.chart-pie { -fx-pie-color: #f5a524; }
+.default-color4.chart-pie { -fx-pie-color: #e5484d; }
+.default-color5.chart-pie { -fx-pie-color: #0fb5ae; }
+.default-color6.chart-pie { -fx-pie-color: #d6409f; }
+.default-color7.chart-pie { -fx-pie-color: #8b95b8; }

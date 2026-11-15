@@ -75,6 +75,7 @@ public abstract class BaseController {
         try {
             action.run();
             ctx.status().set(what);
+            ctx.toast(what);
         } catch (DomainException | IllegalArgumentException e) {
             error(e.getMessage());
         }
@@ -91,8 +92,13 @@ public abstract class BaseController {
             ctx.status().set("Proposal rejected - nothing changed");
             return;
         }
-        run("Applied " + proposal.title(), () ->
-                ctx.status().set(ctx.facade().applyProposal(proposal, decision.get()) + "  (Ctrl+Z to undo)"));
+        try {
+            String result = ctx.facade().applyProposal(proposal, decision.get());
+            ctx.status().set(result + "  (Ctrl+Z to undo)");
+            ctx.toast(result + "  —  Ctrl+Z to undo");
+        } catch (DomainException | IllegalArgumentException e) {
+            error(e.getMessage());
+        }
     }
 
     public static void error(String message) {

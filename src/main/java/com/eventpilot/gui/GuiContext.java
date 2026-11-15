@@ -3,7 +3,10 @@ package com.eventpilot.gui;
 import com.eventpilot.application.EventPlannerFacade;
 import com.eventpilot.domain.Event;
 import java.util.Optional;
+import java.util.function.Consumer;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -16,10 +19,26 @@ public class GuiContext {
     private final ObjectProperty<String> selectedEventId = new SimpleObjectProperty<>();
     private final StringProperty status = new SimpleStringProperty("Ready");
     private final SimpleObjectProperty<Boolean> busy = new SimpleObjectProperty<>(false);
+    private final BooleanProperty darkMode = new SimpleBooleanProperty(false);
+    private Consumer<String> toaster = msg -> { };
     private Stage stage;
 
     public GuiContext(EventPlannerFacade facade) {
         this.facade = facade;
+    }
+
+    /** Light/dark theme switch; the stylesheet swaps its colour palette on the root "dark" class. */
+    public BooleanProperty darkMode() {
+        return darkMode;
+    }
+
+    /** Shows a short, self-dismissing notification in the corner of the window. */
+    public void toast(String message) {
+        toaster.accept(message);
+    }
+
+    void setToaster(Consumer<String> toaster) {
+        this.toaster = toaster;
     }
 
     public EventPlannerFacade facade() {

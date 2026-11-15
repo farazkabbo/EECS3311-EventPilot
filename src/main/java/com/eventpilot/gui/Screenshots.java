@@ -5,32 +5,42 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import javafx.scene.Scene;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javax.imageio.ImageIO;
 
-/** Saves a PNG of every tab (used for documentation: -Deventpilot.smokeTest=true -Deventpilot.screenshotDir=dir). */
+/**
+ * Saves a PNG of every page, plus the dashboard in dark mode (used for documentation:
+ * -Deventpilot.smokeTest=true -Deventpilot.screenshotDir=dir).
+ */
 final class Screenshots {
 
     private Screenshots() {
     }
 
-    static void captureTabs(Scene scene, Path dir) {
+    static void capturePages(Scene scene, MainWindow window, GuiContext ctx, Path dir) {
         try {
             Files.createDirectories(dir);
-            TabPane tabs = (TabPane) scene.getRoot().lookup(".tab-pane");
-            for (Tab tab : tabs.getTabs()) {
-                tabs.getSelectionModel().select(tab);
-                scene.getRoot().applyCss();
-                scene.getRoot().layout();
-                WritableImage img = scene.snapshot(null);
-                ImageIO.write(toBuffered(img), "png", dir.resolve("gui_" + tab.getText().toLowerCase() + ".png").toFile());
+            boolean wasDark = ctx.darkMode().get();
+            ctx.darkMode().set(false);
+            for (String page : window.pageNames()) {
+                window.showPage(page, false);
+                save(scene, dir.resolve("gui_" + page.toLowerCase() + ".png"));
             }
+            ctx.darkMode().set(true);
+            window.showPage("Dashboard", false);
+            save(scene, dir.resolve("gui_dashboard_dark.png"));
+            ctx.darkMode().set(wasDark);
         } catch (IOException | RuntimeException e) {
             System.err.println("Screenshot failed: " + e.getMessage());
         }
+    }
+
+    private static void save(Scene scene, Path file) throws IOException {
+        scene.getRoot().applyCss();
+        scene.getRoot().layout();
+        WritableImage img = scene.snapshot(null);
+        ImageIO.write(toBuffered(img), "png", file.toFile());
     }
 
     private static BufferedImage toBuffered(WritableImage img) {
