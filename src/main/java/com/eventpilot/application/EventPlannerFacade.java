@@ -173,13 +173,12 @@ public class EventPlannerFacade {
                     ? "That doesn't look like an event to plan." : x.message());
         }
         EventDraft draft = x.draft();
-        List<String> questions = new ArrayList<>(agent.guardrails().validateDraft(draft));
-        if (!questions.isEmpty()) {
-            for (String q : x.questions()) {
-                if (!questions.contains(q)) {
-                    questions.add(q);
-                }
-            }
+        List<String> missing = agent.guardrails().validateDraft(draft);
+        if (!missing.isEmpty()) {
+            // The guardrail decides WHETHER to ask; the model's own questions are preferred because they are
+            // phrased for this request (merging both listed every question twice). If the model's questions
+            // leave a field out, the guardrail catches it again on the next answer.
+            List<String> questions = x.questions().isEmpty() ? missing : x.questions();
             return new CreateEventResult(null, questions, "I need a few more details.");
         }
         Event event;

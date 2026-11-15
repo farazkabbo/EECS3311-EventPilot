@@ -47,8 +47,8 @@ public class AgendaController extends BaseController {
     }
 
     /** Availability text like "09:00-12:00, 14:00-16:00" (empty = all day). */
-    public void onAddSpeaker(String name, String topic, String availability) {
-        requireEvent().ifPresent(id -> run("Speaker added", () -> {
+    public boolean onAddSpeaker(String name, String topic, String availability) {
+        return requireEvent().map(id -> run("Speaker added", () -> {
             Event e = ctx.facade().getEvent(id);
             List<TimeWindow> windows = new ArrayList<>();
             for (String w : Arrays.stream(availability.split(",")).map(String::trim).filter(s -> !s.isEmpty()).toList()) {
@@ -60,6 +60,6 @@ public class AgendaController extends BaseController {
                         e.start().toLocalDate().atTime(TimeParser.parseTime(p[1]))));
             }
             ctx.facade().addSpeaker(id, name, topic, null, windows);
-        }));
+        })).orElse(false);
     }
 }

@@ -70,6 +70,7 @@ public class TaskBoardView extends BaseView {
                             setGraphic(null);
                             return;
                         }
+                        setPrefWidth(0); // let the card wrap to the column width instead of widening the cell
                         setGraphic(taskCard(t));
                     }
                 };
@@ -129,8 +130,9 @@ public class TaskBoardView extends BaseView {
         DatePicker due = new DatePicker(LocalDate.now().plusDays(7));
         Button add = new Button("Add task");
         add.setOnAction(e -> {
-            controller.onAddTask(title.getText(), owner.getText(), due.getValue());
-            title.clear();
+            if (controller.onAddTask(title.getText(), owner.getText(), due.getValue())) {
+                title.clear();
+            }
         });
         HBox top = new HBox(6, team, generate);
         HBox.setHgrow(team, Priority.ALWAYS);

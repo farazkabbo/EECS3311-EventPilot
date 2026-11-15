@@ -113,8 +113,9 @@ public class DashboardView extends BaseView {
         Button addNote = new Button("Add note");
         addNote.getStyleClass().add("primary");
         addNote.setOnAction(e -> {
-            controller.onAddNote(note.getText());
-            note.clear();
+            if (controller.onAddNote(note.getText())) {
+                note.clear();
+            }
         });
         note.setOnAction(addNote.getOnAction());
         HBox noteRow = new HBox(6, note, addNote);
@@ -157,6 +158,7 @@ public class DashboardView extends BaseView {
         scroll.setFitToWidth(true);
         scroll.getStyleClass().add("page-scroll");
         setCenter(scroll);
+        refreshNow(); // shows the empty state when there is no event yet
     }
 
     private static Label cardTitle(String text) {

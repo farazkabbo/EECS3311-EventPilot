@@ -99,7 +99,9 @@ public class AgendaView extends BaseView {
         sAvail.setPromptText("09:00-12:00, 14:00-16:00 (empty = all day)");
         Button addSpeaker = new Button("Add speaker");
         addSpeaker.setOnAction(e -> {
-            controller.onAddSpeaker(sName.getText(), sTopic.getText(), sAvail.getText());
+            if (!controller.onAddSpeaker(sName.getText(), sTopic.getText(), sAvail.getText())) {
+                return; // keep the input so it can be corrected
+            }
             sName.clear();
             sTopic.clear();
             sAvail.clear();

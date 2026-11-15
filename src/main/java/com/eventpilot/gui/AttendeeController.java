@@ -15,10 +15,10 @@ public class AttendeeController extends BaseController {
         super(ctx);
     }
 
-    public void onAddAttendee(String name, String email, Attendee.Role role, String diets, String access) {
-        requireEvent().ifPresent(id -> run("Attendee added", () -> ctx.facade().addAttendee(id, name, email, role,
+    public boolean onAddAttendee(String name, String email, Attendee.Role role, String diets, String access) {
+        return requireEvent().map(id -> run("Attendee added", () -> ctx.facade().addAttendee(id, name, email, role,
                 Arrays.stream(diets.split("[;,]")).map(String::trim).filter(s -> !s.isEmpty()).toList(),
-                access, Attendee.Rsvp.INVITED)));
+                access, Attendee.Rsvp.INVITED))).orElse(false);
     }
 
     public void onImportCsv() {

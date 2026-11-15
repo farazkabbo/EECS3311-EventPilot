@@ -22,10 +22,18 @@ public class ProposalReviewDialog extends Dialog<List<Integer>> {
 
     public ProposalReviewDialog(PlanProposal proposal) {
         setTitle("Review agent proposal");
-        setHeaderText(proposal.title() + (proposal.summary().isBlank() ? "" : "\n" + proposal.summary()));
+        // the title goes in the header; the (often long) summary wraps inside the content, so the
+        // dialog keeps a fixed width instead of stretching to the length of the agent's explanation
+        setHeaderText(proposal.title());
         setResizable(true);
 
         VBox box = new VBox(8);
+        if (!proposal.summary().isBlank()) {
+            Label summary = new Label(proposal.summary());
+            summary.setWrapText(true);
+            summary.getStyleClass().add("proposal-summary");
+            box.getChildren().add(summary);
+        }
         List<BooleanSupplier> selected = new ArrayList<>();
         ToggleGroup group = new ToggleGroup();
         box.getChildren().add(new Label(proposal.alternatives() ? "Choose one option:" : "Select the changes to apply:"));
@@ -83,8 +91,10 @@ public class ProposalReviewDialog extends Dialog<List<Integer>> {
         }
         ScrollPane scroll = new ScrollPane(box);
         scroll.setFitToWidth(true);
-        scroll.setPrefSize(660, 460);
+        scroll.setPrefSize(720, 480);
         getDialogPane().setContent(scroll);
+        getDialogPane().setPrefWidth(760);
+        getDialogPane().setMaxWidth(900);
 
         box.setPadding(new javafx.geometry.Insets(4));
         getDialogPane().getStyleClass().add("review-dialog");

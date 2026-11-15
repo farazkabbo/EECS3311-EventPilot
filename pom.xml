@@ -14,7 +14,8 @@
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javafx.version>21.0.5</javafx.version>
-        <jackson.version>2.18.2</jackson.version>
+        <!-- must match the Jackson line the Anthropic SDK is built against (2.19.x), or live calls fail -->
+        <jackson.version>2.19.4</jackson.version>
         <junit.version>5.11.3</junit.version>
         <main.class>com.eventpilot.Main</main.class>
     </properties>

@@ -857,6 +857,13 @@
     -fx-border-color: transparent;
 }
 
+.proposal-summary {
+    -fx-text-fill: -ep-text;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2;
+    -fx-padding: 0 0 6 0;
+}
+
 .change-card {
     -fx-background-color: -ep-surface-2;
     -fx-background-radius: 10;

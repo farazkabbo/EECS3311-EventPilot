@@ -19,13 +19,13 @@ public class BudgetController extends BaseController {
                 () -> ctx.facade().generateBudget(id), this::reviewAndApply));
     }
 
-    public void onRecordExpense(String category, String amount, LocalDate date, String description) {
-        requireEvent().ifPresent(id -> run("Expense recorded", () -> {
+    public boolean onRecordExpense(String category, String amount, LocalDate date, String description) {
+        return requireEvent().map(id -> run("Expense recorded", () -> {
             if (category == null || category.isBlank()) {
                 throw new DomainException("Choose a category.");
             }
             ctx.facade().recordExpense(id, category, number(amount, "amount"), date, description);
-        }));
+        })).orElse(false);
     }
 
     private static double number(String text, String what) {

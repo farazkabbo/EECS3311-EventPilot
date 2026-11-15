@@ -70,7 +70,9 @@ public class AttendeeView extends BaseView {
         access.setPromptText("accessibility");
         Button add = new Button("Add");
         add.setOnAction(e -> {
-            controller.onAddAttendee(name.getText(), email.getText(), role.getValue(), diets.getText(), access.getText());
+            if (!controller.onAddAttendee(name.getText(), email.getText(), role.getValue(), diets.getText(), access.getText())) {
+                return; // keep the input so it can be corrected
+            }
             name.clear();
             email.clear();
             diets.clear();

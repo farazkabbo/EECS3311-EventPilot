@@ -67,7 +67,7 @@ public class EventController extends BaseController {
                 () -> ctx.facade().recommendVenues(id, needs), this::reviewAndApply));
     }
 
-    public void onAddNote(String note) {
-        requireEvent().ifPresent(id -> run("Note added", () -> ctx.facade().addNote(id, note)));
+    public boolean onAddNote(String note) {
+        return requireEvent().map(id -> run("Note added", () -> ctx.facade().addNote(id, note))).orElse(false);
     }
 }

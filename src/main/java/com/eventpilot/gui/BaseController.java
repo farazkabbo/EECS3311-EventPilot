@@ -70,14 +70,19 @@ public abstract class BaseController {
         WORKERS.submit(task);
     }
 
-    /** Runs a quick facade call on the JavaFX thread and reports rule violations as dialogs. */
-    protected void run(String what, Runnable action) {
+    /**
+     * Runs a quick facade call on the JavaFX thread and reports rule violations as dialogs.
+     * Returns whether it succeeded, so forms keep the user's input when it did not.
+     */
+    protected boolean run(String what, Runnable action) {
         try {
             action.run();
             ctx.status().set(what);
             ctx.toast(what);
+            return true;
         } catch (DomainException | IllegalArgumentException e) {
             error(e.getMessage());
+            return false;
         }
     }
 

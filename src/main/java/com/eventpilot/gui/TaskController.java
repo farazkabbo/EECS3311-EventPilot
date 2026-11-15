@@ -23,7 +23,8 @@ public class TaskController extends BaseController {
                 () -> ctx.facade().updateTaskStatus(id, taskId, status)));
     }
 
-    public void onAddTask(String title, String owner, LocalDate due) {
-        requireEvent().ifPresent(id -> run("Task added", () -> ctx.facade().addTask(id, title, owner, due, List.of())));
+    public boolean onAddTask(String title, String owner, LocalDate due) {
+        return requireEvent().map(id -> run("Task added", () -> ctx.facade().addTask(id, title, owner, due, List.of())))
+                .orElse(false);
     }
 }

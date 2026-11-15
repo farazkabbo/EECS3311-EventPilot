@@ -58,8 +58,10 @@ public class BudgetView extends BaseView {
         desc.setPromptText("description");
         Button add = new Button("Add expense");
         add.setOnAction(e -> {
-            controller.onRecordExpense(category.getEditor().getText().isBlank() ? category.getValue()
-                    : category.getEditor().getText(), amount.getText(), date.getValue(), desc.getText());
+            if (!controller.onRecordExpense(category.getEditor().getText().isBlank() ? category.getValue()
+                    : category.getEditor().getText(), amount.getText(), date.getValue(), desc.getText())) {
+                return; // keep the input so it can be corrected
+            }
             amount.clear();
             desc.clear();
         });
