@@ -5,6 +5,26 @@
 
 EventPilot is an AI agent-based desktop application (JavaFX GUI + picocli CLI) that helps organizers plan events end-to-end. An LLM-based planning agent reasons over the real event state, calls deterministic tools (venue search, budget calculator, conflict checker, speaker availability, catering calculator, attendee query), and proposes concrete, reviewable changes that the organizer approves before they are applied — with full undo/redo.
 
+## Demo video
+
+[![Watch the EventPilot demo](docs/stage2/screenshots/demo_video_poster.png)](docs/EventPilot_demo_final.mp4)
+
+**[▶ Watch / download the full demo (MP4, 14:48)](docs/EventPilot_demo_final.mp4?raw=true)** · English subtitles are embedded (turn on CC in your player) · <!-- YouTube: add the unlisted link here -->
+
+The video walks through every feature in the GUI and the CLI, using live Claude. Each segment shows the feature ID, how it is invoked, the input, the result, where AI is involved, and an error or alternative case.
+
+| Time | Segment | Time | Segment |
+|---|---|---|---|
+| 0:00 | UI tour | 6:30 | F07 Budget planning & expenses |
+| 0:35 | F01 Create event from a description | 7:46 | F08 Dietary-aware catering |
+| 1:35 | F02 Attendees, RSVP & CSV import | 8:41 | F09 Task plan & tracking |
+| 2:50 | F03 Venue recommendation | 9:52 | F10 Invitation drafting & sending |
+| 3:31 | F04 Agenda generation | 11:03 | F11 Attendee FAQ agent |
+| 4:17 | F05 Speaker scheduling | 12:25 | F12 Plain-language plan changes + undo/redo |
+| 5:22 | F06 Conflict detection & AI resolution | 14:12 | UC15 Event lifecycle |
+
+The video also contains chapter markers, so players such as VLC can jump straight to a feature.
+
 ## Stage status
 
 | Stage | Content | Status |
@@ -20,16 +40,36 @@ EventPilot is an AI agent-based desktop application (JavaFX GUI + picocli CLI) t
 * No Maven installation is needed — the Maven wrapper (`mvnw` / `mvnw.cmd`) is included.
 * Optional: an **Anthropic API key** (Claude) or a local **Ollama** install. Without either, EventPilot runs with its built-in offline planner (see "AI providers").
 
-## 1. Build
+## Quick start
 
-```bash
-# Windows
-mvnw.cmd -DskipTests package
-# macOS / Linux
-./mvnw -DskipTests package
+```powershell
+# Windows (PowerShell)
+git clone https://github.com/farazkabbo/EECS3311-EventPilot.git
+cd EECS3311-EventPilot
+.\mvnw.cmd -DskipTests package     # build target/eventpilot.jar
+copy .env.example .env             # then put your key in .env (optional)
+.\eventpilot.cmd                   # start the GUI
 ```
 
-This creates `target/eventpilot.jar` (one runnable jar containing the GUI and the CLI). Run the tests with `mvnw test` (101 JUnit tests).
+```bash
+# macOS / Linux
+git clone https://github.com/farazkabbo/EECS3311-EventPilot.git
+cd EECS3311-EventPilot
+./mvnw -DskipTests package
+cp .env.example .env
+./eventpilot.sh
+```
+
+Without a key the app still runs, using the offline planner (see "AI providers").
+
+## 1. Build
+
+```powershell
+.\mvnw.cmd -DskipTests package     # Windows (PowerShell); in cmd.exe use mvnw.cmd
+./mvnw -DskipTests package         # macOS / Linux
+```
+
+This creates `target/eventpilot.jar` (one runnable jar containing the GUI and the CLI). Run the tests with `.\mvnw.cmd test` or `./mvnw test` (101 JUnit tests, no key needed).
 
 ## 2. Local configuration and API key (never committed)
 
@@ -38,7 +78,7 @@ This creates `target/eventpilot.jar` (one runnable jar containing the GUI and th
 copy .env.example .env            cp .env.example .env
 ```
 
-Open `.env` and set your values. `.env` is listed in `.gitignore`; only `.env.example` (placeholders only) is in the repository.
+Open `.env` and set your values. The file must be named exactly `.env` and sit in the project root (the folder you run the app from); other names such as `.env.local` are not read. `.env` is listed in `.gitignore`; only `.env.example` (placeholders only) is in the repository. Check which provider is active with `eventpilot ai`.
 
 ```properties
 LLM_PROVIDER=claude                 # claude | ollama | mock
@@ -64,22 +104,47 @@ If `LLM_PROVIDER=claude` but no key is set, EventPilot falls back to `mock` and 
 
 ## 3. Run
 
-```bash
-eventpilot.cmd                 # Windows: GUI   (./eventpilot.sh on macOS/Linux)
-eventpilot.cmd event list      # Windows: CLI   (./eventpilot.sh event list)
+Build first (step 1). Then:
 
-# or directly
+```powershell
+# Windows (PowerShell needs the .\ prefix; in cmd.exe just eventpilot.cmd)
+.\eventpilot.cmd                    # GUI
+.\eventpilot.cmd event list         # CLI
+.\eventpilot.cmd --help             # all CLI commands
+```
+
+```bash
+# macOS / Linux
+./eventpilot.sh                     # GUI
+./eventpilot.sh event list          # CLI
+```
+
+```bash
+# or directly, on any OS
 java -jar target/eventpilot.jar              # GUI
 java -jar target/eventpilot.jar --help       # CLI
-mvnw javafx:run                              # GUI through Maven
-mvnw -q exec:java -Dexec.args="event list"   # CLI through Maven
 ```
+
+In the examples below, `eventpilot` stands for `.\eventpilot.cmd` (Windows) or `./eventpilot.sh` (macOS/Linux).
+
+### Troubleshooting
+
+| Problem | Fix |
+|---|---|
+| `eventpilot.cmd is not recognized` in PowerShell | Use `.\eventpilot.cmd` |
+| `Unable to access jarfile target/eventpilot.jar` | Build first: `.\mvnw.cmd -DskipTests package` |
+| Status bar / `eventpilot ai` shows `mock` although you have a key | The file must be `.env` in the project root with `LLM_PROVIDER=claude` and `ANTHROPIC_API_KEY=...` |
+| `java` not found or version below 17 | Install JDK 17+ and reopen the terminal |
+| Start again with an empty database | Close the app and delete the `data/` folder |
 
 ### GUI tour
 
-* **Agent chat** (right): *Create event* (describe the event in plain language; answer follow-up questions), *Change plan* ("move the keynote to 2pm and add a 15-minute break after it"), *Ask FAQ* (attendee questions answered from the event's information, with sources).
-* **Top bar**: select / create / delete events, lifecycle buttons (Start planning, Confirm, Reopen, Complete, Cancel), Undo / Redo (Ctrl+Z / Ctrl+Y).
-* **Tabs**: Dashboard (summary + alerts), Agenda (generate, schedule speakers, check & fix conflicts, modify with AI, speakers), Venue (recommendations), Budget (plan, expenses, chart), Attendees (table, RSVP, CSV import), Catering, Invitations (draft, edit, send), Tasks (board with drag-and-drop).
+* **Sidebar** (left): Dashboard, Agenda, Venue, Budget, Attendees, Catering, Invitations, Tasks (Ctrl+1…8), and a dark-mode toggle.
+* **Agent chat** (right, Ctrl+J to show/hide): *Create event* (describe the event in plain language; answer follow-up questions), *Change plan* ("move the keynote to 2pm and add a 15-minute break after it"), *Ask FAQ* (attendee questions answered from the event's information, with sources).
+* **Top bar**: select / create (Ctrl+N) / delete events, status badge, lifecycle buttons (Start planning, Confirm, Reopen, Complete, Cancel), Undo / Redo (Ctrl+Z / Ctrl+Y).
+* **Pages**: Dashboard (summary + alerts), Agenda (generate, schedule speakers, check & fix conflicts, modify with AI, speakers), Venue (recommendations), Budget (plan, expenses, chart), Attendees (table, RSVP, CSV import), Catering, Invitations (draft, edit, send), Tasks (board with drag-and-drop).
+
+![Dashboard](docs/stage2/screenshots/gui_dashboard.png)
 * Every AI action opens a **review dialog** listing the proposed changes, their reasons, guardrail warnings and the agent's tool calls. Nothing changes until you click *Apply*.
 
 ### CLI example session
@@ -145,7 +210,8 @@ src/main/java/com/eventpilot/
   cli/             picocli commands      gui/  JavaFX views and controllers
 src/main/resources/data/venues.json   sample venue dataset (fictional venues)
 samples/attendees.csv                 sample attendees (contains deliberate bad rows)
-docs/stage1/ docs/stage2/             reports and UML
+docs/stage1/ docs/stage2/             reports, UML and screenshots
+docs/EventPilot_demo_final.mp4        demo video
 ```
 
 ## Security
