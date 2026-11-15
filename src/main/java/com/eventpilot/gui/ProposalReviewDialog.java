@@ -32,21 +32,31 @@ public class ProposalReviewDialog extends Dialog<List<Integer>> {
         int preferred = firstUnblocked(proposal);
         for (int i = 0; i < proposal.changes().size(); i++) {
             PlanProposal.Change c = proposal.changes().get(i);
-            String text = (i + 1) + ". " + c.describe() + (c.reason().isBlank() ? "" : "\n     why: " + c.reason());
+            String text = (i + 1) + ". " + c.describe();
+            VBox card = new VBox(4);
+            card.getStyleClass().add("change-card");
             if (proposal.alternatives()) {
                 RadioButton r = new RadioButton(text);
                 r.setToggleGroup(group);
                 r.setSelected(i == preferred);
                 r.setWrapText(true);
-                box.getChildren().add(r);
+                card.getChildren().add(r);
                 selected.add(r::isSelected);
+                card.setOnMouseClicked(e -> r.setSelected(true));
             } else {
                 CheckBox cb = new CheckBox(text);
                 cb.setSelected(true);
                 cb.setWrapText(true);
-                box.getChildren().add(cb);
+                card.getChildren().add(cb);
                 selected.add(cb::isSelected);
             }
+            if (!c.reason().isBlank()) {
+                Label why = new Label("Why: " + c.reason());
+                why.setWrapText(true);
+                why.getStyleClass().add("change-reason");
+                card.getChildren().add(why);
+            }
+            box.getChildren().add(card);
         }
         if (!proposal.warnings().isEmpty()) {
             box.getChildren().add(new Label("Checks by the guardrails:"));
@@ -76,6 +86,8 @@ public class ProposalReviewDialog extends Dialog<List<Integer>> {
         scroll.setPrefSize(660, 460);
         getDialogPane().setContent(scroll);
 
+        box.setPadding(new javafx.geometry.Insets(4));
+        getDialogPane().getStyleClass().add("review-dialog");
         ButtonType apply = new ButtonType("Apply", ButtonBar.ButtonData.OK_DONE);
         ButtonType reject = new ButtonType("Reject", ButtonBar.ButtonData.CANCEL_CLOSE);
         getDialogPane().getButtonTypes().addAll(apply, reject);
